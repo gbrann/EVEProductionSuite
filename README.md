@@ -4,3 +4,5 @@ management with installing servers or adding any RL costs to your game play. To 
 eventually moving this data to a Google Sites setup that pulls the information for the sheets in a nice, easy to use, format for the corp.
 
 To Install: (NOT CURRENTLY AVALIABLE)
+
+This is a for donation project - donations can be sent via Isk (in-game) to Shey Danu. Thank you so much, your helping me by donating. :)
