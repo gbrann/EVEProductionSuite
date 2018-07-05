@@ -40,3 +40,31 @@ To Install:
 22. Close the modal.
 23. (Optional) Repeat step 12 to authorize other characters.
 24. Done.
+
+<b>How to Use</b>
+The Google Sheet is designed to help manage production jobs. This is for indy based corps in Eve Online to track the corp assets, corp jobs and corp blueprints. No character data is pulled. 
+
+The sheet is designed to be edited by a select few, with view access open to anyone who needs it. There are a total of 46 sheets inside the workbook. Every Capital ship has it's own sheet. By default these sheets are hidden and colored YELLOW. When I am using them, I unhide the sheet so other members of my production team can have easy access to what is needed per job. RED colored tabs are background data tabs and unless otherwise told to, please don't change these tabs as it can cause the entire workbook to stop working. 
+
+To update the data you simply goto the Orders sheet, and on top in I-1 is a large yellow box. This is like this for easy finding. Select this cell. Do not change the cell. Now, with the cell selected, open the EvE Production Suite menu and select 'Pull Data Update'. Give this a few moments to pull all the data, and wallah! Updated with current in-game information. :) Reminder: It is very important that you have the big yellow box selected or you will not update your sheet. 
+
+To change your Current Order number - (this is critical as it effects all other sheets) simply change the number to how many orders you currently have to update the workbook to match current needs.
+
+When looking at your overall industrial needs, open the Corporate Stock sheet, and you will have a combination of every ore, material, and asset required for building. 
+
+When working on a single project, i.e. a Thanatos, open that sheet (Colored Yellow, Hidden, and named for the Ship). It will show you what you need for just that one project. 
+
+|<b>Upcomming Updates</b>
+1. Adding Salvage to Buyback
+2. Adding in Structures
+3. Adding T1 Sub-Cap Ships
+4. Adding T2 Sub-Cap Ships
+5. Adding Equiptment
+6. Adding Ammo
+
+<B>Contact Info</B>
+In-game: Shey Danu
+Discord: SheyDanu#0619 Discord Server:  https://discordapp.com/invite/FJ2tRp4
+
+<b>Copyright</b>
+EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf.
