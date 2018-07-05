@@ -2,53 +2,22 @@
 //
 // /u/blacksmoke16 @ Reddit
 // @Blacksmoke16#0016 @ Discord
-// Changes by @SheyDanu0619 @ Discord - minor to better fit this suite.
-APP_VERSION = '5.5.0';
+// https://discord.gg/eEAH2et
+APP_VERSION = '6.3.0';
 BASE_URL = 'https://esi.evetech.net'
 
 // Setup variables used throughout script
 // From your dev app https://developers.eveonline.com/applications
-CLIENT_ID = 'ENTERTHISINFORMAITON';
-CLIENT_SECRET = 'ENTERTHISINFORMATION';
+CLIENT_ID = 'YOUR_CLIENT_ID';
+CLIENT_SECRET = 'YOUR_CLIENT_SECRET';
 
 // Name of your 'main' character to use when a function is called without a character name as a param
-MAIN_CHARACTER = "ENTERTHISINFORMATION";
-
-// List of scopes to request
-SCOPES = [
-  "esi-calendar.read_calendar_events.v1", 
-  "esi-wallet.read_corporation_wallet.v1",
-  "esi-corporations.read_corporation_membership.v1",
-  "esi-corporations.read_structures.v1",
-  "esi-corporations.write_structures.v1",
-  "esi-characters.read_corporation_roles.v1",
-  "esi-killmails.read_corporation_killmails.v1",
-  "esi-corporations.track_members.v1",
-  "esi-wallet.read_corporation_wallets.v1",
-  "esi-corporations.read_divisions.v1",
-  "esi-corporations.read_contacts.v1",
-  "esi-assets.read_corporation_assets.v1",
-  "esi-corporations.read_titles.v1",
-  "esi-corporations.read_blueprints.v1",
-  "esi-bookmarks.read_corporation_bookmarks.v1",
-  "esi-contracts.read_corporation_contracts.v1",
-  "esi-corporations.read_standings.v1",
-  "esi-corporations.read_starbases.v1",
-  "esi-industry.read_corporation_jobs.v1",
-  "esi-markets.read_corporation_orders.v1",
-  "esi-corporations.read_container_logs.v1",
-  "esi-industry.read_corporation_mining.v1",
-  "esi-planets.read_customs_offices.v1",
-  "esi-corporations.read_facilities.v1",
-  "esi-corporations.read_medals.v1",
-  "esi-corporations.read_fw_stats.v1",
-  "esi-corporations.read_outposts.v1",
-];
+MAIN_CHARACTER = "YOUR_MAIN_CHARACTER_NAME";
 
 CACHE = CacheService.getDocumentCache();
 
 function onOpen() {
-  SpreadsheetApp.getUi().createMenu('GESI')
+  SpreadsheetApp.getUi().createMenu('EvE Production Suite')
     .addItem('Authorize Sheet', 'showSidebar')
     .addSeparator()
     .addItem('Check for updates', 'checkForUpdates')
@@ -72,7 +41,7 @@ function parseArray(endpoint_name, column_name, array, opt_headers) {
 
   JSON.parse(array).forEach(function(a) {
     var temp = [];
-    endpoint.sub_headers.forEach(function(k) { temp.push(a[k]) });
+    endpoint.sub_headers.forEach(function(k) { temp.push(typeof(a) !== 'object' ? a : a[k]); });
     result.push(temp);
   });
   return result;
@@ -86,6 +55,7 @@ function getData_(endpoint_name, params) {
   var endpoint = ENDPOINTS[endpoint_name]
   var path = endpoint.path;
   var name = params.name;
+  var data = null;
   if (!name) name = MAIN_CHARACTER;
   
   endpoint.parameters.forEach(function(param) {
@@ -94,6 +64,12 @@ function getData_(endpoint_name, params) {
     } else if (param['in'] === 'query' && params[param.name]) {
       path += path.indexOf('?') !== -1 ? '&' : '?';
       path += param.name + '=' + (Array.isArray(params[param.name]) ? params[param.name].join(',') : params[param.name]);
+    } else if (param['in'] === 'body' && params[param.name]) {
+      if (param['type'] === 'array') {
+        data = Array.isArray(params[param.name]) ? params[param.name].map(function(id) { return id[0]; }) : [params[param.name]];
+      } else {
+        throw new 'Unexepcted param type.  Please report this on Github.';
+      }
     }
   });
   
@@ -102,9 +78,9 @@ function getData_(endpoint_name, params) {
   if (path.indexOf('{corporation_id}') !== -1) path = path.replace('{corporation_id}', getProperty_(name, 'corporation_id'));
   
   var token = CACHE.get(name + '_access_token');
-  if (!token && endpoint.authed) token = refreshToken_(name);
+  if (!token && endpoint.scope) token = refreshToken_(name);
 
-  return doRequest_(BASE_URL + path, 'get', token);
+  return doRequest_(BASE_URL + path, endpoint.method, token, data);
 }
 
 function parseData_(endpoint_name, params) {
@@ -128,37 +104,39 @@ function parseData_(endpoint_name, params) {
   } else {
    data = getData_(endpoint_name, params).data;
  }
- 
- if (endpoint.response_type === 'array' && endpoint.item_type === 'object') {
-  data.forEach(function(obj) {
-    var temp = [];
-    endpoint.headers.forEach(function(header) {
-      temp.push(parseObject_(obj, header));
-    });
-    result.push(temp);
-  });
-} else if (endpoint.response_type === 'object' && endpoint.item_type === 'object') {
-  var temp = [];
-  endpoint.headers.forEach(function(header) {
-    temp.push(parseObject_(data, header));
-  });
-  result.push(temp);
-} else if (endpoint.response_type === 'array' && endpoint.item_type === 'integer') {
-  data.forEach(function(dp) {
-    result.push(dp);
-  });
-} else if (endpoint.response_type === 'integer' || endpoint.response_type === 'number') {
-  result.push(data);        
-}
-
-return result;
+  
+ if (Array.isArray(data) && typeof(data[0]) === 'number') {
+   data.forEach(function(dp) {
+     result.push(dp);
+   });
+ } else if (Array.isArray(data) && typeof(data[0]) === 'object') {
+     data.forEach(function(obj) {
+       var temp = [];
+       endpoint.headers.forEach(function(header) {
+         temp.push(typeof(obj[header.name]) === 'object' ? JSON.stringify(obj[header.name]) : obj[header.name]);
+       });
+       result.push(temp);
+     });
+ } else if (typeof(data) === 'object') {
+     var temp = [];
+     endpoint.headers.forEach(function(header) {
+       temp.push(typeof(data[header.name]) === 'object' ? JSON.stringify(data[header.name]) : data[header.name]);
+     });
+     result.push(temp);
+ } else if (typeof(data) === 'number') {
+     result = [data];
+ } else {
+     throw new "Unexepcted data type.  Please report this on Github.";
+ }
+  
+  return result;
 }
 
 function doRequest_(path, method, token, data) {
   var auth = token ? 'Bearer ' + token : 'Basic ' + Utilities.base64EncodeWebSafe(CLIENT_ID + ':' + CLIENT_SECRET)
   var options = {'method': method, 'muteHttpExceptions': true, headers: {'User-Agent': 'GESI user ' + SpreadsheetApp.getActiveSpreadsheet().getOwner().getEmail(),'Content-Type': 'application/json','Authorization': auth}};
   if (data) options['payload'] = JSON.stringify(data)
-    var response = UrlFetchApp.fetch(path, options);
+  var response = UrlFetchApp.fetch(path, options);
   if (response.getResponseCode() !== 200) {
     var error_body = JSON.parse(response.getContentText());
     var error = {};
@@ -169,17 +147,6 @@ function doRequest_(path, method, token, data) {
     throw 'ESI response error:  ' + JSON.stringify(error);
   }
   return {data: JSON.parse(response), headers: response.getHeaders()};
-}
-
-function parseObject_(source, header) {
-  if (header.type === 'array') {
-    return JSON.stringify(source[header.name]);
-  } else if (typeof source === 'object') {
-    var flat_obj = flatten_(source);
-    return flat_obj[header.name];
-  } else {
-    return source[header.name];
-  }
 }
 
 function getProperty_(character_name, property) {
@@ -198,29 +165,6 @@ function extend_(obj, src) {
   }
   return obj;
 }
-
-function flatten_(ob) {
-  var toReturn = {};
-  for (var i in ob) {
-    if (!ob.hasOwnProperty(i)) continue;
-    if ((typeof ob[i]) == 'object') {
-      var flatObject = flatten_(ob[i]);
-      for (var x in flatObject) {
-        if (!flatObject.hasOwnProperty(x)) continue;
-        toReturn[i + '-' + x] = flatObject[x];
-      }
-    } else {
-      toReturn[i] = ob[i];
-    }
-  }
-  return toReturn;
-};
-
-function uniqArray_(arrArg) {
-  return arrArg.filter(function(elem, pos, arr) {
-    return arr.indexOf(elem) == pos;
-  });
-};
 
 function findObjectByKey_(array, key, value) {
   for (var i = 0; i < array.length; i++) {
@@ -248,7 +192,7 @@ function showSidebar() {
   var scriptUrl = 'https://script.google.com/macros/d/' + ScriptApp.getScriptId() + '/usercallback';
   var stateToken = ScriptApp.newStateToken().withMethod('authCallback').withTimeout(120).createToken();
   var authorizationUrl = 'https://login.eveonline.com/oauth/authorize/?response_type=code&redirect_uri=' + scriptUrl + '&client_id=' + CLIENT_ID + '&scope=' + SCOPES.join('+') + '&state=' + stateToken;
-  var template = HtmlService.createTemplate('Click the link below to auth a character for use in GESI<br><br><a href="<?= authorizationUrl ?>" target="_blank">Authorize with EVE SSO</a>.');
+  var template = HtmlService.createTemplate('Click the link below to auth a character for use in GESI<br><br><a href="<?= authorizationUrl ?>" target="_blank"><img alt="Authorize with EVE SSO" src="https://web.ccpgamescdn.com/eveonlineassets/developers/eve-sso-login-black-small.png" /></a>');  
   template.authorizationUrl = authorizationUrl;
   SpreadsheetApp.getUi().showModalDialog(template.evaluate().setWidth(400).setHeight(250), 'GESI EVE SSO');
 }
@@ -291,7 +235,7 @@ function cacheData_(userData, access_token) {
   var character_name = userData['character_name'];
   savedChars.indexOf(character_name) === -1 ? authSheet.appendRow(user_data) : authSheet.getRange((savedChars.indexOf(character_name) + 1), 1, 1, 5).setValues([user_data]);
   [1,2,3,4,5].forEach(function(c) { authSheet.autoResizeColumn(c) });
-  CACHE.put(character_name + '_access_token', access_token, 900);
+  CACHE.put(character_name + '_access_token', access_token, 1080);
 }
 
 function checkForUpdates()
