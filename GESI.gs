@@ -1,9 +1,9 @@
-// Google ESI (GESI)
+// EvE Production Suite
+// Support can be found on Github : https://github.com/gbrann/EVEProductionSuite
 //
-// /u/blacksmoke16 @ Reddit
-// @Blacksmoke16#0016 @ Discord
-// https://discord.gg/eEAH2et
-APP_VERSION = '6.3.0';
+// Google ESI (GESI) was created by /u/blacksmoke16 @ Reddit
+// Google EDI (GESI) support can be foung here: @Blacksmoke16#0016 @ Discord https://discord.gg/eEAH2et
+APP_VERSION = '1.0.11';
 BASE_URL = 'https://esi.evetech.net'
 
 // Setup variables used throughout script
@@ -20,7 +20,7 @@ function onOpen() {
   SpreadsheetApp.getUi().createMenu('EvE Production Suite')
     .addItem('Authorize Sheet (CEO)', 'showSidebar')
     .addSeparator()
-    .addItem('Check for GESI Updates', 'checkForUpdates')
+    .addItem('Check for Suite Updates', 'checkForUpdates')
     .addSeparator()
     .addItem('Pull Data Updates', 'DataUpdates')
     .addToUi();
@@ -255,5 +255,32 @@ function checkForUpdates()
       title = 'GESI version ' + newVersion + ' is available!';
     }
     SpreadsheetApp.getActiveSpreadsheet().toast(message, title, 5);
+  }
+}
+
+function DataUpdates() {
+  // Increments the values in all the cells in the active range (i.e., selected cells).
+  // Numbers increase by one, text strings get a "1" appended.
+  // Cells that contain a formula are ignored.
+  
+  var ss = SpreadsheetApp.getActiveSpreadsheet('GESI-ASSETS');
+  var activeRange = ss.getActiveRange(J1);
+  var cell, cellValue, cellFormula;
+  
+  // iterate through all cells in the active range
+  for (var cellRow = 1; cellRow <= activeRange.getHeight(); cellRow++) {
+    for (var cellColumn = 1; cellColumn <= activeRange.getWidth(); cellColumn++) {
+      cell = activeRange.getCell(cellRow, cellColumn);
+      cellFormula = cell.getFormula();
+      
+      // if not a formula, increment numbers by one, or add "1" to text strings
+      // if the leftmost character is "=", it contains a formula and is ignored
+      // otherwise, the cell contains a constant and is safe to increment
+      // does not work correctly with cells that start with '=
+      if (cellFormula[0] != "=") {
+        cellValue = cell.getValue();
+        cell.setValue(cellValue + 1);
+      }
+    }
   }
 }
