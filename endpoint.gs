@@ -1,658 +1,676 @@
+SCOPES = [
+  "esi-assets.read_corporation_assets.v1",
+  "esi-bookmarks.read_corporation_bookmarks.v1",
+  "esi-calendar.read_calendar_events.v1",
+  "esi-contracts.read_corporation_contracts.v1",
+  "esi-corporations.read_blueprints.v1",
+  "esi-corporations.read_contacts.v1",
+  "esi-corporations.read_container_logs.v1",
+  "esi-corporations.read_corporation_membership.v1",
+  "esi-corporations.read_divisions.v1",
+  "esi-corporations.read_facilities.v1",
+  "esi-corporations.read_fw_stats.v1",
+  "esi-corporations.read_medals.v1",
+  "esi-corporations.read_outposts.v1",
+  "esi-corporations.read_standings.v1",
+  "esi-corporations.read_starbases.v1",
+  "esi-corporations.read_structures.v1",
+  "esi-corporations.read_titles.v1",
+  "esi-corporations.track_members.v1",
+  "esi-fittings.read_fittings.v1",
+  "esi-fleets.read_fleet.v1",
+  "esi-industry.read_corporation_jobs.v1",
+  "esi-industry.read_corporation_mining.v1",
+  "esi-killmails.read_corporation_killmails.v1",
+  "esi-markets.read_corporation_orders.v1",
+  "esi-markets.structure_markets.v1",
+  "esi-planets.manage_planets.v1",
+  "esi-planets.read_customs_offices.v1",
+  "esi-search.search_structures.v1",
+  "esi-universe.read_structures.v1",
+  "esi-wallet.read_corporation_wallets.v1"
+];
+
 ENDPOINTS = {
   "alliances": {
     "description": "List all active player alliances",
-    "summary": "List all alliances",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "alliance_ids",
-        "type": "integer"
+        "name": "alliance_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/alliances/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
-  },
-  "alliances_alliance_contacts": {
-    "description": "Return contacts of an alliance",
-    "summary": "Get alliance contacts",
-    "request": "get",
-    "version": 1,
-    "headers": [
       {
-        "name": "contact_id",
-        "type": "integer"
-      },
-      {
-        "name": "contact_type",
-        "type": "string"
-      },
-      {
-        "name": "label_id",
-        "type": "integer"
-      },
-      {
-        "name": "standing",
-        "type": "number"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
     ],
-    "path": "/v1/alliances/{alliance_id}/contacts/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
-    "parameters": [
-      {
-        "name": "page",
-        "description": "Which page of results to return",
-        "required": null,
-        "type": "integer",
-        "in": "query"
-      }
-    ]
+    "summary": "List of Alliance IDs"
   },
   "alliances_alliance_contacts_labels": {
     "description": "Return custom labels for an alliance's contacts",
-    "summary": "Get alliance contact labels",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "label_id",
-        "type": "integer"
+        "name": "label_id"
       },
       {
-        "name": "label_name",
-        "type": "string"
+        "name": "label_name"
       }
     ],
+    "method": "GET",
     "path": "/v1/alliances/{alliance_id}/contacts/labels/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-alliances.read_contacts.v1",
+    "summary": "A list of alliance contact labels"
   },
   "alliances_alliance_corporations": {
     "description": "List all current member corporations of an alliance",
-    "summary": "List alliance's corporations",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "corporation_ids",
-        "type": "integer"
+        "name": "corporation_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/alliances/{alliance_id}/corporations/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
       {
-        "name": "alliance_id",
-        "description": "An EVE alliance ID",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "List of corporation IDs"
   },
   "alliances_alliance_icons": {
     "description": "Get the icon urls for a alliance",
-    "summary": "Get alliance icon",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "px128x128",
-        "type": "string"
+        "name": "px128x128"
       },
       {
-        "name": "px64x64",
-        "type": "string"
+        "name": "px64x64"
       }
     ],
+    "method": "GET",
     "path": "/v1/alliances/{alliance_id}/icons/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "alliance_id",
-        "description": "An EVE alliance ID",
-        "required": true,
-        "type": "integer",
-        "in": "path"
-      }
-    ]
-  },
-  "characters_names": {
-    "description": "Resolve a set of character IDs to character names",
-    "summary": "Get character names",
-    "request": "get",
-    "version": 1,
-    "headers": [
-      {
-        "name": "character_id",
-        "type": "integer"
-      },
-      {
-        "name": "character_name",
-        "type": "string"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
     ],
-    "path": "/v1/characters/names/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
+    "summary": "Icon URLs for the given alliance id and server"
+  },
+  "characters_affiliation": {
+    "description": "Bulk lookup of character IDs to corporation, alliance and faction",
+    "headers": [
+      {
+        "name": "alliance_id"
+      },
+      {
+        "name": "character_id"
+      },
+      {
+        "name": "corporation_id"
+      },
+      {
+        "name": "faction_id"
+      }
+    ],
+    "method": "POST",
+    "path": "/v1/characters/affiliation/",
     "parameters": [
       {
-        "name": "character_ids",
-        "description": "A comma separated list of character IDs",
-        "required": true,
+        "description": "The character IDs to fetch affiliations for. All characters must exist, or none will be returned.",
+        "in": "body",
+        "name": "characters",
         "type": "array",
-        "in": "query"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Character corporation, alliance and faction IDs"
   },
   "characters_character_agents_research": {
     "description": "Return a list of agents research information for a character. The formula for finding the current research points with an agent is: currentPoints = remainderPoints + pointsPerDay * days(currentTime ",
-    "summary": "Get agents research",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "agent_id",
-        "type": "integer"
+        "name": "agent_id"
       },
       {
-        "name": "points_per_day",
-        "type": "number"
+        "name": "points_per_day"
       },
       {
-        "name": "remainder_points",
-        "type": "number"
+        "name": "remainder_points"
       },
       {
-        "name": "skill_type_id",
-        "type": "integer"
+        "name": "skill_type_id"
       },
       {
-        "name": "started_at",
-        "type": "string"
+        "name": "started_at"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/agents_research/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_agents_research.v1",
+    "summary": "A list of agents research information"
+  },
+  "characters_character_assets_names": {
+    "description": "Return names for a set of item ids, which you can get from character assets endpoint. Typically used for items that can customize names, like containers or ships.",
+    "headers": [
+      {
+        "name": "item_id"
+      },
+      {
+        "name": "name"
+      }
+    ],
+    "method": "POST",
+    "path": "/v1/characters/{character_id}/assets/names/",
+    "parameters": [
+      {
+        "description": "A list of item ids",
+        "in": "body",
+        "name": "item_ids",
+        "type": "array",
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-assets.read_assets.v1",
+    "summary": "List of asset names"
   },
   "characters_character_attributes": {
     "description": "Return attributes of a character",
-    "summary": "Get character attributes",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "accrued_remap_cooldown_date",
-        "type": "string"
+        "name": "accrued_remap_cooldown_date"
       },
       {
-        "name": "bonus_remaps",
-        "type": "integer"
+        "name": "bonus_remaps"
       },
       {
-        "name": "charisma",
-        "type": "integer"
+        "name": "charisma"
       },
       {
-        "name": "intelligence",
-        "type": "integer"
+        "name": "intelligence"
       },
       {
-        "name": "last_remap_date",
-        "type": "string"
+        "name": "last_remap_date"
       },
       {
-        "name": "memory",
-        "type": "integer"
+        "name": "memory"
       },
       {
-        "name": "perception",
-        "type": "integer"
+        "name": "perception"
       },
       {
-        "name": "willpower",
-        "type": "integer"
+        "name": "willpower"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/attributes/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-skills.read_skills.v1",
+    "summary": "Attributes of a character"
   },
   "characters_character_calendar": {
     "description": "Get 50 event summaries from the calendar. If no from_event ID is given, the resource will return the next 50 chronological event summaries from now. If a from_event ID is specified, it will return the next 50 chronological event summaries from after that event.",
-    "summary": "List calendar event summaries",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "event_date",
-        "type": "string"
+        "name": "event_date"
       },
       {
-        "name": "event_id",
-        "type": "integer"
+        "name": "event_id"
       },
       {
-        "name": "event_response",
-        "type": "string"
+        "name": "event_response"
       },
       {
-        "name": "importance",
-        "type": "integer"
+        "name": "importance"
       },
       {
-        "name": "title",
-        "type": "string"
+        "name": "title"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/calendar/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "from_event",
         "description": "The event ID to retrieve events from",
-        "required": false,
+        "in": "query",
+        "name": "from_event",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-calendar.read_calendar_events.v1",
+    "summary": "A collection of event summaries"
   },
   "characters_character_calendar_event_attendees": {
     "description": "Get all invited attendees for a given event",
-    "summary": "Get attendees",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "character_id",
-        "type": "integer"
+        "name": "character_id"
       },
       {
-        "name": "event_response",
-        "type": "string"
+        "name": "event_response"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/calendar/{event_id}/attendees/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "event_id",
         "description": "The id of the event requested",
-        "required": true,
+        "in": "path",
+        "name": "event_id",
         "type": "integer",
-        "in": "path"
-      }
-    ]
-  },
-  "characters_character_contacts": {
-    "description": "Return contacts of a character",
-    "summary": "Get contacts",
-    "request": "get",
-    "version": 1,
-    "headers": [
-      {
-        "name": "contact_id",
-        "type": "integer"
+        "required": true
       },
       {
-        "name": "contact_type",
-        "type": "string"
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
       },
       {
-        "name": "is_blocked",
-        "type": "boolean"
-      },
-      {
-        "name": "is_watched",
-        "type": "boolean"
-      },
-      {
-        "name": "label_id",
-        "type": "integer"
-      },
-      {
-        "name": "standing",
-        "type": "number"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
     ],
-    "path": "/v1/characters/{character_id}/contacts/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
-    "parameters": [
-      {
-        "name": "page",
-        "description": "Which page of results to return",
-        "required": null,
-        "type": "integer",
-        "in": "query"
-      }
-    ]
+    "scope": "esi-calendar.read_calendar_events.v1",
+    "summary": "List of attendees"
   },
   "characters_character_contacts_labels": {
     "description": "Return custom labels for a character's contacts",
-    "summary": "Get contact labels",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "label_id",
-        "type": "integer"
+        "name": "label_id"
       },
       {
-        "name": "label_name",
-        "type": "string"
+        "name": "label_name"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/contacts/labels/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_contacts.v1",
+    "summary": "A list of contact labels"
   },
   "characters_character_contracts": {
     "description": "Returns contracts available to a character, only if the character is issuer, acceptor or assignee. Only returns contracts no older than 30 days, or if the status is \"in_progress\".",
-    "summary": "Get contracts",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "acceptor_id",
-        "type": "integer"
+        "name": "acceptor_id"
       },
       {
-        "name": "assignee_id",
-        "type": "integer"
+        "name": "assignee_id"
       },
       {
-        "name": "availability",
-        "type": "string"
+        "name": "availability"
       },
       {
-        "name": "buyout",
-        "type": "number"
+        "name": "buyout"
       },
       {
-        "name": "collateral",
-        "type": "number"
+        "name": "collateral"
       },
       {
-        "name": "contract_id",
-        "type": "integer"
+        "name": "contract_id"
       },
       {
-        "name": "date_accepted",
-        "type": "string"
+        "name": "date_accepted"
       },
       {
-        "name": "date_completed",
-        "type": "string"
+        "name": "date_completed"
       },
       {
-        "name": "date_expired",
-        "type": "string"
+        "name": "date_expired"
       },
       {
-        "name": "date_issued",
-        "type": "string"
+        "name": "date_issued"
       },
       {
-        "name": "days_to_complete",
-        "type": "integer"
+        "name": "days_to_complete"
       },
       {
-        "name": "end_location_id",
-        "type": "integer"
+        "name": "end_location_id"
       },
       {
-        "name": "for_corporation",
-        "type": "boolean"
+        "name": "for_corporation"
       },
       {
-        "name": "issuer_corporation_id",
-        "type": "integer"
+        "name": "issuer_corporation_id"
       },
       {
-        "name": "issuer_id",
-        "type": "integer"
+        "name": "issuer_id"
       },
       {
-        "name": "price",
-        "type": "number"
+        "name": "price"
       },
       {
-        "name": "reward",
-        "type": "number"
+        "name": "reward"
       },
       {
-        "name": "start_location_id",
-        "type": "integer"
+        "name": "start_location_id"
       },
       {
-        "name": "status",
-        "type": "string"
+        "name": "status"
       },
       {
-        "name": "title",
-        "type": "string"
+        "name": "title"
       },
       {
-        "name": "type",
-        "type": "string"
+        "name": "type"
       },
       {
-        "name": "volume",
-        "type": "number"
+        "name": "volume"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/contracts/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-contracts.read_character_contracts.v1",
+    "summary": "A list of contracts"
   },
   "characters_character_contracts_contract_bids": {
     "description": "Lists bids on a particular auction contract",
-    "summary": "Get contract bids",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "amount",
-        "type": "number"
+        "name": "amount"
       },
       {
-        "name": "bid_id",
-        "type": "integer"
+        "name": "bid_id"
       },
       {
-        "name": "bidder_id",
-        "type": "integer"
+        "name": "bidder_id"
       },
       {
-        "name": "date_bid",
-        "type": "string"
+        "name": "date_bid"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/contracts/{contract_id}/bids/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "contract_id",
         "description": "ID of a contract",
-        "required": true,
+        "in": "path",
+        "name": "contract_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-contracts.read_character_contracts.v1",
+    "summary": "A list of bids"
   },
   "characters_character_contracts_contract_items": {
     "description": "Lists items of a particular contract",
-    "summary": "Get contract items",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "is_included",
-        "type": "boolean"
+        "name": "is_included"
       },
       {
-        "name": "is_singleton",
-        "type": "boolean"
+        "name": "is_singleton"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
-        "name": "raw_quantity",
-        "type": "integer"
+        "name": "raw_quantity"
       },
       {
-        "name": "record_id",
-        "type": "integer"
+        "name": "record_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/contracts/{contract_id}/items/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "contract_id",
         "description": "ID of a contract",
-        "required": true,
+        "in": "path",
+        "name": "contract_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-contracts.read_character_contracts.v1",
+    "summary": "A list of items in this contract"
   },
   "characters_character_corporationhistory": {
     "description": "Get a list of all the corporations a character has been a member of",
-    "summary": "Get corporation history",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "corporation_id",
-        "type": "integer"
+        "name": "corporation_id"
       },
       {
-        "name": "is_deleted",
-        "type": "boolean"
+        "name": "is_deleted"
       },
       {
-        "name": "record_id",
-        "type": "integer"
+        "name": "record_id"
       },
       {
-        "name": "start_date",
-        "type": "string"
+        "name": "start_date"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/corporationhistory/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "character_id",
-        "description": "An EVE character ID",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Corporation history for the given character"
   },
   "characters_character_fatigue": {
     "description": "Return a character's jump activation and fatigue information",
-    "summary": "Get jump fatigue",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "jump_fatigue_expire_date",
-        "type": "string"
+        "name": "jump_fatigue_expire_date"
       },
       {
-        "name": "last_jump_date",
-        "type": "string"
+        "name": "last_jump_date"
       },
       {
-        "name": "last_update_date",
-        "type": "string"
+        "name": "last_update_date"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/fatigue/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_fatigue.v1",
+    "summary": "Jump activation and fatigue information"
   },
   "characters_character_fittings": {
     "description": "Return fittings of a character",
-    "summary": "Get fittings",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "fitting_id",
-        "type": "integer"
+        "name": "fitting_id"
       },
       {
         "name": "items",
-        "type": "array",
         "sub_headers": [
           "flag",
           "quantity",
@@ -660,479 +678,524 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "ship_type_id",
-        "type": "integer"
+        "name": "ship_type_id"
       }
     ],
+    "method": "POST",
     "path": "/v1/characters/{character_id}/fittings/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-fittings.read_fittings.v1",
+    "summary": "A list of fittings"
   },
   "characters_character_fleet": {
     "description": "Return the fleet ID the character is in, if any.",
-    "summary": "Get character fleet info",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "fleet_id",
-        "type": "integer"
+        "name": "fleet_id"
       },
       {
-        "name": "role",
-        "type": "string"
+        "name": "role"
       },
       {
-        "name": "squad_id",
-        "type": "integer"
+        "name": "squad_id"
       },
       {
-        "name": "wing_id",
-        "type": "integer"
+        "name": "wing_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/fleet/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-fleets.read_fleet.v1",
+    "summary": "Details about the character's fleet"
   },
   "characters_character_fw_stats": {
     "description": "Statistical overview of a character involved in faction warfare",
-    "summary": "Overview of a character involved in faction warfare",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "current_rank",
-        "type": "integer"
+        "name": "current_rank"
       },
       {
-        "name": "enlisted_on",
-        "type": "string"
+        "name": "enlisted_on"
       },
       {
-        "name": "faction_id",
-        "type": "integer"
+        "name": "faction_id"
       },
       {
-        "name": "highest_rank",
-        "type": "integer"
+        "name": "highest_rank"
       },
       {
-        "name": "kills-last_week",
-        "type": "integer"
+        "name": "kills",
+        "sub_headers": [
+          "last_week",
+          "total",
+          "yesterday"
+        ]
       },
       {
-        "name": "kills-total",
-        "type": "integer"
-      },
-      {
-        "name": "kills-yesterday",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points-last_week",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points-total",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points-yesterday",
-        "type": "integer"
+        "name": "victory_points",
+        "sub_headers": [
+          "last_week",
+          "total",
+          "yesterday"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/fw/stats/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_fw_stats.v1",
+    "summary": "Faction warfare statistics for a given character"
   },
   "characters_character_implants": {
     "description": "Return implants on the active clone of a character",
-    "summary": "Get active implants",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "implant_ids",
-        "type": "integer"
+        "name": "implant_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/implants/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-clones.read_implants.v1",
+    "summary": "A list of implant type ids"
   },
   "characters_character_industry_jobs": {
     "description": "List industry jobs placed by a character",
-    "summary": "List character industry jobs",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "activity_id",
-        "type": "integer"
+        "name": "activity_id"
       },
       {
-        "name": "blueprint_id",
-        "type": "integer"
+        "name": "blueprint_id"
       },
       {
-        "name": "blueprint_location_id",
-        "type": "integer"
+        "name": "blueprint_location_id"
       },
       {
-        "name": "blueprint_type_id",
-        "type": "integer"
+        "name": "blueprint_type_id"
       },
       {
-        "name": "completed_character_id",
-        "type": "integer"
+        "name": "completed_character_id"
       },
       {
-        "name": "completed_date",
-        "type": "string"
+        "name": "completed_date"
       },
       {
-        "name": "cost",
-        "type": "number"
+        "name": "cost"
       },
       {
-        "name": "duration",
-        "type": "integer"
+        "name": "duration"
       },
       {
-        "name": "end_date",
-        "type": "string"
+        "name": "end_date"
       },
       {
-        "name": "facility_id",
-        "type": "integer"
+        "name": "facility_id"
       },
       {
-        "name": "installer_id",
-        "type": "integer"
+        "name": "installer_id"
       },
       {
-        "name": "job_id",
-        "type": "integer"
+        "name": "job_id"
       },
       {
-        "name": "licensed_runs",
-        "type": "integer"
+        "name": "licensed_runs"
       },
       {
-        "name": "output_location_id",
-        "type": "integer"
+        "name": "output_location_id"
       },
       {
-        "name": "pause_date",
-        "type": "string"
+        "name": "pause_date"
       },
       {
-        "name": "probability",
-        "type": "number"
+        "name": "probability"
       },
       {
-        "name": "product_type_id",
-        "type": "integer"
+        "name": "product_type_id"
       },
       {
-        "name": "runs",
-        "type": "integer"
+        "name": "runs"
       },
       {
-        "name": "start_date",
-        "type": "string"
+        "name": "start_date"
       },
       {
-        "name": "station_id",
-        "type": "integer"
+        "name": "station_id"
       },
       {
-        "name": "status",
-        "type": "string"
+        "name": "status"
       },
       {
-        "name": "successful_runs",
-        "type": "integer"
+        "name": "successful_runs"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/industry/jobs/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "include_completed",
         "description": "Whether retrieve completed character industry jobs as well",
-        "required": false,
+        "in": "query",
+        "name": "include_completed",
         "type": "boolean",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-industry.read_character_jobs.v1",
+    "summary": "Industry jobs placed by a character"
   },
   "characters_character_killmails_recent": {
-    "description": "Return a list of character's recent kills and losses",
-    "summary": "Get character kills and losses",
-    "request": "get",
-    "version": 1,
+    "description": "Return a list of a character's kills and losses going back 90 days",
     "headers": [
       {
-        "name": "killmail_hash",
-        "type": "string"
+        "name": "killmail_hash"
       },
       {
-        "name": "killmail_id",
-        "type": "integer"
+        "name": "killmail_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/killmails/recent/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "max_count",
-        "description": "How many killmails to return at maximum",
-        "required": false,
-        "type": "integer",
-        "in": "query"
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
       },
       {
-        "name": "max_kill_id",
-        "description": "Only return killmails with ID smaller than this.\n",
-        "required": false,
+        "description": "Which page of results to return",
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-killmails.read_killmails.v1",
+    "summary": "A list of killmail IDs and hashes"
   },
   "characters_character_location": {
     "description": "Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable.",
-    "summary": "Get character location",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "station_id",
-        "type": "integer"
+        "name": "station_id"
       },
       {
-        "name": "structure_id",
-        "type": "integer"
+        "name": "structure_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/location/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-location.read_location.v1",
+    "summary": "Information about the characters current location. Returns the current solar system id, and also the current station or structure ID if applicable."
   },
   "characters_character_loyalty_points": {
     "description": "Return a list of loyalty points for all corporations the character has worked for",
-    "summary": "Get loyalty points",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "corporation_id",
-        "type": "integer"
+        "name": "corporation_id"
       },
       {
-        "name": "loyalty_points",
-        "type": "integer"
+        "name": "loyalty_points"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/loyalty/points/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_loyalty.v1",
+    "summary": "A list of loyalty points"
   },
   "characters_character_mail": {
     "description": "Return the 50 most recent mail headers belonging to the character that match the query criteria. Queries can be filtered by label, and last_mail_id can be used to paginate backwards.",
-    "summary": "Return mail headers",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "from",
-        "type": "integer"
+        "name": "from"
       },
       {
-        "name": "is_read",
-        "type": "boolean"
+        "name": "is_read"
       },
       {
         "name": "labels",
-        "type": "array"
+        "sub_headers": [
+          "mail_labels"
+        ]
       },
       {
-        "name": "mail_id",
-        "type": "integer"
+        "name": "mail_id"
       },
       {
         "name": "recipients",
-        "type": "array",
         "sub_headers": [
           "recipient_id",
           "recipient_type"
         ]
       },
       {
-        "name": "subject",
-        "type": "string"
+        "name": "subject"
       },
       {
-        "name": "timestamp",
-        "type": "string"
+        "name": "timestamp"
       }
     ],
+    "method": "POST",
     "path": "/v1/characters/{character_id}/mail/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "labels",
         "description": "Fetch only mails that match one or more of the given labels",
-        "required": false,
+        "in": "query",
+        "name": "labels",
         "type": "array",
-        "in": "query"
+        "required": false
       },
       {
-        "name": "last_mail_id",
         "description": "List only mail with an ID lower than the given ID, if present",
-        "required": null,
+        "in": "query",
+        "name": "last_mail_id",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-mail.read_mail.v1",
+    "summary": "The requested mail"
   },
   "characters_character_mail_lists": {
     "description": "Return all mailing lists that the character is subscribed to",
-    "summary": "Return mailing list subscriptions",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "mailing_list_id",
-        "type": "integer"
+        "name": "mailing_list_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/mail/lists/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-mail.read_mail.v1",
+    "summary": "Mailing lists"
   },
   "characters_character_mail_mail": {
     "description": "Return the contents of an EVE mail",
-    "summary": "Return a mail",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "body",
-        "type": "string"
+        "name": "body"
       },
       {
-        "name": "from",
-        "type": "integer"
+        "name": "from"
       },
       {
         "name": "labels",
-        "type": "array"
+        "sub_headers": [
+          "id_labels"
+        ]
       },
       {
-        "name": "read",
-        "type": "boolean"
+        "name": "read"
       },
       {
         "name": "recipients",
-        "type": "array",
         "sub_headers": [
           "recipient_id",
           "recipient_type"
         ]
       },
       {
-        "name": "subject",
-        "type": "string"
+        "name": "subject"
       },
       {
-        "name": "timestamp",
-        "type": "string"
+        "name": "timestamp"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/mail/{mail_id}/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "mail_id",
         "description": "An EVE mail ID",
-        "required": true,
+        "in": "path",
+        "name": "mail_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-mail.read_mail.v1",
+    "summary": "Contents of a mail"
   },
   "characters_character_medals": {
     "description": "Return a list of medals the character has",
-    "summary": "Get medals",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "corporation_id",
-        "type": "integer"
+        "name": "corporation_id"
       },
       {
-        "name": "date",
-        "type": "string"
+        "name": "date"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
         "name": "graphics",
-        "type": "array",
         "sub_headers": [
           "color",
           "graphic",
@@ -1141,998 +1204,1083 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "issuer_id",
-        "type": "integer"
+        "name": "issuer_id"
       },
       {
-        "name": "medal_id",
-        "type": "integer"
+        "name": "medal_id"
       },
       {
-        "name": "reason",
-        "type": "string"
+        "name": "reason"
       },
       {
-        "name": "status",
-        "type": "string"
+        "name": "status"
       },
       {
-        "name": "title",
-        "type": "string"
+        "name": "title"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/medals/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_medals.v1",
+    "summary": "A list of medals"
   },
   "characters_character_mining": {
     "description": "Paginated record of all mining done by a character for the past 30 days",
-    "summary": "Character mining ledger",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "date",
-        "type": "string"
+        "name": "date"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/mining/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-industry.read_character_mining.v1",
+    "summary": "Mining ledger of a character"
   },
   "characters_character_notifications_contacts": {
     "description": "Return notifications about having been added to someone's contact list",
-    "summary": "Get new contact notifications",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "message",
-        "type": "string"
+        "name": "message"
       },
       {
-        "name": "notification_id",
-        "type": "integer"
+        "name": "notification_id"
       },
       {
-        "name": "send_date",
-        "type": "string"
+        "name": "send_date"
       },
       {
-        "name": "sender_character_id",
-        "type": "integer"
+        "name": "sender_character_id"
       },
       {
-        "name": "standing_level",
-        "type": "number"
+        "name": "standing_level"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/notifications/contacts/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_notifications.v1",
+    "summary": "A list of contact notifications"
   },
   "characters_character_opportunities": {
     "description": "Return a list of tasks finished by a character",
-    "summary": "Get a character's completed tasks",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "completed_at",
-        "type": "string"
+        "name": "completed_at"
       },
       {
-        "name": "task_id",
-        "type": "integer"
+        "name": "task_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/opportunities/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_opportunities.v1",
+    "summary": "A list of opportunities task ids"
   },
   "characters_character_orders_history": {
     "description": "List cancelled and expired market orders placed by a character up to 90 days in the past.",
-    "summary": "List historical orders by a character",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "duration",
-        "type": "integer"
+        "name": "duration"
       },
       {
-        "name": "escrow",
-        "type": "number"
+        "name": "escrow"
       },
       {
-        "name": "is_buy_order",
-        "type": "boolean"
+        "name": "is_buy_order"
       },
       {
-        "name": "is_corporation",
-        "type": "boolean"
+        "name": "is_corporation"
       },
       {
-        "name": "issued",
-        "type": "string"
+        "name": "issued"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "min_volume",
-        "type": "integer"
+        "name": "min_volume"
       },
       {
-        "name": "order_id",
-        "type": "integer"
+        "name": "order_id"
       },
       {
-        "name": "price",
-        "type": "number"
+        "name": "price"
       },
       {
-        "name": "range",
-        "type": "string"
+        "name": "range"
       },
       {
-        "name": "region_id",
-        "type": "integer"
+        "name": "region_id"
       },
       {
-        "name": "state",
-        "type": "string"
+        "name": "state"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "volume_remain",
-        "type": "integer"
+        "name": "volume_remain"
       },
       {
-        "name": "volume_total",
-        "type": "integer"
+        "name": "volume_total"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/orders/history/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-markets.read_character_orders.v1",
+    "summary": "Expired and cancelled market orders placed by a character"
   },
   "characters_character_planets": {
     "description": "Returns a list of all planetary colonies owned by a character.",
-    "summary": "Get colonies",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "last_update",
-        "type": "string"
+        "name": "last_update"
       },
       {
-        "name": "num_pins",
-        "type": "integer"
+        "name": "num_pins"
       },
       {
-        "name": "owner_id",
-        "type": "integer"
+        "name": "owner_id"
       },
       {
-        "name": "planet_id",
-        "type": "integer"
+        "name": "planet_id"
       },
       {
-        "name": "planet_type",
-        "type": "string"
+        "name": "planet_type"
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "upgrade_level",
-        "type": "integer"
+        "name": "upgrade_level"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/planets/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-planets.manage_planets.v1",
+    "summary": "List of colonies"
   },
   "characters_character_ship": {
     "description": "Get the current ship type, name and id",
-    "summary": "Get current ship",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "ship_item_id",
-        "type": "integer"
+        "name": "ship_item_id"
       },
       {
-        "name": "ship_name",
-        "type": "string"
+        "name": "ship_name"
       },
       {
-        "name": "ship_type_id",
-        "type": "integer"
+        "name": "ship_type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/ship/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-location.read_ship_type.v1",
+    "summary": "Get the current ship type, name and id"
   },
   "characters_character_standings": {
     "description": "Return character standings from agents, NPC corporations, and factions",
-    "summary": "Get standings",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "from_id",
-        "type": "integer"
+        "name": "from_id"
       },
       {
-        "name": "from_type",
-        "type": "string"
+        "name": "from_type"
       },
       {
-        "name": "standing",
-        "type": "number"
+        "name": "standing"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/standings/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_standings.v1",
+    "summary": "A list of standings"
   },
   "characters_character_titles": {
     "description": "Returns a character's titles",
-    "summary": "Get character corporation titles",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "title_id",
-        "type": "integer"
+        "name": "title_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/titles/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_titles.v1",
+    "summary": "A list of titles"
   },
   "characters_character_wallet": {
     "description": "Returns a character's wallet balance",
-    "summary": "Get a character's wallet balance",
-    "request": "get",
-    "version": 1,
-    "headers": [
-
-    ],
+    "headers": [],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/wallet/",
-    "authed": true,
-    "response_type": "number",
-    "item_type": "number",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-wallet.read_character_wallet.v1",
+    "summary": "Wallet balance"
   },
   "characters_character_wallet_transactions": {
     "description": "Get wallet transactions of a character",
-    "summary": "Get wallet transactions",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "client_id",
-        "type": "integer"
+        "name": "client_id"
       },
       {
-        "name": "date",
-        "type": "string"
+        "name": "date"
       },
       {
-        "name": "is_buy",
-        "type": "boolean"
+        "name": "is_buy"
       },
       {
-        "name": "is_personal",
-        "type": "boolean"
+        "name": "is_personal"
       },
       {
-        "name": "journal_ref_id",
-        "type": "integer"
+        "name": "journal_ref_id"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
-        "name": "transaction_id",
-        "type": "integer"
+        "name": "transaction_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "unit_price",
-        "type": "number"
+        "name": "unit_price"
       }
     ],
+    "method": "GET",
     "path": "/v1/characters/{character_id}/wallet/transactions/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "from_id",
         "description": "Only show transactions happened before the one referenced by this id",
-        "required": false,
+        "in": "query",
+        "name": "from_id",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-wallet.read_character_wallet.v1",
+    "summary": "Wallet transactions"
   },
   "corporation_corporation_mining_extractions": {
     "description": "Extraction timers for all moon chunks being extracted by refineries belonging to a corporation.",
-    "summary": "Moon extraction timers",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "chunk_arrival_time",
-        "type": "string"
+        "name": "chunk_arrival_time"
       },
       {
-        "name": "extraction_start_time",
-        "type": "string"
+        "name": "extraction_start_time"
       },
       {
-        "name": "moon_id",
-        "type": "integer"
+        "name": "moon_id"
       },
       {
-        "name": "natural_decay_time",
-        "type": "string"
+        "name": "natural_decay_time"
       },
       {
-        "name": "structure_id",
-        "type": "integer"
+        "name": "structure_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporation/{corporation_id}/mining/extractions/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-industry.read_corporation_mining.v1",
+    "summary": "A list of chunk timers"
   },
   "corporation_corporation_mining_observers": {
     "description": "Paginated list of all entities capable of observing and recording mining for a corporation",
-    "summary": "Corporation mining observers",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "last_updated",
-        "type": "string"
+        "name": "last_updated"
       },
       {
-        "name": "observer_id",
-        "type": "integer"
+        "name": "observer_id"
       },
       {
-        "name": "observer_type",
-        "type": "string"
+        "name": "observer_type"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporation/{corporation_id}/mining/observers/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-industry.read_corporation_mining.v1",
+    "summary": "Observer list of a corporation"
   },
   "corporation_corporation_mining_observers_observer": {
     "description": "Paginated record of all mining seen by an observer",
-    "summary": "Observed corporation mining",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "character_id",
-        "type": "integer"
+        "name": "character_id"
       },
       {
-        "name": "last_updated",
-        "type": "string"
+        "name": "last_updated"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
-        "name": "recorded_corporation_id",
-        "type": "integer"
+        "name": "recorded_corporation_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporation/{corporation_id}/mining/observers/{observer_id}/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "observer_id",
         "description": "A mining observer id",
-        "required": true,
+        "in": "path",
+        "name": "observer_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-industry.read_corporation_mining.v1",
+    "summary": "Mining ledger of an observer"
   },
   "corporations_npccorps": {
     "description": "Get a list of npc corporations",
-    "summary": "Get npc corporations",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "npccorp_ids",
-        "type": "integer"
+        "name": "npccorp_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/npccorps/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of npc corporation ids"
+  },
+  "corporations_corporation_assets_names": {
+    "description": "Return names for a set of item ids, which you can get from corporation assets endpoint. Only valid for items that can customize names, like containers or ships.",
+    "headers": [
+      {
+        "name": "item_id"
+      },
+      {
+        "name": "name"
+      }
+    ],
+    "method": "POST",
+    "path": "/v1/corporations/{corporation_id}/assets/names/",
+    "parameters": [
+      {
+        "description": "A list of item ids",
+        "in": "body",
+        "name": "item_ids",
+        "type": "array",
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-assets.read_corporation_assets.v1",
+    "summary": "List of asset names"
   },
   "corporations_corporation_bookmarks": {
     "description": "A list of your corporation's bookmarks",
-    "summary": "List corporation bookmarks",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "bookmark_id",
-        "type": "integer"
+        "name": "bookmark_id"
       },
       {
-        "name": "coordinates-x",
-        "type": "number"
+        "name": "coordinates",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "coordinates-y",
-        "type": "number"
+        "name": "created"
       },
       {
-        "name": "coordinates-z",
-        "type": "number"
+        "name": "creator_id"
       },
       {
-        "name": "created",
-        "type": "string"
+        "name": "folder_id"
       },
       {
-        "name": "creator_id",
-        "type": "integer"
+        "name": "item",
+        "sub_headers": [
+          "item_id",
+          "type_id"
+        ]
       },
       {
-        "name": "folder_id",
-        "type": "integer"
+        "name": "label"
       },
       {
-        "name": "item-item_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "item-type_id",
-        "type": "integer"
-      },
-      {
-        "name": "label",
-        "type": "string"
-      },
-      {
-        "name": "location_id",
-        "type": "integer"
-      },
-      {
-        "name": "notes",
-        "type": "string"
+        "name": "notes"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/bookmarks/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-bookmarks.read_corporation_bookmarks.v1",
+    "summary": "List of corporation owned bookmarks"
   },
   "corporations_corporation_bookmarks_folders": {
     "description": "A list of your corporation's bookmark folders",
-    "summary": "List corporation bookmark folders",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "creator_id",
-        "type": "integer"
+        "name": "creator_id"
       },
       {
-        "name": "folder_id",
-        "type": "integer"
+        "name": "folder_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/bookmarks/folders/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
-      }
-    ]
-  },
-  "corporations_corporation_contacts": {
-    "description": "Return contacts of a corporation",
-    "summary": "Get corporation contacts",
-    "request": "get",
-    "version": 1,
-    "headers": [
-      {
-        "name": "contact_id",
-        "type": "integer"
+        "required": false
       },
       {
-        "name": "contact_type",
-        "type": "string"
-      },
-      {
-        "name": "is_watched",
-        "type": "boolean"
-      },
-      {
-        "name": "label_id",
-        "type": "integer"
-      },
-      {
-        "name": "standing",
-        "type": "number"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
     ],
-    "path": "/v1/corporations/{corporation_id}/contacts/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
-    "parameters": [
-      {
-        "name": "page",
-        "description": "Which page of results to return",
-        "required": null,
-        "type": "integer",
-        "in": "query"
-      }
-    ]
+    "scope": "esi-bookmarks.read_corporation_bookmarks.v1",
+    "summary": "List of corporation owned bookmark folders"
   },
   "corporations_corporation_contacts_labels": {
     "description": "Return custom labels for a corporation's contacts",
-    "summary": "Get corporation contact labels",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "label_id",
-        "type": "integer"
+        "name": "label_id"
       },
       {
-        "name": "label_name",
-        "type": "string"
+        "name": "label_name"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/contacts/labels/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.read_contacts.v1",
+    "summary": "A list of corporation contact labels"
   },
   "corporations_corporation_contracts": {
-    "description": "Returns contracts available to a coporation, only if the corporation is issuer, acceptor or assignee. Only returns contracts no older than 30 days, or if the status is \"in_progress\".",
-    "summary": "Get coporation contracts",
-    "request": "get",
-    "version": 1,
+    "description": "Returns contracts available to a corporation, only if the corporation is issuer, acceptor or assignee. Only returns contracts no older than 30 days, or if the status is \"in_progress\".",
     "headers": [
       {
-        "name": "acceptor_id",
-        "type": "integer"
+        "name": "acceptor_id"
       },
       {
-        "name": "assignee_id",
-        "type": "integer"
+        "name": "assignee_id"
       },
       {
-        "name": "availability",
-        "type": "string"
+        "name": "availability"
       },
       {
-        "name": "buyout",
-        "type": "number"
+        "name": "buyout"
       },
       {
-        "name": "collateral",
-        "type": "number"
+        "name": "collateral"
       },
       {
-        "name": "contract_id",
-        "type": "integer"
+        "name": "contract_id"
       },
       {
-        "name": "date_accepted",
-        "type": "string"
+        "name": "date_accepted"
       },
       {
-        "name": "date_completed",
-        "type": "string"
+        "name": "date_completed"
       },
       {
-        "name": "date_expired",
-        "type": "string"
+        "name": "date_expired"
       },
       {
-        "name": "date_issued",
-        "type": "string"
+        "name": "date_issued"
       },
       {
-        "name": "days_to_complete",
-        "type": "integer"
+        "name": "days_to_complete"
       },
       {
-        "name": "end_location_id",
-        "type": "integer"
+        "name": "end_location_id"
       },
       {
-        "name": "for_corporation",
-        "type": "boolean"
+        "name": "for_corporation"
       },
       {
-        "name": "issuer_corporation_id",
-        "type": "integer"
+        "name": "issuer_corporation_id"
       },
       {
-        "name": "issuer_id",
-        "type": "integer"
+        "name": "issuer_id"
       },
       {
-        "name": "price",
-        "type": "number"
+        "name": "price"
       },
       {
-        "name": "reward",
-        "type": "number"
+        "name": "reward"
       },
       {
-        "name": "start_location_id",
-        "type": "integer"
+        "name": "start_location_id"
       },
       {
-        "name": "status",
-        "type": "string"
+        "name": "status"
       },
       {
-        "name": "title",
-        "type": "string"
+        "name": "title"
       },
       {
-        "name": "type",
-        "type": "string"
+        "name": "type"
       },
       {
-        "name": "volume",
-        "type": "number"
+        "name": "volume"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/contracts/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-contracts.read_corporation_contracts.v1",
+    "summary": "A list of contracts"
   },
   "corporations_corporation_contracts_contract_bids": {
     "description": "Lists bids on a particular auction contract",
-    "summary": "Get corporation contract bids",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "amount",
-        "type": "number"
+        "name": "amount"
       },
       {
-        "name": "bid_id",
-        "type": "integer"
+        "name": "bid_id"
       },
       {
-        "name": "bidder_id",
-        "type": "integer"
+        "name": "bidder_id"
       },
       {
-        "name": "date_bid",
-        "type": "string"
+        "name": "date_bid"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/contracts/{contract_id}/bids/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "contract_id",
         "description": "ID of a contract",
-        "required": true,
+        "in": "path",
+        "name": "contract_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-contracts.read_corporation_contracts.v1",
+    "summary": "A list of bids"
   },
   "corporations_corporation_contracts_contract_items": {
     "description": "Lists items of a particular contract",
-    "summary": "Get corporation contract items",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "is_included",
-        "type": "boolean"
+        "name": "is_included"
       },
       {
-        "name": "is_singleton",
-        "type": "boolean"
+        "name": "is_singleton"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
-        "name": "raw_quantity",
-        "type": "integer"
+        "name": "raw_quantity"
       },
       {
-        "name": "record_id",
-        "type": "integer"
+        "name": "record_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/contracts/{contract_id}/items/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "contract_id",
         "description": "ID of a contract",
-        "required": true,
+        "in": "path",
+        "name": "contract_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-contracts.read_corporation_contracts.v1",
+    "summary": "A list of items in this contract"
   },
   "corporations_corporation_customs_offices": {
     "description": "List customs offices owned by a corporation",
-    "summary": "List corporation customs offices",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "alliance_tax_rate",
-        "type": "number"
+        "name": "alliance_tax_rate"
       },
       {
-        "name": "allow_access_with_standings",
-        "type": "boolean"
+        "name": "allow_access_with_standings"
       },
       {
-        "name": "allow_alliance_access",
-        "type": "boolean"
+        "name": "allow_alliance_access"
       },
       {
-        "name": "bad_standing_tax_rate",
-        "type": "number"
+        "name": "bad_standing_tax_rate"
       },
       {
-        "name": "corporation_tax_rate",
-        "type": "number"
+        "name": "corporation_tax_rate"
       },
       {
-        "name": "excellent_standing_tax_rate",
-        "type": "number"
+        "name": "excellent_standing_tax_rate"
       },
       {
-        "name": "good_standing_tax_rate",
-        "type": "number"
+        "name": "good_standing_tax_rate"
       },
       {
-        "name": "neutral_standing_tax_rate",
-        "type": "number"
+        "name": "neutral_standing_tax_rate"
       },
       {
-        "name": "office_id",
-        "type": "integer"
+        "name": "office_id"
       },
       {
-        "name": "reinforce_exit_end",
-        "type": "integer"
+        "name": "reinforce_exit_end"
       },
       {
-        "name": "reinforce_exit_start",
-        "type": "integer"
+        "name": "reinforce_exit_start"
       },
       {
-        "name": "standing_level",
-        "type": "string"
+        "name": "standing_level"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       },
       {
-        "name": "terrible_standing_tax_rate",
-        "type": "number"
+        "name": "terrible_standing_tax_rate"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/customs_offices/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-planets.read_customs_offices.v1",
+    "summary": "A list of customs offices and their settings"
   },
   "corporations_corporation_divisions": {
     "description": "Return corporation hangar and wallet division names, only show if a division is not using the default name",
-    "summary": "Get corporation divisions",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
         "name": "hangar",
-        "type": "array",
         "sub_headers": [
           "division",
           "name"
@@ -2140,592 +2288,627 @@ ENDPOINTS = {
       },
       {
         "name": "wallet",
-        "type": "array",
         "sub_headers": [
           "division",
           "name"
         ]
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/divisions/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.read_divisions.v1",
+    "summary": "List of corporation division names"
   },
   "corporations_corporation_facilities": {
     "description": "Return a corporation's facilities",
-    "summary": "Get corporation facilities",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "facility_id",
-        "type": "integer"
+        "name": "facility_id"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/facilities/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.read_facilities.v1",
+    "summary": "List of corporation facilities"
   },
   "corporations_corporation_fw_stats": {
     "description": "Statistics about a corporation involved in faction warfare",
-    "summary": "Overview of a corporation involved in faction warfare",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "enlisted_on",
-        "type": "string"
+        "name": "enlisted_on"
       },
       {
-        "name": "faction_id",
-        "type": "integer"
+        "name": "faction_id"
       },
       {
-        "name": "kills-last_week",
-        "type": "integer"
+        "name": "kills",
+        "sub_headers": [
+          "last_week",
+          "total",
+          "yesterday"
+        ]
       },
       {
-        "name": "kills-total",
-        "type": "integer"
+        "name": "pilots"
       },
       {
-        "name": "kills-yesterday",
-        "type": "integer"
-      },
-      {
-        "name": "pilots",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points-last_week",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points-total",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points-yesterday",
-        "type": "integer"
+        "name": "victory_points",
+        "sub_headers": [
+          "last_week",
+          "total",
+          "yesterday"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/fw/stats/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.read_fw_stats.v1",
+    "summary": "Faction warfare statistics for a given corporation"
   },
   "corporations_corporation_icons": {
     "description": "Get the icon urls for a corporation",
-    "summary": "Get corporation icon",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "px128x128",
-        "type": "string"
+        "name": "px128x128"
       },
       {
-        "name": "px256x256",
-        "type": "string"
+        "name": "px256x256"
       },
       {
-        "name": "px64x64",
-        "type": "string"
+        "name": "px64x64"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/icons/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "corporation_id",
-        "description": "An EVE corporation ID",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Urls for icons for the given corporation id and server"
   },
   "corporations_corporation_industry_jobs": {
     "description": "List industry jobs run by a corporation",
-    "summary": "List corporation industry jobs",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "activity_id",
-        "type": "integer"
+        "name": "activity_id"
       },
       {
-        "name": "blueprint_id",
-        "type": "integer"
+        "name": "blueprint_id"
       },
       {
-        "name": "blueprint_location_id",
-        "type": "integer"
+        "name": "blueprint_location_id"
       },
       {
-        "name": "blueprint_type_id",
-        "type": "integer"
+        "name": "blueprint_type_id"
       },
       {
-        "name": "completed_character_id",
-        "type": "integer"
+        "name": "completed_character_id"
       },
       {
-        "name": "completed_date",
-        "type": "string"
+        "name": "completed_date"
       },
       {
-        "name": "cost",
-        "type": "number"
+        "name": "cost"
       },
       {
-        "name": "duration",
-        "type": "integer"
+        "name": "duration"
       },
       {
-        "name": "end_date",
-        "type": "string"
+        "name": "end_date"
       },
       {
-        "name": "facility_id",
-        "type": "integer"
+        "name": "facility_id"
       },
       {
-        "name": "installer_id",
-        "type": "integer"
+        "name": "installer_id"
       },
       {
-        "name": "job_id",
-        "type": "integer"
+        "name": "job_id"
       },
       {
-        "name": "licensed_runs",
-        "type": "integer"
+        "name": "licensed_runs"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "output_location_id",
-        "type": "integer"
+        "name": "output_location_id"
       },
       {
-        "name": "pause_date",
-        "type": "string"
+        "name": "pause_date"
       },
       {
-        "name": "probability",
-        "type": "number"
+        "name": "probability"
       },
       {
-        "name": "product_type_id",
-        "type": "integer"
+        "name": "product_type_id"
       },
       {
-        "name": "runs",
-        "type": "integer"
+        "name": "runs"
       },
       {
-        "name": "start_date",
-        "type": "string"
+        "name": "start_date"
       },
       {
-        "name": "status",
-        "type": "string"
+        "name": "status"
       },
       {
-        "name": "successful_runs",
-        "type": "integer"
+        "name": "successful_runs"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/industry/jobs/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "include_completed",
         "description": "Whether retrieve completed industry jobs as well",
-        "required": false,
+        "in": "query",
+        "name": "include_completed",
         "type": "boolean",
-        "in": "query"
+        "required": false
       },
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-industry.read_corporation_jobs.v1",
+    "summary": "A list of corporation industry jobs"
   },
   "corporations_corporation_killmails_recent": {
-    "description": "Get a list of corporation's recent kills and losses",
-    "summary": "Get corporation kills and losses",
-    "request": "get",
-    "version": 1,
+    "description": "Get a list of a corporation's kills and losses going back 90 days",
     "headers": [
       {
-        "name": "killmail_hash",
-        "type": "string"
+        "name": "killmail_hash"
       },
       {
-        "name": "killmail_id",
-        "type": "integer"
+        "name": "killmail_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/killmails/recent/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "max_kill_id",
-        "description": "Only return killmails with ID smaller than this",
-        "required": false,
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Which page of results to return",
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-killmails.read_corporation_killmails.v1",
+    "summary": "A list of killmail IDs and hashes"
   },
   "corporations_corporation_medals": {
     "description": "Returns a corporation's medals",
-    "summary": "Get corporation medals",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "created_at",
-        "type": "string"
+        "name": "created_at"
       },
       {
-        "name": "creator_id",
-        "type": "integer"
+        "name": "creator_id"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "medal_id",
-        "type": "integer"
+        "name": "medal_id"
       },
       {
-        "name": "title",
-        "type": "string"
+        "name": "title"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/medals/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
-      }
-    ]
-  },
-  "corporations_corporation_medals_issue": {
-    "description": "Returns medals issued by a corporation",
-    "summary": "Get corporation issued medals",
-    "request": "get",
-    "version": 1,
-    "headers": [
-      {
-        "name": "character_id",
-        "type": "integer"
+        "required": false
       },
       {
-        "name": "issued_at",
-        "type": "string"
-      },
-      {
-        "name": "issuer_id",
-        "type": "integer"
-      },
-      {
-        "name": "medal_id",
-        "type": "integer"
-      },
-      {
-        "name": "reason",
-        "type": "string"
-      },
-      {
-        "name": "status",
-        "type": "string"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
     ],
+    "scope": "esi-corporations.read_medals.v1",
+    "summary": "A list of medals"
+  },
+  "corporations_corporation_medals_issued": {
+    "description": "Returns medals issued by a corporation",
+    "headers": [
+      {
+        "name": "character_id"
+      },
+      {
+        "name": "issued_at"
+      },
+      {
+        "name": "issuer_id"
+      },
+      {
+        "name": "medal_id"
+      },
+      {
+        "name": "reason"
+      },
+      {
+        "name": "status"
+      }
+    ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/medals/issued/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_medals.v1",
+    "summary": "A list of issued medals"
   },
   "corporations_corporation_members_limit": {
     "description": "Return a corporation's member limit, not including CEO himself",
-    "summary": "Get corporation member limit",
-    "request": "get",
-    "version": 1,
-    "headers": [
-
-    ],
+    "headers": [],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/members/limit/",
-    "authed": true,
-    "response_type": "integer",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.track_members.v1",
+    "summary": "The corporation's member limit"
   },
   "corporations_corporation_members_titles": {
     "description": "Returns a corporation's members' titles",
-    "summary": "Get corporation's members' titles",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "character_id",
-        "type": "integer"
+        "name": "character_id"
       },
       {
         "name": "titles",
-        "type": "array"
+        "sub_headers": [
+          "titles_titles"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/members/titles/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.read_titles.v1",
+    "summary": "A list of members and theirs titles"
   },
   "corporations_corporation_membertracking": {
     "description": "Returns additional information about a corporation's members which helps tracking their activities",
-    "summary": "Track corporation members",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "base_id",
-        "type": "integer"
+        "name": "base_id"
       },
       {
-        "name": "character_id",
-        "type": "integer"
+        "name": "character_id"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "logoff_date",
-        "type": "string"
+        "name": "logoff_date"
       },
       {
-        "name": "logon_date",
-        "type": "string"
+        "name": "logon_date"
       },
       {
-        "name": "ship_type_id",
-        "type": "integer"
+        "name": "ship_type_id"
       },
       {
-        "name": "start_date",
-        "type": "string"
+        "name": "start_date"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/membertracking/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.track_members.v1",
+    "summary": "List of member character IDs"
   },
   "corporations_corporation_orders_history": {
     "description": "List cancelled and expired market orders placed on behalf of a corporation up to 90 days in the past.",
-    "summary": "List historical orders from a corporation",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "duration",
-        "type": "integer"
+        "name": "duration"
       },
       {
-        "name": "escrow",
-        "type": "number"
+        "name": "escrow"
       },
       {
-        "name": "is_buy_order",
-        "type": "boolean"
+        "name": "is_buy_order"
       },
       {
-        "name": "issued",
-        "type": "string"
+        "name": "issued"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "min_volume",
-        "type": "integer"
+        "name": "min_volume"
       },
       {
-        "name": "order_id",
-        "type": "integer"
+        "name": "order_id"
       },
       {
-        "name": "price",
-        "type": "number"
+        "name": "price"
       },
       {
-        "name": "range",
-        "type": "string"
+        "name": "range"
       },
       {
-        "name": "region_id",
-        "type": "integer"
+        "name": "region_id"
       },
       {
-        "name": "state",
-        "type": "string"
+        "name": "state"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "volume_remain",
-        "type": "integer"
+        "name": "volume_remain"
       },
       {
-        "name": "volume_total",
-        "type": "integer"
+        "name": "volume_total"
       },
       {
-        "name": "wallet_division",
-        "type": "integer"
+        "name": "wallet_division"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/orders/history/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-markets.read_corporation_orders.v1",
+    "summary": "Expired and cancelled market orders placed on behalf of a corporation"
   },
   "corporations_corporation_outposts": {
     "description": "Get a list of corporation outpost IDs Note: This endpoint will be removed once outposts are migrated to Citadels as talked about in this blog: https://community.eveonline.com/news/dev",
-    "summary": "Get corporation outposts",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "outpost_ids",
-        "type": "integer"
+        "name": "outpost_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/outposts/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_outposts.v1",
+    "summary": "List of corporation outpost IDs"
   },
   "corporations_corporation_outposts_outpost": {
     "description": "Get details about a given outpost. Note: This endpoint will be removed once outposts are migrated to Citadels as talked about in this blog: https://community.eveonline.com/news/dev",
-    "summary": "Get corporation outpost details",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "coordinates-x",
-        "type": "number"
+        "name": "coordinates",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "coordinates-y",
-        "type": "number"
+        "name": "docking_cost_per_ship_volume"
       },
       {
-        "name": "coordinates-z",
-        "type": "number"
+        "name": "office_rental_cost"
       },
       {
-        "name": "docking_cost_per_ship_volume",
-        "type": "number"
+        "name": "owner_id"
       },
       {
-        "name": "office_rental_cost",
-        "type": "integer"
+        "name": "reprocessing_efficiency"
       },
       {
-        "name": "owner_id",
-        "type": "integer"
-      },
-      {
-        "name": "reprocessing_efficiency",
-        "type": "number"
-      },
-      {
-        "name": "reprocessing_station_take",
-        "type": "number"
+        "name": "reprocessing_station_take"
       },
       {
         "name": "services",
-        "type": "array",
         "sub_headers": [
           "discount_per_good_standing",
           "minimum_standing",
@@ -2734,1077 +2917,1162 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "standing_owner_id",
-        "type": "integer"
+        "name": "standing_owner_id"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/outposts/{outpost_id}/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "outpost_id",
         "description": "A station (outpost) ID",
-        "required": true,
+        "in": "path",
+        "name": "outpost_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_outposts.v1",
+    "summary": "Details about the given outpost"
   },
   "corporations_corporation_roles": {
     "description": "Return the roles of all members if the character has the personnel manager role or any grantable role.",
-    "summary": "Get corporation member roles",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "character_id",
-        "type": "integer"
+        "name": "character_id"
       },
       {
         "name": "grantable_roles",
-        "type": "array"
+        "sub_headers": [
+          "grantable_roles"
+        ]
       },
       {
         "name": "grantable_roles_at_base",
-        "type": "array"
+        "sub_headers": [
+          "at_bases"
+        ]
       },
       {
         "name": "grantable_roles_at_hq",
-        "type": "array"
+        "sub_headers": [
+          "at_hqs"
+        ]
       },
       {
         "name": "grantable_roles_at_other",
-        "type": "array"
+        "sub_headers": [
+          "at_others"
+        ]
       },
       {
         "name": "roles",
-        "type": "array"
+        "sub_headers": [
+          "roles_roles"
+        ]
       },
       {
         "name": "roles_at_base",
-        "type": "array"
+        "sub_headers": [
+          "at_bases"
+        ]
       },
       {
         "name": "roles_at_hq",
-        "type": "array"
+        "sub_headers": [
+          "at_hqs"
+        ]
       },
       {
         "name": "roles_at_other",
-        "type": "array"
+        "sub_headers": [
+          "at_others"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/roles/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.read_corporation_membership.v1",
+    "summary": "List of member character ID's and roles"
   },
   "corporations_corporation_roles_history": {
     "description": "Return how roles have changed for a coporation's members, up to a month",
-    "summary": "Get corporation member roles history",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "changed_at",
-        "type": "string"
+        "name": "changed_at"
       },
       {
-        "name": "character_id",
-        "type": "integer"
+        "name": "character_id"
       },
       {
-        "name": "issuer_id",
-        "type": "integer"
+        "name": "issuer_id"
       },
       {
         "name": "new_roles",
-        "type": "array"
+        "sub_headers": [
+          "new_roles"
+        ]
       },
       {
         "name": "old_roles",
-        "type": "array"
+        "sub_headers": [
+          "old_roles"
+        ]
       },
       {
-        "name": "role_type",
-        "type": "string"
+        "name": "role_type"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/roles/history/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_corporation_membership.v1",
+    "summary": "List of role changes"
   },
   "corporations_corporation_shareholders": {
     "description": "Return the current shareholders of a corporation.",
-    "summary": "Get corporation shareholders",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "share_count",
-        "type": "integer"
+        "name": "share_count"
       },
       {
-        "name": "shareholder_id",
-        "type": "integer"
+        "name": "shareholder_id"
       },
       {
-        "name": "shareholder_type",
-        "type": "string"
+        "name": "shareholder_type"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/shareholders/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-wallet.read_corporation_wallets.v1",
+    "summary": "List of shareholders"
   },
   "corporations_corporation_standings": {
     "description": "Return corporation standings from agents, NPC corporations, and factions",
-    "summary": "Get corporation standings",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "from_id",
-        "type": "integer"
+        "name": "from_id"
       },
       {
-        "name": "from_type",
-        "type": "string"
+        "name": "from_type"
       },
       {
-        "name": "standing",
-        "type": "number"
+        "name": "standing"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/standings/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_standings.v1",
+    "summary": "A list of standings"
   },
   "corporations_corporation_starbases": {
     "description": "Returns list of corporation starbases (POSes)",
-    "summary": "Get corporation starbases (POSes)",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "moon_id",
-        "type": "integer"
+        "name": "moon_id"
       },
       {
-        "name": "onlined_since",
-        "type": "string"
+        "name": "onlined_since"
       },
       {
-        "name": "reinforced_until",
-        "type": "string"
+        "name": "reinforced_until"
       },
       {
-        "name": "starbase_id",
-        "type": "integer"
+        "name": "starbase_id"
       },
       {
-        "name": "state",
-        "type": "string"
+        "name": "state"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "unanchor_at",
-        "type": "string"
+        "name": "unanchor_at"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/starbases/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_starbases.v1",
+    "summary": "List of starbases (POSes)"
   },
   "corporations_corporation_starbases_starbase": {
     "description": "Returns various settings and fuels of a starbase (POS)",
-    "summary": "Get starbase (POS) detail",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "allow_alliance_members",
-        "type": "boolean"
+        "name": "allow_alliance_members"
       },
       {
-        "name": "allow_corporation_members",
-        "type": "boolean"
+        "name": "allow_corporation_members"
       },
       {
-        "name": "anchor",
-        "type": "string"
+        "name": "anchor"
       },
       {
-        "name": "attack_if_at_war",
-        "type": "boolean"
+        "name": "attack_if_at_war"
       },
       {
-        "name": "attack_if_other_security_status_dropping",
-        "type": "boolean"
+        "name": "attack_if_other_security_status_dropping"
       },
       {
-        "name": "attack_security_status_threshold",
-        "type": "number"
+        "name": "attack_security_status_threshold"
       },
       {
-        "name": "attack_standing_threshold",
-        "type": "number"
+        "name": "attack_standing_threshold"
       },
       {
-        "name": "fuel_bay_take",
-        "type": "string"
+        "name": "fuel_bay_take"
       },
       {
-        "name": "fuel_bay_view",
-        "type": "string"
+        "name": "fuel_bay_view"
       },
       {
         "name": "fuels",
-        "type": "array",
         "sub_headers": [
           "quantity",
           "type_id"
         ]
       },
       {
-        "name": "offline",
-        "type": "string"
+        "name": "offline"
       },
       {
-        "name": "online",
-        "type": "string"
+        "name": "online"
       },
       {
-        "name": "unanchor",
-        "type": "string"
+        "name": "unanchor"
       },
       {
-        "name": "use_alliance_standings",
-        "type": "boolean"
+        "name": "use_alliance_standings"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/starbases/{starbase_id}/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "starbase_id",
         "description": "An EVE starbase (POS) ID",
-        "required": true,
+        "in": "path",
+        "name": "starbase_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
-        "name": "system_id",
         "description": "The solar system this starbase (POS) is located in,",
-        "required": true,
+        "in": "query",
+        "name": "system_id",
         "type": "integer",
-        "in": "query"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_starbases.v1",
+    "summary": "List of starbases (POSes)"
   },
   "corporations_corporation_titles": {
     "description": "Returns a corporation's titles",
-    "summary": "Get corporation titles",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
         "name": "grantable_roles",
-        "type": "array"
+        "sub_headers": [
+          "grantable_roles"
+        ]
       },
       {
         "name": "grantable_roles_at_base",
-        "type": "array"
+        "sub_headers": [
+          "at_bases"
+        ]
       },
       {
         "name": "grantable_roles_at_hq",
-        "type": "array"
+        "sub_headers": [
+          "at_hqs"
+        ]
       },
       {
         "name": "grantable_roles_at_other",
-        "type": "array"
+        "sub_headers": [
+          "at_others"
+        ]
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
         "name": "roles",
-        "type": "array"
+        "sub_headers": [
+          "titles_roles"
+        ]
       },
       {
         "name": "roles_at_base",
-        "type": "array"
+        "sub_headers": [
+          "at_bases"
+        ]
       },
       {
         "name": "roles_at_hq",
-        "type": "array"
+        "sub_headers": [
+          "at_hqs"
+        ]
       },
       {
         "name": "roles_at_other",
-        "type": "array"
+        "sub_headers": [
+          "at_others"
+        ]
       },
       {
-        "name": "title_id",
-        "type": "integer"
+        "name": "title_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/titles/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.read_titles.v1",
+    "summary": "A list of titles"
   },
   "corporations_corporation_wallets": {
     "description": "Get a corporation's wallets",
-    "summary": "Returns a corporation's wallet balance",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "balance",
-        "type": "number"
+        "name": "balance"
       },
       {
-        "name": "division",
-        "type": "integer"
+        "name": "division"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/wallets/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-wallet.read_corporation_wallets.v1",
+    "summary": "List of corporation wallets"
   },
   "corporations_corporation_wallets_division_transactions": {
     "description": "Get wallet transactions of a corporation",
-    "summary": "Get corporation wallet transactions",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "client_id",
-        "type": "integer"
+        "name": "client_id"
       },
       {
-        "name": "date",
-        "type": "string"
+        "name": "date"
       },
       {
-        "name": "is_buy",
-        "type": "boolean"
+        "name": "is_buy"
       },
       {
-        "name": "journal_ref_id",
-        "type": "integer"
+        "name": "journal_ref_id"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
-        "name": "transaction_id",
-        "type": "integer"
+        "name": "transaction_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "unit_price",
-        "type": "number"
+        "name": "unit_price"
       }
     ],
+    "method": "GET",
     "path": "/v1/corporations/{corporation_id}/wallets/{division}/transactions/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "division",
         "description": "Wallet key of the division to fetch journals from",
-        "required": true,
+        "in": "path",
+        "name": "division",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
-        "name": "from_id",
         "description": "Only show journal entries happened before the transaction referenced by this id",
-        "required": false,
+        "in": "query",
+        "name": "from_id",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-wallet.read_corporation_wallets.v1",
+    "summary": "Wallet transactions"
   },
   "dogma_attributes": {
     "description": "Get a list of dogma attribute ids",
-    "summary": "Get attributes",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "attribute_ids",
-        "type": "integer"
+        "name": "attribute_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/dogma/attributes/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of dogma attribute ids"
   },
   "dogma_attributes_attribute": {
     "description": "Get information on a dogma attribute",
-    "summary": "Get attribute information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "attribute_id",
-        "type": "integer"
+        "name": "attribute_id"
       },
       {
-        "name": "default_value",
-        "type": "number"
+        "name": "default_value"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "display_name",
-        "type": "string"
+        "name": "display_name"
       },
       {
-        "name": "high_is_good",
-        "type": "boolean"
+        "name": "high_is_good"
       },
       {
-        "name": "icon_id",
-        "type": "integer"
+        "name": "icon_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "published",
-        "type": "boolean"
+        "name": "published"
       },
       {
-        "name": "stackable",
-        "type": "boolean"
+        "name": "stackable"
       },
       {
-        "name": "unit_id",
-        "type": "integer"
+        "name": "unit_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/dogma/attributes/{attribute_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "attribute_id",
         "description": "A dogma attribute ID",
-        "required": true,
+        "in": "path",
+        "name": "attribute_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a dogma attribute"
+  },
+  "dogma_dynamic_items_type_item": {
+    "description": "Returns info about a dynamic item resulting from mutation with a mutaplasmid.",
+    "headers": [
+      {
+        "name": "created_by"
+      },
+      {
+        "name": "dogma_attributes",
+        "sub_headers": [
+          "attribute_id",
+          "value"
+        ]
+      },
+      {
+        "name": "dogma_effects",
+        "sub_headers": [
+          "effect_id",
+          "is_default"
+        ]
+      },
+      {
+        "name": "mutator_type_id"
+      },
+      {
+        "name": "source_type_id"
+      }
+    ],
+    "method": "GET",
+    "path": "/v1/dogma/dynamic/items/{type_id}/{item_id}/",
+    "parameters": [
+      {
+        "description": "item_id integer",
+        "in": "path",
+        "name": "item_id",
+        "type": "integer",
+        "required": true
+      },
+      {
+        "description": "type_id integer",
+        "in": "path",
+        "name": "type_id",
+        "type": "integer",
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "Details about a dynamic item"
   },
   "dogma_effects": {
     "description": "Get a list of dogma effect ids",
-    "summary": "Get effects",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "effect_ids",
-        "type": "integer"
+        "name": "effect_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/dogma/effects/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of dogma effect ids"
   },
   "fleets_fleet": {
     "description": "Return details about a fleet",
-    "summary": "Get fleet information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "is_free_move",
-        "type": "boolean"
+        "name": "is_free_move"
       },
       {
-        "name": "is_registered",
-        "type": "boolean"
+        "name": "is_registered"
       },
       {
-        "name": "is_voice_enabled",
-        "type": "boolean"
+        "name": "is_voice_enabled"
       },
       {
-        "name": "motd",
-        "type": "string"
+        "name": "motd"
       }
     ],
+    "method": "GET",
     "path": "/v1/fleets/{fleet_id}/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "fleet_id",
         "description": "ID for a fleet",
-        "required": true,
+        "in": "path",
+        "name": "fleet_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-fleets.read_fleet.v1",
+    "summary": "Details about a fleet"
   },
   "fleets_fleet_members": {
     "description": "Return information about fleet members",
-    "summary": "Get fleet members",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "character_id",
-        "type": "integer"
+        "name": "character_id"
       },
       {
-        "name": "join_time",
-        "type": "string"
+        "name": "join_time"
       },
       {
-        "name": "role",
-        "type": "string"
+        "name": "role"
       },
       {
-        "name": "role_name",
-        "type": "string"
+        "name": "role_name"
       },
       {
-        "name": "ship_type_id",
-        "type": "integer"
+        "name": "ship_type_id"
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "squad_id",
-        "type": "integer"
+        "name": "squad_id"
       },
       {
-        "name": "station_id",
-        "type": "integer"
+        "name": "station_id"
       },
       {
-        "name": "takes_fleet_warp",
-        "type": "boolean"
+        "name": "takes_fleet_warp"
       },
       {
-        "name": "wing_id",
-        "type": "integer"
+        "name": "wing_id"
       }
     ],
+    "method": "POST",
     "path": "/v1/fleets/{fleet_id}/members/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "fleet_id",
         "description": "ID for a fleet",
-        "required": true,
+        "in": "path",
+        "name": "fleet_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-fleets.read_fleet.v1",
+    "summary": "A list of fleet members"
   },
   "fleets_fleet_wings": {
     "description": "Return information about wings in a fleet",
-    "summary": "Get fleet wings",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "id",
-        "type": "integer"
+        "name": "id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
         "name": "squads",
-        "type": "array",
         "sub_headers": [
           "id",
           "name"
         ]
       }
     ],
+    "method": "POST",
     "path": "/v1/fleets/{fleet_id}/wings/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "fleet_id",
         "description": "ID for a fleet",
-        "required": true,
+        "in": "path",
+        "name": "fleet_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-fleets.read_fleet.v1",
+    "summary": "A list of fleet wings"
   },
   "fw_leaderboards": {
     "description": "Top 4 leaderboard of factions for kills and victory points separated by total, last week and yesterday.",
-    "summary": "List of the top factions in faction warfare",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "kills-active_total",
-        "type": "array"
-      },
-      {
-        "name": "kills-last_week",
-        "type": "array"
-      },
-      {
-        "name": "kills-yesterday",
-        "type": "array"
-      },
-      {
-        "name": "victory_points-active_total",
-        "type": "array"
-      },
-      {
-        "name": "victory_points-last_week",
-        "type": "array"
-      },
-      {
-        "name": "victory_points-yesterday",
-        "type": "array"
-      }
-    ],
-    "path": "/v1/fw/leaderboards/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
-    "parameters": [
-
-    ]
-  },
-  "fw_leaderboards_characters": {
-    "description": "Top 100 leaderboard of pilots for kills and victory points separated by total, last week and yesterday.",
-    "summary": "List of the top pilots in faction warfare",
-    "request": "get",
-    "version": 1,
-    "headers": [
-      {
-        "name": "kills-active_total",
-        "type": "array"
-      },
-      {
-        "name": "kills-last_week",
-        "type": "array"
-      },
-      {
-        "name": "kills-yesterday",
-        "type": "array"
-      },
-      {
-        "name": "victory_points-active_total",
-        "type": "array"
-      },
-      {
-        "name": "victory_points-last_week",
-        "type": "array"
-      },
-      {
-        "name": "victory_points-yesterday",
-        "type": "array"
-      }
-    ],
-    "path": "/v1/fw/leaderboards/characters/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
-    "parameters": [
-
-    ]
-  },
-  "fw_leaderboards_corporations": {
-    "description": "Top 10 leaderboard of corporations for kills and victory points separated by total, last week and yesterday.",
-    "summary": "List of the top corporations in faction warfare",
-    "request": "get",
-    "version": 1,
-    "headers": [
-      {
-        "name": "kills-active_total",
-        "type": "array"
-      },
-      {
-        "name": "kills-last_week",
-        "type": "array"
-      },
-      {
-        "name": "kills-yesterday",
-        "type": "array"
-      },
-      {
-        "name": "victory_points-active_total",
-        "type": "array"
-      },
-      {
-        "name": "victory_points-last_week",
-        "type": "array"
-      },
-      {
-        "name": "victory_points-yesterday",
-        "type": "array"
-      }
-    ],
-    "path": "/v1/fw/leaderboards/corporations/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
-    "parameters": [
-
-    ]
-  },
-  "fw_stats": {
-    "description": "Statistical overviews of factions involved in faction warfare",
-    "summary": "An overview of statistics about factions involved in faction warfare",
-    "request": "get",
-    "version": 1,
-    "headers": [
-      {
-        "name": "faction_id",
-        "type": "integer"
-      },
-      {
-        "name": "kills-last_week",
-        "type": "integer"
-      },
-      {
-        "name": "kills-total",
-        "type": "integer"
-      },
-      {
-        "name": "kills-yesterday",
-        "type": "integer"
-      },
-      {
-        "name": "pilots",
-        "type": "integer"
-      },
-      {
-        "name": "systems_controlled",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points-last_week",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points-total",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points-yesterday",
-        "type": "integer"
-      }
-    ],
-    "path": "/v1/fw/stats/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
-    "parameters": [
-
-    ]
-  },
-  "fw_systems": {
-    "description": "An overview of the current ownership of faction warfare solar systems",
-    "summary": "Ownership of faction warfare systems",
-    "request": "get",
-    "version": 1,
-    "headers": [
-      {
-        "name": "contested",
-        "type": "boolean"
-      },
-      {
-        "name": "occupier_faction_id",
-        "type": "integer"
-      },
-      {
-        "name": "owner_faction_id",
-        "type": "integer"
-      },
-      {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "kills",
+        "sub_headers": [
+          "active_total",
+          "last_week",
+          "yesterday"
+        ]
       },
       {
         "name": "victory_points",
-        "type": "integer"
-      },
-      {
-        "name": "victory_points_threshold",
-        "type": "integer"
+        "sub_headers": [
+          "active_total",
+          "last_week",
+          "yesterday"
+        ]
       }
     ],
-    "path": "/v1/fw/systems/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
+    "method": "GET",
+    "path": "/v1/fw/leaderboards/",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "Corporation leaderboard of kills and victory points within faction warfare."
+  },
+  "fw_leaderboards_characters": {
+    "description": "Top 100 leaderboard of pilots for kills and victory points separated by total, last week and yesterday.",
+    "headers": [
+      {
+        "name": "kills",
+        "sub_headers": [
+          "active_total",
+          "last_week",
+          "yesterday"
+        ]
+      },
+      {
+        "name": "victory_points",
+        "sub_headers": [
+          "active_total",
+          "last_week",
+          "yesterday"
+        ]
+      }
+    ],
+    "method": "GET",
+    "path": "/v1/fw/leaderboards/characters/",
+    "parameters": [
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "Character leaderboard of kills and victory points within faction warfare."
+  },
+  "fw_leaderboards_corporations": {
+    "description": "Top 10 leaderboard of corporations for kills and victory points separated by total, last week and yesterday.",
+    "headers": [
+      {
+        "name": "kills",
+        "sub_headers": [
+          "active_total",
+          "last_week",
+          "yesterday"
+        ]
+      },
+      {
+        "name": "victory_points",
+        "sub_headers": [
+          "active_total",
+          "last_week",
+          "yesterday"
+        ]
+      }
+    ],
+    "method": "GET",
+    "path": "/v1/fw/leaderboards/corporations/",
+    "parameters": [
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "Corporation leaderboard of kills and victory points within faction warfare."
+  },
+  "fw_stats": {
+    "description": "Statistical overviews of factions involved in faction warfare",
+    "headers": [
+      {
+        "name": "faction_id"
+      },
+      {
+        "name": "kills",
+        "sub_headers": [
+          "last_week",
+          "total",
+          "yesterday"
+        ]
+      },
+      {
+        "name": "pilots"
+      },
+      {
+        "name": "systems_controlled"
+      },
+      {
+        "name": "victory_points",
+        "sub_headers": [
+          "last_week",
+          "total",
+          "yesterday"
+        ]
+      }
+    ],
+    "method": "GET",
+    "path": "/v1/fw/stats/",
+    "parameters": [
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "Per faction breakdown of faction warfare statistics"
   },
   "fw_wars": {
     "description": "Data about which NPC factions are at war",
-    "summary": "Data about which NPC factions are at war",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "against_id",
-        "type": "integer"
+        "name": "against_id"
       },
       {
-        "name": "faction_id",
-        "type": "integer"
+        "name": "faction_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/fw/wars/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of NPC factions at war"
   },
   "incursions": {
     "description": "Return a list of current incursions",
-    "summary": "List incursions",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "constellation_id",
-        "type": "integer"
+        "name": "constellation_id"
       },
       {
-        "name": "faction_id",
-        "type": "integer"
+        "name": "faction_id"
       },
       {
-        "name": "has_boss",
-        "type": "boolean"
+        "name": "has_boss"
       },
       {
         "name": "infested_solar_systems",
-        "type": "array"
+        "sub_headers": [
+          "solar_systems"
+        ]
       },
       {
-        "name": "influence",
-        "type": "number"
+        "name": "influence"
       },
       {
-        "name": "staging_solar_system_id",
-        "type": "integer"
+        "name": "staging_solar_system_id"
       },
       {
-        "name": "state",
-        "type": "string"
+        "name": "state"
       },
       {
-        "name": "type",
-        "type": "string"
+        "name": "type"
       }
     ],
+    "method": "GET",
     "path": "/v1/incursions/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of incursions"
   },
   "industry_facilities": {
     "description": "Return a list of industry facilities",
-    "summary": "List industry facilities",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "facility_id",
-        "type": "integer"
+        "name": "facility_id"
       },
       {
-        "name": "owner_id",
-        "type": "integer"
+        "name": "owner_id"
       },
       {
-        "name": "region_id",
-        "type": "integer"
+        "name": "region_id"
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "tax",
-        "type": "number"
+        "name": "tax"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/industry/facilities/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of facilities"
   },
   "industry_systems": {
     "description": "Return cost indices for solar systems",
-    "summary": "List solar system cost indices",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
         "name": "cost_indices",
-        "type": "array",
         "sub_headers": [
           "activity",
           "cost_index"
         ]
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/industry/systems/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of cost indicies"
   },
   "insurance_prices": {
     "description": "Return available insurance levels for all ship types",
-    "summary": "List insurance levels",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
         "name": "levels",
-        "type": "array",
         "sub_headers": [
           "cost",
           "name",
@@ -3812,33 +4080,34 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/insurance/prices/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of insurance levels for all ship types"
   },
   "killmails_killmail_killmail_hash": {
     "description": "Return a single killmail from its ID and hash",
-    "summary": "Get a single killmail",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
         "name": "attackers",
-        "type": "array",
         "sub_headers": [
           "alliance_id",
           "character_id",
@@ -3852,3909 +4121,3294 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "killmail_id",
-        "type": "integer"
+        "name": "killmail_id"
       },
       {
-        "name": "killmail_time",
-        "type": "string"
+        "name": "killmail_time"
       },
       {
-        "name": "moon_id",
-        "type": "integer"
+        "name": "moon_id"
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "victim-alliance_id",
-        "type": "integer"
+        "name": "victim",
+        "sub_headers": [
+          "alliance_id",
+          "character_id",
+          "corporation_id",
+          "damage_taken",
+          "faction_id",
+          "items",
+          "position",
+          "ship_type_id"
+        ]
       },
       {
-        "name": "victim-character_id",
-        "type": "integer"
-      },
-      {
-        "name": "victim-corporation_id",
-        "type": "integer"
-      },
-      {
-        "name": "victim-damage_taken",
-        "type": "integer"
-      },
-      {
-        "name": "victim-faction_id",
-        "type": "integer"
-      },
-      {
-        "name": "victim-items",
-        "type": "array"
-      },
-      {
-        "name": "victim-position",
-        "type": "object"
-      },
-      {
-        "name": "victim-ship_type_id",
-        "type": "integer"
-      },
-      {
-        "name": "war_id",
-        "type": "integer"
+        "name": "war_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/killmails/{killmail_id}/{killmail_hash}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "killmail_hash",
         "description": "The killmail hash for verification",
-        "required": true,
+        "in": "path",
+        "name": "killmail_hash",
         "type": "string",
-        "in": "path"
+        "required": true
       },
       {
-        "name": "killmail_id",
         "description": "The killmail ID to be queried",
-        "required": true,
+        "in": "path",
+        "name": "killmail_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A killmail"
   },
   "loyalty_stores_corporation_offers": {
     "description": "Return a list of offers from a specific corporation's loyalty store",
-    "summary": "List loyalty store offers",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "ak_cost",
-        "type": "integer"
+        "name": "ak_cost"
       },
       {
-        "name": "isk_cost",
-        "type": "integer"
+        "name": "isk_cost"
       },
       {
-        "name": "lp_cost",
-        "type": "integer"
+        "name": "lp_cost"
       },
       {
-        "name": "offer_id",
-        "type": "integer"
+        "name": "offer_id"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
         "name": "required_items",
-        "type": "array",
         "sub_headers": [
           "quantity",
           "type_id"
         ]
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/loyalty/stores/{corporation_id}/offers/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "corporation_id",
-        "description": "An EVE corporation ID",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of offers"
   },
   "markets_groups": {
     "description": "Get a list of item groups",
-    "summary": "Get item groups",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "group_ids",
-        "type": "integer"
+        "name": "group_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/markets/groups/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of item group ids"
   },
   "markets_groups_market_group": {
     "description": "Get information on an item group",
-    "summary": "Get item group information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "market_group_id",
-        "type": "integer"
+        "name": "market_group_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "parent_group_id",
-        "type": "integer"
+        "name": "parent_group_id"
       },
       {
         "name": "types",
-        "type": "array"
+        "sub_headers": [
+          "id_types"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v1/markets/groups/{market_group_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
-        "type": "string",
-        "in": "query"
+        "description": "An Eve item group ID",
+        "in": "path",
+        "name": "market_group_id",
+        "type": "integer",
+        "required": true
       },
       {
-        "name": "market_group_id",
-        "description": "An Eve item group ID",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
+        "name": "language",
+        "type": "string",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about an item group"
   },
   "markets_prices": {
     "description": "Return a list of prices",
-    "summary": "List market prices",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "adjusted_price",
-        "type": "number"
+        "name": "adjusted_price"
       },
       {
-        "name": "average_price",
-        "type": "number"
+        "name": "average_price"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/markets/prices/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of prices"
   },
   "markets_structures_structure": {
     "description": "Return all orders in a structure",
-    "summary": "List orders in a structure",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "duration",
-        "type": "integer"
+        "name": "duration"
       },
       {
-        "name": "is_buy_order",
-        "type": "boolean"
+        "name": "is_buy_order"
       },
       {
-        "name": "issued",
-        "type": "string"
+        "name": "issued"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "min_volume",
-        "type": "integer"
+        "name": "min_volume"
       },
       {
-        "name": "order_id",
-        "type": "integer"
+        "name": "order_id"
       },
       {
-        "name": "price",
-        "type": "number"
+        "name": "price"
       },
       {
-        "name": "range",
-        "type": "string"
+        "name": "range"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "volume_remain",
-        "type": "integer"
+        "name": "volume_remain"
       },
       {
-        "name": "volume_total",
-        "type": "integer"
+        "name": "volume_total"
       }
     ],
+    "method": "GET",
     "path": "/v1/markets/structures/{structure_id}/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
-        "description": "Which page of results to return",
-        "required": null,
+        "description": "Return orders in this structure",
+        "in": "path",
+        "name": "structure_id",
         "type": "integer",
-        "in": "query"
+        "required": true
       },
       {
-        "name": "structure_id",
-        "description": "Return orders in this structure",
-        "required": true,
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Which page of results to return",
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "path"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-markets.structure_markets.v1",
+    "summary": "A list of orders"
   },
   "markets_region_history": {
     "description": "Return a list of historical market statistics for the specified type in a region",
-    "summary": "List historical market statistics in a region",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "average",
-        "type": "number"
+        "name": "average"
       },
       {
-        "name": "date",
-        "type": "string"
+        "name": "date"
       },
       {
-        "name": "highest",
-        "type": "number"
+        "name": "highest"
       },
       {
-        "name": "lowest",
-        "type": "number"
+        "name": "lowest"
       },
       {
-        "name": "order_count",
-        "type": "integer"
+        "name": "order_count"
       },
       {
-        "name": "volume",
-        "type": "integer"
+        "name": "volume"
       }
     ],
+    "method": "GET",
     "path": "/v1/markets/{region_id}/history/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "region_id",
         "description": "Return statistics in this region",
-        "required": true,
+        "in": "path",
+        "name": "region_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
-        "name": "type_id",
         "description": "Return statistics for this type",
-        "required": true,
+        "in": "query",
+        "name": "type_id",
         "type": "integer",
-        "in": "query"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of historical market statistics"
   },
   "markets_region_orders": {
     "description": "Return a list of orders in a region",
-    "summary": "List orders in a region",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "duration",
-        "type": "integer"
+        "name": "duration"
       },
       {
-        "name": "is_buy_order",
-        "type": "boolean"
+        "name": "is_buy_order"
       },
       {
-        "name": "issued",
-        "type": "string"
+        "name": "issued"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "min_volume",
-        "type": "integer"
+        "name": "min_volume"
       },
       {
-        "name": "order_id",
-        "type": "integer"
+        "name": "order_id"
       },
       {
-        "name": "price",
-        "type": "number"
+        "name": "price"
       },
       {
-        "name": "range",
-        "type": "string"
+        "name": "range"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "volume_remain",
-        "type": "integer"
+        "name": "volume_remain"
       },
       {
-        "name": "volume_total",
-        "type": "integer"
+        "name": "volume_total"
       }
     ],
+    "method": "GET",
     "path": "/v1/markets/{region_id}/orders/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "order_type",
         "description": "Filter buy/sell orders, return all orders by default. If you query without type_id, we always return both buy and sell orders.",
-        "required": true,
+        "in": "query",
+        "name": "order_type",
         "type": "string",
-        "in": "query"
+        "required": true
       },
       {
-        "name": "page",
-        "description": "Which page of results to return",
-        "required": null,
-        "type": "integer",
-        "in": "query"
-      },
-      {
-        "name": "region_id",
         "description": "Return orders in this region",
-        "required": true,
+        "in": "path",
+        "name": "region_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
-        "name": "type_id",
-        "description": "Return orders only for this type",
-        "required": false,
+        "description": "Which page of results to return",
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Return orders only for this type",
+        "in": "query",
+        "name": "type_id",
+        "type": "integer",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of orders"
   },
   "markets_region_types": {
     "description": "Return a list of type IDs that have active orders in the region, for efficient market indexing.",
-    "summary": "List type IDs relevant to a market",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "type_ids",
-        "type": "integer"
+        "name": "type_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/markets/{region_id}/types/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
       {
-        "name": "page",
-        "description": "Which page of results to return",
-        "required": null,
+        "description": "Return statistics in this region",
+        "in": "path",
+        "name": "region_id",
         "type": "integer",
-        "in": "query"
+        "required": true
       },
       {
-        "name": "region_id",
-        "description": "Return statistics in this region",
-        "required": true,
+        "description": "Which page of results to return",
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "path"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of type IDs"
   },
   "opportunities_groups": {
     "description": "Return a list of opportunities groups",
-    "summary": "Get opportunities groups",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "group_ids",
-        "type": "integer"
+        "name": "group_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/opportunities/groups/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of opportunities group ids"
   },
   "opportunities_groups_group": {
     "description": "Return information of an opportunities group",
-    "summary": "Get opportunities group",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
         "name": "connected_groups",
-        "type": "array"
+        "sub_headers": [
+          "connected_groups"
+        ]
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "group_id",
-        "type": "integer"
+        "name": "group_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "notification",
-        "type": "string"
+        "name": "notification"
       },
       {
         "name": "required_tasks",
-        "type": "array"
+        "sub_headers": [
+          "required_tasks"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v1/opportunities/groups/{group_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "group_id",
         "description": "ID of an opportunities group",
-        "required": true,
+        "in": "path",
+        "name": "group_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Details of an opportunities group"
   },
   "opportunities_tasks": {
     "description": "Return a list of opportunities tasks",
-    "summary": "Get opportunities tasks",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "task_ids",
-        "type": "integer"
+        "name": "task_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/opportunities/tasks/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of opportunities task ids"
   },
   "opportunities_tasks_task": {
     "description": "Return information of an opportunities task",
-    "summary": "Get opportunities task",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "notification",
-        "type": "string"
+        "name": "notification"
       },
       {
-        "name": "task_id",
-        "type": "integer"
+        "name": "task_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/opportunities/tasks/{task_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "task_id",
         "description": "ID of an opportunities task",
-        "required": true,
+        "in": "path",
+        "name": "task_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Details of an opportunities task"
   },
   "route_origin_destination": {
     "description": "Get the systems between origin and destination",
-    "summary": "Get route",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "integer",
-        "type": "integer"
+        "name": "Solar system IDs"
       }
     ],
+    "method": "GET",
     "path": "/v1/route/{origin}/{destination}/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
       {
-        "name": "avoid",
-        "description": "avoid solar system ID(s)",
-        "required": null,
-        "type": "array",
-        "in": "query"
-      },
-      {
-        "name": "connections",
-        "description": "connected solar system pairs",
-        "required": null,
-        "type": "array",
-        "in": "query"
-      },
-      {
-        "name": "destination",
         "description": "destination solar system ID",
-        "required": true,
+        "in": "path",
+        "name": "destination",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
-        "name": "flag",
-        "description": "route security preference",
-        "required": null,
-        "type": "string",
-        "in": "query"
-      },
-      {
-        "name": "origin",
         "description": "origin solar system ID",
-        "required": true,
+        "in": "path",
+        "name": "origin",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "avoid solar system ID(s)",
+        "in": "query",
+        "name": "avoid",
+        "type": "array",
+        "required": false
+      },
+      {
+        "description": "connected solar system pairs",
+        "in": "query",
+        "name": "connections",
+        "type": "array",
+        "required": false
+      },
+      {
+        "description": "route security preference",
+        "in": "query",
+        "name": "flag",
+        "type": "string",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Solar systems in route from origin to destination"
   },
   "sovereignty_campaigns": {
     "description": "Shows sovereignty data for campaigns.",
-    "summary": "List sovereignty campaigns",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "attackers_score",
-        "type": "number"
+        "name": "attackers_score"
       },
       {
-        "name": "campaign_id",
-        "type": "integer"
+        "name": "campaign_id"
       },
       {
-        "name": "constellation_id",
-        "type": "integer"
+        "name": "constellation_id"
       },
       {
-        "name": "defender_id",
-        "type": "integer"
+        "name": "defender_id"
       },
       {
-        "name": "defender_score",
-        "type": "number"
+        "name": "defender_score"
       },
       {
-        "name": "event_type",
-        "type": "string"
+        "name": "event_type"
       },
       {
         "name": "participants",
-        "type": "array",
         "sub_headers": [
           "alliance_id",
           "score"
         ]
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "start_time",
-        "type": "string"
+        "name": "start_time"
       },
       {
-        "name": "structure_id",
-        "type": "integer"
+        "name": "structure_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/sovereignty/campaigns/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of sovereignty campaigns"
   },
   "sovereignty_map": {
     "description": "Shows sovereignty information for solar systems",
-    "summary": "List sovereignty of systems",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "alliance_id",
-        "type": "integer"
+        "name": "alliance_id"
       },
       {
-        "name": "corporation_id",
-        "type": "integer"
+        "name": "corporation_id"
       },
       {
-        "name": "faction_id",
-        "type": "integer"
+        "name": "faction_id"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/sovereignty/map/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of sovereignty information for solar systems in New Eden"
   },
   "sovereignty_structures": {
     "description": "Shows sovereignty data for structures.",
-    "summary": "List sovereignty structures",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "alliance_id",
-        "type": "integer"
+        "name": "alliance_id"
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "structure_id",
-        "type": "integer"
+        "name": "structure_id"
       },
       {
-        "name": "structure_type_id",
-        "type": "integer"
+        "name": "structure_type_id"
       },
       {
-        "name": "vulnerability_occupancy_level",
-        "type": "number"
+        "name": "vulnerability_occupancy_level"
       },
       {
-        "name": "vulnerable_end_time",
-        "type": "string"
+        "name": "vulnerable_end_time"
       },
       {
-        "name": "vulnerable_start_time",
-        "type": "string"
+        "name": "vulnerable_start_time"
       }
     ],
+    "method": "GET",
     "path": "/v1/sovereignty/structures/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of sovereignty structures"
   },
   "status": {
     "description": "EVE Server status",
-    "summary": "Retrieve the uptime and player counts",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "players",
-        "type": "integer"
+        "name": "players"
       },
       {
-        "name": "server_version",
-        "type": "string"
+        "name": "server_version"
       },
       {
-        "name": "start_time",
-        "type": "string"
+        "name": "start_time"
       },
       {
-        "name": "vip",
-        "type": "boolean"
+        "name": "vip"
       }
     ],
+    "method": "GET",
     "path": "/v1/status/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "Server status"
   },
   "universe_ancestries": {
     "description": "Get all character ancestries",
-    "summary": "Get ancestries",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "bloodline_id",
-        "type": "integer"
+        "name": "bloodline_id"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "icon_id",
-        "type": "integer"
+        "name": "icon_id"
       },
       {
-        "name": "id",
-        "type": "integer"
+        "name": "id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "short_description",
-        "type": "string"
+        "name": "short_description"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/ancestries/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of ancestries"
   },
   "universe_asteroid_belts_asteroid_belt": {
     "description": "Get information on an asteroid belt",
-    "summary": "Get asteroid belt information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "position-x",
-        "type": "number"
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "position-y",
-        "type": "number"
-      },
-      {
-        "name": "position-z",
-        "type": "number"
-      },
-      {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/asteroid_belts/{asteroid_belt_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "asteroid_belt_id",
         "description": "asteroid_belt_id integer",
-        "required": true,
+        "in": "path",
+        "name": "asteroid_belt_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about an asteroid belt"
   },
   "universe_bloodlines": {
     "description": "Get a list of bloodlines",
-    "summary": "Get bloodlines",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "bloodline_id",
-        "type": "integer"
+        "name": "bloodline_id"
       },
       {
-        "name": "charisma",
-        "type": "integer"
+        "name": "charisma"
       },
       {
-        "name": "corporation_id",
-        "type": "integer"
+        "name": "corporation_id"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "intelligence",
-        "type": "integer"
+        "name": "intelligence"
       },
       {
-        "name": "memory",
-        "type": "integer"
+        "name": "memory"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "perception",
-        "type": "integer"
+        "name": "perception"
       },
       {
-        "name": "race_id",
-        "type": "integer"
+        "name": "race_id"
       },
       {
-        "name": "ship_type_id",
-        "type": "integer"
+        "name": "ship_type_id"
       },
       {
-        "name": "willpower",
-        "type": "integer"
+        "name": "willpower"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/bloodlines/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of bloodlines"
   },
   "universe_categories": {
     "description": "Get a list of item categories",
-    "summary": "Get item categories",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "categorie_ids",
-        "type": "integer"
+        "name": "categorie_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/categories/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of item category ids"
   },
   "universe_categories_category": {
     "description": "Get information of an item category",
-    "summary": "Get item category information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "category_id",
-        "type": "integer"
+        "name": "category_id"
       },
       {
         "name": "groups",
-        "type": "array"
+        "sub_headers": [
+          "id_groups"
+        ]
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "published",
-        "type": "boolean"
+        "name": "published"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/categories/{category_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "category_id",
         "description": "An Eve item category ID",
-        "required": true,
+        "in": "path",
+        "name": "category_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about an item category"
   },
   "universe_constellations": {
     "description": "Get a list of constellations",
-    "summary": "Get constellations",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "constellation_ids",
-        "type": "integer"
+        "name": "constellation_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/constellations/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of constellation ids"
   },
   "universe_constellations_constellation": {
     "description": "Get information on a constellation",
-    "summary": "Get constellation information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "constellation_id",
-        "type": "integer"
+        "name": "constellation_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "position-x",
-        "type": "number"
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "position-y",
-        "type": "number"
-      },
-      {
-        "name": "position-z",
-        "type": "number"
-      },
-      {
-        "name": "region_id",
-        "type": "integer"
+        "name": "region_id"
       },
       {
         "name": "systems",
-        "type": "array"
+        "sub_headers": [
+          "id_systems"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/constellations/{constellation_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "constellation_id",
         "description": "constellation_id integer",
-        "required": true,
+        "in": "path",
+        "name": "constellation_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a constellation"
   },
   "universe_graphics": {
     "description": "Get a list of graphics",
-    "summary": "Get graphics",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "graphic_ids",
-        "type": "integer"
+        "name": "graphic_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/graphics/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of graphic ids"
   },
   "universe_graphics_graphic": {
     "description": "Get information on a graphic",
-    "summary": "Get graphic information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "collision_file",
-        "type": "string"
+        "name": "collision_file"
       },
       {
-        "name": "graphic_file",
-        "type": "string"
+        "name": "graphic_file"
       },
       {
-        "name": "graphic_id",
-        "type": "integer"
+        "name": "graphic_id"
       },
       {
-        "name": "icon_folder",
-        "type": "string"
+        "name": "icon_folder"
       },
       {
-        "name": "sof_dna",
-        "type": "string"
+        "name": "sof_dna"
       },
       {
-        "name": "sof_fation_name",
-        "type": "string"
+        "name": "sof_fation_name"
       },
       {
-        "name": "sof_hull_name",
-        "type": "string"
+        "name": "sof_hull_name"
       },
       {
-        "name": "sof_race_name",
-        "type": "string"
+        "name": "sof_race_name"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/graphics/{graphic_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "graphic_id",
         "description": "graphic_id integer",
-        "required": true,
+        "in": "path",
+        "name": "graphic_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a graphic"
   },
   "universe_groups": {
     "description": "Get a list of item groups",
-    "summary": "Get item groups",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "group_ids",
-        "type": "integer"
+        "name": "group_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/groups/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
       {
-        "name": "page",
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of item group ids"
   },
   "universe_groups_group": {
     "description": "Get information on an item group",
-    "summary": "Get item group information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "category_id",
-        "type": "integer"
+        "name": "category_id"
       },
       {
-        "name": "group_id",
-        "type": "integer"
+        "name": "group_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "published",
-        "type": "boolean"
+        "name": "published"
       },
       {
         "name": "types",
-        "type": "array"
+        "sub_headers": [
+          "id_types"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/groups/{group_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "group_id",
         "description": "An Eve item group ID",
-        "required": true,
+        "in": "path",
+        "name": "group_id",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about an item group"
+  },
+  "universe_ids": {
+    "description": "Resolve a set of names to IDs in the following categories: agents, alliances, characters, constellations, corporations factions, inventory_types, regions, stations, and systems. Only exact matches will be returned. All names searched for are cached for 12 hours.",
+    "headers": [
+      {
+        "name": "agents",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      },
+      {
+        "name": "alliances",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      },
+      {
+        "name": "characters",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      },
+      {
+        "name": "constellations",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      },
+      {
+        "name": "corporations",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      },
+      {
+        "name": "factions",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      },
+      {
+        "name": "inventory_types",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      },
+      {
+        "name": "regions",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      },
+      {
+        "name": "stations",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      },
+      {
+        "name": "systems",
+        "sub_headers": [
+          "id",
+          "name"
+        ]
+      }
+    ],
+    "method": "POST",
+    "path": "/v1/universe/ids/",
+    "parameters": [
+      {
+        "description": "The names to resolve",
+        "in": "body",
+        "name": "names",
+        "type": "array",
+        "required": true
+      },
+      {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
+        "name": "language",
+        "type": "string",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "List of id/name associations for a set of names divided by category. Any name passed in that did not have a match will be ommitted."
   },
   "universe_moons_moon": {
     "description": "Get information on a moon",
-    "summary": "Get moon information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "moon_id",
-        "type": "integer"
+        "name": "moon_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "position-x",
-        "type": "number"
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "position-y",
-        "type": "number"
-      },
-      {
-        "name": "position-z",
-        "type": "number"
-      },
-      {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/moons/{moon_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "moon_id",
         "description": "moon_id integer",
-        "required": true,
+        "in": "path",
+        "name": "moon_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a moon"
   },
   "universe_planets_planet": {
     "description": "Get information on a planet",
-    "summary": "Get planet information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "planet_id",
-        "type": "integer"
+        "name": "planet_id"
       },
       {
-        "name": "position-x",
-        "type": "number"
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "position-y",
-        "type": "number"
+        "name": "system_id"
       },
       {
-        "name": "position-z",
-        "type": "number"
-      },
-      {
-        "name": "system_id",
-        "type": "integer"
-      },
-      {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/planets/{planet_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "planet_id",
         "description": "planet_id integer",
-        "required": true,
+        "in": "path",
+        "name": "planet_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a planet"
   },
   "universe_races": {
     "description": "Get a list of character races",
-    "summary": "Get character races",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "alliance_id",
-        "type": "integer"
+        "name": "alliance_id"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "race_id",
-        "type": "integer"
+        "name": "race_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/races/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of character races"
   },
   "universe_regions": {
     "description": "Get a list of regions",
-    "summary": "Get regions",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "region_ids",
-        "type": "integer"
+        "name": "region_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/regions/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of region ids"
   },
   "universe_regions_region": {
     "description": "Get information on a region",
-    "summary": "Get region information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
         "name": "constellations",
-        "type": "array"
+        "sub_headers": [
+          "id_constellations"
+        ]
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "region_id",
-        "type": "integer"
+        "name": "region_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/regions/{region_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
-        "type": "string",
-        "in": "query"
+        "description": "region_id integer",
+        "in": "path",
+        "name": "region_id",
+        "type": "integer",
+        "required": true
       },
       {
-        "name": "region_id",
-        "description": "region_id integer",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
+        "name": "language",
+        "type": "string",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a region"
   },
   "universe_schematics_schematic": {
     "description": "Get information on a planetary factory schematic",
-    "summary": "Get schematic information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "cycle_time",
-        "type": "integer"
+        "name": "cycle_time"
       },
       {
-        "name": "schematic_name",
-        "type": "string"
+        "name": "schematic_name"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/schematics/{schematic_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "schematic_id",
         "description": "A PI schematic ID",
-        "required": true,
+        "in": "path",
+        "name": "schematic_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Public data about a schematic"
   },
   "universe_stargates_stargate": {
     "description": "Get information on a stargate",
-    "summary": "Get stargate information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "destination-stargate_id",
-        "type": "integer"
+        "name": "destination",
+        "sub_headers": [
+          "stargate_id",
+          "system_id"
+        ]
       },
       {
-        "name": "destination-system_id",
-        "type": "integer"
+        "name": "name"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "position-x",
-        "type": "number"
+        "name": "stargate_id"
       },
       {
-        "name": "position-y",
-        "type": "number"
+        "name": "system_id"
       },
       {
-        "name": "position-z",
-        "type": "number"
-      },
-      {
-        "name": "stargate_id",
-        "type": "integer"
-      },
-      {
-        "name": "system_id",
-        "type": "integer"
-      },
-      {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/stargates/{stargate_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "stargate_id",
         "description": "stargate_id integer",
-        "required": true,
+        "in": "path",
+        "name": "stargate_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a stargate"
   },
   "universe_stars_star": {
     "description": "Get information on a star",
-    "summary": "Get star information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "age",
-        "type": "integer"
+        "name": "age"
       },
       {
-        "name": "luminosity",
-        "type": "number"
+        "name": "luminosity"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "radius",
-        "type": "integer"
+        "name": "radius"
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "spectral_class",
-        "type": "string"
+        "name": "spectral_class"
       },
       {
-        "name": "temperature",
-        "type": "integer"
+        "name": "temperature"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/stars/{star_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "star_id",
         "description": "star_id integer",
-        "required": true,
+        "in": "path",
+        "name": "star_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a star"
   },
   "universe_structures": {
     "description": "List all public structures",
-    "summary": "List all public structures",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "structure_ids",
-        "type": "integer"
+        "name": "structure_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/structures/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "List of public structure IDs"
   },
   "universe_structures_structure": {
     "description": "Returns information on requested structure, if you are on the ACL. Otherwise, returns \"Forbidden\" for all inputs.",
-    "summary": "Get structure information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "position-x",
-        "type": "number"
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "position-y",
-        "type": "number"
+        "name": "solar_system_id"
       },
       {
-        "name": "position-z",
-        "type": "number"
-      },
-      {
-        "name": "solar_system_id",
-        "type": "integer"
-      },
-      {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/structures/{structure_id}/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "structure_id",
         "description": "An Eve structure ID",
-        "required": true,
+        "in": "path",
+        "name": "structure_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-universe.read_structures.v1",
+    "summary": "Data about a structure"
   },
   "universe_system_jumps": {
     "description": "Get the number of jumps in solar systems within the last hour ending at the timestamp of the Last",
-    "summary": "Get system jumps",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "ship_jumps",
-        "type": "integer"
+        "name": "ship_jumps"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/system_jumps/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of systems and number of jumps"
   },
   "universe_systems": {
     "description": "Get a list of solar systems",
-    "summary": "Get solar systems",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "system_ids",
-        "type": "integer"
+        "name": "system_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/systems/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of solar system ids"
   },
   "universe_types": {
     "description": "Get a list of type ids",
-    "summary": "Get types",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "type_ids",
-        "type": "integer"
+        "name": "type_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/universe/types/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
       {
-        "name": "page",
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of type ids"
   },
   "wars": {
     "description": "Return a list of wars",
-    "summary": "List wars",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "war_ids",
-        "type": "integer"
+        "name": "war_ids"
       }
     ],
+    "method": "GET",
     "path": "/v1/wars/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
       {
-        "name": "max_war_id",
         "description": "Only return wars with ID smaller than this.",
-        "required": false,
+        "in": "query",
+        "name": "max_war_id",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of war IDs, in decending order by war_id."
   },
   "wars_war": {
     "description": "Return details about a war",
-    "summary": "Get war information",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "aggressor-alliance_id",
-        "type": "integer"
-      },
-      {
-        "name": "aggressor-corporation_id",
-        "type": "integer"
-      },
-      {
-        "name": "aggressor-isk_destroyed",
-        "type": "number"
-      },
-      {
-        "name": "aggressor-ships_killed",
-        "type": "integer"
+        "name": "aggressor",
+        "sub_headers": [
+          "alliance_id",
+          "corporation_id",
+          "isk_destroyed",
+          "ships_killed"
+        ]
       },
       {
         "name": "allies",
-        "type": "array",
         "sub_headers": [
           "alliance_id",
           "corporation_id"
         ]
       },
       {
-        "name": "declared",
-        "type": "string"
+        "name": "declared"
       },
       {
-        "name": "defender-alliance_id",
-        "type": "integer"
+        "name": "defender",
+        "sub_headers": [
+          "alliance_id",
+          "corporation_id",
+          "isk_destroyed",
+          "ships_killed"
+        ]
       },
       {
-        "name": "defender-corporation_id",
-        "type": "integer"
+        "name": "finished"
       },
       {
-        "name": "defender-isk_destroyed",
-        "type": "number"
+        "name": "id"
       },
       {
-        "name": "defender-ships_killed",
-        "type": "integer"
+        "name": "mutual"
       },
       {
-        "name": "finished",
-        "type": "string"
+        "name": "open_for_allies"
       },
       {
-        "name": "id",
-        "type": "integer"
+        "name": "retracted"
       },
       {
-        "name": "mutual",
-        "type": "boolean"
-      },
-      {
-        "name": "open_for_allies",
-        "type": "boolean"
-      },
-      {
-        "name": "retracted",
-        "type": "string"
-      },
-      {
-        "name": "started",
-        "type": "string"
+        "name": "started"
       }
     ],
+    "method": "GET",
     "path": "/v1/wars/{war_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "war_id",
         "description": "ID for a war",
-        "required": true,
+        "in": "path",
+        "name": "war_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Details about a war"
   },
   "wars_war_killmails": {
     "description": "Return a list of kills related to a war",
-    "summary": "List kills for a war",
-    "request": "get",
-    "version": 1,
     "headers": [
       {
-        "name": "killmail_hash",
-        "type": "string"
+        "name": "killmail_hash"
       },
       {
-        "name": "killmail_id",
-        "type": "integer"
+        "name": "killmail_id"
       }
     ],
+    "method": "GET",
     "path": "/v1/wars/{war_id}/killmails/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
-        "description": "Which page of results to return",
-        "required": null,
-        "type": "integer",
-        "in": "query"
-      },
-      {
-        "name": "war_id",
         "description": "A valid war ID",
-        "required": true,
+        "in": "path",
+        "name": "war_id",
         "type": "integer",
-        "in": "path"
-      }
-    ]
-  },
-  "alliances_names": {
-    "description": "Resolve a set of alliance IDs to alliance names",
-    "summary": "Get alliance names",
-    "request": "get",
-    "version": 2,
-    "headers": [
-      {
-        "name": "alliance_id",
-        "type": "integer"
+        "required": true
       },
       {
-        "name": "alliance_name",
-        "type": "string"
+        "description": "Which page of results to return",
+        "in": "query",
+        "name": "page",
+        "type": "integer",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
     ],
-    "path": "/v2/alliances/names/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
+    "summary": "A list of killmail IDs and hashes"
+  },
+  "alliances_alliance_contacts": {
+    "description": "Return contacts of an alliance",
+    "headers": [
+      {
+        "name": "contact_id"
+      },
+      {
+        "name": "contact_type"
+      },
+      {
+        "name": "label_ids",
+        "sub_headers": [
+          "label_ids"
+        ]
+      },
+      {
+        "name": "standing"
+      }
+    ],
+    "method": "GET",
+    "path": "/v2/alliances/{alliance_id}/contacts/",
     "parameters": [
       {
-        "name": "alliance_ids",
-        "description": "A comma separated list of alliance IDs",
-        "required": true,
-        "type": "array",
-        "in": "query"
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Which page of results to return",
+        "in": "query",
+        "name": "page",
+        "type": "integer",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-alliances.read_contacts.v1",
+    "summary": "A list of contacts"
+  },
+  "characters_character_assets_locations": {
+    "description": "Return locations for a set of item ids, which you can get from character assets endpoint. Coordinates for items in hangars or stations are set to (0,0,0)",
+    "headers": [
+      {
+        "name": "item_id"
+      },
+      {
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "method": "POST",
+    "path": "/v2/characters/{character_id}/assets/locations/",
+    "parameters": [
+      {
+        "description": "A list of item ids",
+        "in": "body",
+        "name": "item_ids",
+        "type": "array",
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-assets.read_assets.v1",
+    "summary": "List of asset locations"
   },
   "characters_character_blueprints": {
     "description": "Return a list of blueprints the character owns",
-    "summary": "Get blueprints",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "item_id",
-        "type": "integer"
+        "name": "item_id"
       },
       {
-        "name": "location_flag",
-        "type": "string"
+        "name": "location_flag"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "material_efficiency",
-        "type": "integer"
+        "name": "material_efficiency"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
-        "name": "runs",
-        "type": "integer"
+        "name": "runs"
       },
       {
-        "name": "time_efficiency",
-        "type": "integer"
+        "name": "time_efficiency"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/blueprints/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-characters.read_blueprints.v1",
+    "summary": "A list of blueprints"
   },
   "characters_character_bookmarks": {
     "description": "A list of your character's personal bookmarks",
-    "summary": "List bookmarks",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "bookmark_id",
-        "type": "integer"
+        "name": "bookmark_id"
       },
       {
-        "name": "coordinates-x",
-        "type": "number"
+        "name": "coordinates",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "coordinates-y",
-        "type": "number"
+        "name": "created"
       },
       {
-        "name": "coordinates-z",
-        "type": "number"
+        "name": "creator_id"
       },
       {
-        "name": "created",
-        "type": "string"
+        "name": "folder_id"
       },
       {
-        "name": "creator_id",
-        "type": "integer"
+        "name": "item",
+        "sub_headers": [
+          "item_id",
+          "type_id"
+        ]
       },
       {
-        "name": "folder_id",
-        "type": "integer"
+        "name": "label"
       },
       {
-        "name": "item-item_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "item-type_id",
-        "type": "integer"
-      },
-      {
-        "name": "label",
-        "type": "string"
-      },
-      {
-        "name": "location_id",
-        "type": "integer"
-      },
-      {
-        "name": "notes",
-        "type": "string"
+        "name": "notes"
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/bookmarks/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-bookmarks.read_character_bookmarks.v1",
+    "summary": "A list of bookmarks"
   },
   "characters_character_bookmarks_folders": {
     "description": "A list of your character's personal bookmark folders",
-    "summary": "List bookmark folders",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "folder_id",
-        "type": "integer"
+        "name": "folder_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/bookmarks/folders/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-bookmarks.read_character_bookmarks.v1",
+    "summary": "List of bookmark folders"
+  },
+  "characters_character_contacts": {
+    "description": "Return contacts of a character",
+    "headers": [
+      {
+        "name": "contact_id"
+      },
+      {
+        "name": "contact_type"
+      },
+      {
+        "name": "is_blocked"
+      },
+      {
+        "name": "is_watched"
+      },
+      {
+        "name": "label_ids",
+        "sub_headers": [
+          "label_ids"
+        ]
+      },
+      {
+        "name": "standing"
+      }
+    ],
+    "method": "POST",
+    "path": "/v2/characters/{character_id}/contacts/",
+    "parameters": [
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Which page of results to return",
+        "in": "query",
+        "name": "page",
+        "type": "integer",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_contacts.v1",
+    "summary": "A list of contacts"
   },
   "characters_character_notifications": {
     "description": "Return character notifications",
-    "summary": "Get character notifications",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "is_read",
-        "type": "boolean"
+        "name": "is_read"
       },
       {
-        "name": "notification_id",
-        "type": "integer"
+        "name": "notification_id"
       },
       {
-        "name": "sender_id",
-        "type": "integer"
+        "name": "sender_id"
       },
       {
-        "name": "sender_type",
-        "type": "string"
+        "name": "sender_type"
       },
       {
-        "name": "text",
-        "type": "string"
+        "name": "text"
       },
       {
-        "name": "timestamp",
-        "type": "string"
+        "name": "timestamp"
       },
       {
-        "name": "type",
-        "type": "string"
+        "name": "type"
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/notifications/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_notifications.v1",
+    "summary": "Returns your recent notifications"
   },
   "characters_character_online": {
     "description": "Checks if the character is currently online",
-    "summary": "Get character online",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "last_login",
-        "type": "string"
+        "name": "last_login"
       },
       {
-        "name": "last_logout",
-        "type": "string"
+        "name": "last_logout"
       },
       {
-        "name": "logins",
-        "type": "integer"
+        "name": "logins"
       },
       {
-        "name": "online",
-        "type": "boolean"
+        "name": "online"
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/online/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-location.read_online.v1",
+    "summary": "Object describing the character's online status"
   },
   "characters_character_orders": {
     "description": "List open market orders placed by a character",
-    "summary": "List open orders from a character",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "duration",
-        "type": "integer"
+        "name": "duration"
       },
       {
-        "name": "escrow",
-        "type": "number"
+        "name": "escrow"
       },
       {
-        "name": "is_buy_order",
-        "type": "boolean"
+        "name": "is_buy_order"
       },
       {
-        "name": "is_corporation",
-        "type": "boolean"
+        "name": "is_corporation"
       },
       {
-        "name": "issued",
-        "type": "string"
+        "name": "issued"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "min_volume",
-        "type": "integer"
+        "name": "min_volume"
       },
       {
-        "name": "order_id",
-        "type": "integer"
+        "name": "order_id"
       },
       {
-        "name": "price",
-        "type": "number"
+        "name": "price"
       },
       {
-        "name": "range",
-        "type": "string"
+        "name": "range"
       },
       {
-        "name": "region_id",
-        "type": "integer"
+        "name": "region_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "volume_remain",
-        "type": "integer"
+        "name": "volume_remain"
       },
       {
-        "name": "volume_total",
-        "type": "integer"
+        "name": "volume_total"
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/orders/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-markets.read_character_orders.v1",
+    "summary": "Open market orders placed by a character"
   },
   "characters_character_portrait": {
     "description": "Get portrait urls for a character",
-    "summary": "Get character portraits",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "px128x128",
-        "type": "string"
+        "name": "px128x128"
       },
       {
-        "name": "px256x256",
-        "type": "string"
+        "name": "px256x256"
       },
       {
-        "name": "px512x512",
-        "type": "string"
+        "name": "px512x512"
       },
       {
-        "name": "px64x64",
-        "type": "string"
+        "name": "px64x64"
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/portrait/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "character_id",
-        "description": "An EVE character ID",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Public data for the given character"
   },
   "characters_character_roles": {
     "description": "Returns a character's corporation roles",
-    "summary": "Get character corporation roles",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
         "name": "roles",
-        "type": "array"
+        "sub_headers": [
+          "roles_roles"
+        ]
       },
       {
         "name": "roles_at_base",
-        "type": "array"
+        "sub_headers": [
+          "at_bases"
+        ]
       },
       {
         "name": "roles_at_hq",
-        "type": "array"
+        "sub_headers": [
+          "at_hqs"
+        ]
       },
       {
         "name": "roles_at_other",
-        "type": "array"
+        "sub_headers": [
+          "at_others"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/roles/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-characters.read_corporation_roles.v1",
+    "summary": "The character's roles in thier corporation"
   },
   "characters_character_skillqueue": {
     "description": "List the configured skill queue for the given character",
-    "summary": "Get character's skill queue",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "finish_date",
-        "type": "string"
+        "name": "finish_date"
       },
       {
-        "name": "finished_level",
-        "type": "integer"
+        "name": "finished_level"
       },
       {
-        "name": "level_end_sp",
-        "type": "integer"
+        "name": "level_end_sp"
       },
       {
-        "name": "level_start_sp",
-        "type": "integer"
+        "name": "level_start_sp"
       },
       {
-        "name": "queue_position",
-        "type": "integer"
+        "name": "queue_position"
       },
       {
-        "name": "skill_id",
-        "type": "integer"
+        "name": "skill_id"
       },
       {
-        "name": "start_date",
-        "type": "string"
+        "name": "start_date"
       },
       {
-        "name": "training_start_sp",
-        "type": "integer"
+        "name": "training_start_sp"
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/skillqueue/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-skills.read_skillqueue.v1",
+    "summary": "The current skill queue, sorted ascending by finishing time"
   },
   "characters_character_stats": {
     "description": "Returns aggregate yearly stats for a character",
-    "summary": "Yearly aggregate stats",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "character-days_of_activity",
-        "type": "integer"
-      },
-      {
-        "name": "character-minutes",
-        "type": "integer"
-      },
-      {
-        "name": "character-sessions_started",
-        "type": "integer"
-      },
-      {
-        "name": "combat-cap_drainedby_npc",
-        "type": "integer"
-      },
-      {
-        "name": "combat-cap_drainedby_pc",
-        "type": "integer"
-      },
-      {
-        "name": "combat-cap_draining_pc",
-        "type": "integer"
-      },
-      {
-        "name": "combat-criminal_flag_set",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_np_cs_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_np_cs_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_bomb_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_bomb_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_combat_drone_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_combat_drone_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_energy_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_energy_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_fighter_bomber_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_fighter_bomber_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_fighter_drone_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_fighter_drone_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_hybrid_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_hybrid_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_missile_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_missile_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_projectile_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_projectile_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_smart_bomb_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_smart_bomb_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_super_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_players_super_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_structures_total_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_from_structures_total_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_bomb_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_bomb_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_combat_drone_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_combat_drone_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_energy_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_energy_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_fighter_bomber_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_fighter_bomber_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_fighter_drone_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_fighter_drone_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_hybrid_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_hybrid_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_missile_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_missile_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_projectile_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_projectile_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_smart_bomb_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_smart_bomb_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_super_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_players_super_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_structures_total_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-damage_to_structures_total_num_shots",
-        "type": "integer"
-      },
-      {
-        "name": "combat-deaths_high_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-deaths_low_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-deaths_null_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-deaths_pod_high_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-deaths_pod_low_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-deaths_pod_null_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-deaths_pod_wormhole",
-        "type": "integer"
-      },
-      {
-        "name": "combat-deaths_wormhole",
-        "type": "integer"
-      },
-      {
-        "name": "combat-drone_engage",
-        "type": "integer"
-      },
-      {
-        "name": "combat-dscans",
-        "type": "integer"
-      },
-      {
-        "name": "combat-duel_requested",
-        "type": "integer"
-      },
-      {
-        "name": "combat-engagement_register",
-        "type": "integer"
-      },
-      {
-        "name": "combat-kills_assists",
-        "type": "integer"
-      },
-      {
-        "name": "combat-kills_high_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-kills_low_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-kills_null_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-kills_pod_high_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-kills_pod_low_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-kills_pod_null_sec",
-        "type": "integer"
-      },
-      {
-        "name": "combat-kills_pod_wormhole",
-        "type": "integer"
-      },
-      {
-        "name": "combat-kills_wormhole",
-        "type": "integer"
-      },
-      {
-        "name": "combat-npc_flag_set",
-        "type": "integer"
-      },
-      {
-        "name": "combat-probe_scans",
-        "type": "integer"
-      },
-      {
-        "name": "combat-pvp_flag_set",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_armor_by_remote_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_armor_remote_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_armor_self_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_capacitor_by_remote_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_capacitor_remote_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_capacitor_self_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_hull_by_remote_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_hull_remote_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_hull_self_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_shield_by_remote_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_shield_remote_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-repair_shield_self_amount",
-        "type": "integer"
-      },
-      {
-        "name": "combat-self_destructs",
-        "type": "integer"
-      },
-      {
-        "name": "combat-warp_scramble_pc",
-        "type": "integer"
-      },
-      {
-        "name": "combat-warp_scrambledby_npc",
-        "type": "integer"
-      },
-      {
-        "name": "combat-warp_scrambledby_pc",
-        "type": "integer"
-      },
-      {
-        "name": "combat-weapon_flag_set",
-        "type": "integer"
-      },
-      {
-        "name": "combat-webifiedby_npc",
-        "type": "integer"
-      },
-      {
-        "name": "combat-webifiedby_pc",
-        "type": "integer"
-      },
-      {
-        "name": "combat-webifying_pc",
-        "type": "integer"
-      },
-      {
-        "name": "industry-hacking_successes",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_cancelled",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_copy_blueprint",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_invention",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_asteroid",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_asteroid_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_charge",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_charge_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_commodity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_commodity_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_deployable",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_deployable_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_drone",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_drone_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_implant",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_implant_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_module",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_module_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_other",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_other_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_ship",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_ship_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_structure",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_structure_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_subsystem",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_manufacture_subsystem_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_material_productivity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_completed_time_productivity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_started_copy_blueprint",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_started_invention",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_started_manufacture",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_started_material_productivity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-jobs_started_time_productivity",
-        "type": "integer"
-      },
-      {
-        "name": "industry-reprocess_item",
-        "type": "integer"
-      },
-      {
-        "name": "industry-reprocess_item_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "inventory-abandon_loot_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "inventory-trash_item_quantity",
-        "type": "integer"
-      },
-      {
-        "name": "isk-in",
-        "type": "integer"
-      },
-      {
-        "name": "isk-out",
-        "type": "integer"
-      },
-      {
-        "name": "market-accept_contracts_courier",
-        "type": "integer"
-      },
-      {
-        "name": "market-accept_contracts_item_exchange",
-        "type": "integer"
-      },
-      {
-        "name": "market-buy_orders_placed",
-        "type": "integer"
-      },
-      {
-        "name": "market-cancel_market_order",
-        "type": "integer"
-      },
-      {
-        "name": "market-create_contracts_auction",
-        "type": "integer"
-      },
-      {
-        "name": "market-create_contracts_courier",
-        "type": "integer"
-      },
-      {
-        "name": "market-create_contracts_item_exchange",
-        "type": "integer"
-      },
-      {
-        "name": "market-deliver_courier_contract",
-        "type": "integer"
-      },
-      {
-        "name": "market-isk_gained",
-        "type": "integer"
-      },
-      {
-        "name": "market-isk_spent",
-        "type": "integer"
-      },
-      {
-        "name": "market-modify_market_order",
-        "type": "integer"
-      },
-      {
-        "name": "market-search_contracts",
-        "type": "integer"
-      },
-      {
-        "name": "market-sell_orders_placed",
-        "type": "integer"
-      },
-      {
-        "name": "mining-drone_mine",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_arkonor",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_bistot",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_crokite",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_dark_ochre",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_gneiss",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_harvestable_cloud",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_hedbergite",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_hemorphite",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_ice",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_jaspet",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_kernite",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_mercoxit",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_omber",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_plagioclase",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_pyroxeres",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_scordite",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_spodumain",
-        "type": "integer"
-      },
-      {
-        "name": "mining-ore_veldspar",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_armor_hardener",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_armor_repair_unit",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_armor_resistance_shift_hardener",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_automated_targeting_system",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_bastion",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_bomb_launcher",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_capacitor_booster",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_cargo_scanner",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_cloaking_device",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_clone_vat_bay",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_cynosural_field",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_damage_control",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_data_miners",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_drone_control_unit",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_drone_tracking_modules",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_eccm",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_ecm",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_ecm_burst",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_energy_destabilizer",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_energy_vampire",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_energy_weapon",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_festival_launcher",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_frequency_mining_laser",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_fueled_armor_repairer",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_fueled_shield_booster",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_gang_coordinator",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_gas_cloud_harvester",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_hull_repair_unit",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_hybrid_weapon",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_industrial_core",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_interdiction_sphere_launcher",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_micro_jump_drive",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_mining_laser",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_missile_launcher",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_passive_targeting_system",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_probe_launcher",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_projected_eccm",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_projectile_weapon",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_propulsion_module",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_remote_armor_repairer",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_remote_capacitor_transmitter",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_remote_ecm_burst",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_remote_hull_repairer",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_remote_sensor_booster",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_remote_sensor_damper",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_remote_shield_booster",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_remote_tracking_computer",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_salvager",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_sensor_booster",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_shield_booster",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_shield_hardener",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_ship_scanner",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_siege",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_smart_bomb",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_stasis_web",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_strip_miner",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_super_weapon",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_survey_scanner",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_target_breaker",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_target_painter",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_tracking_computer",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_tracking_disruptor",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_tractor_beam",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_triage",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_warp_disrupt_field_generator",
-        "type": "integer"
-      },
-      {
-        "name": "module-activations_warp_scrambler",
-        "type": "integer"
-      },
-      {
-        "name": "module-link_weapons",
-        "type": "integer"
-      },
-      {
-        "name": "module-overload",
-        "type": "integer"
-      },
-      {
-        "name": "module-repairs",
-        "type": "integer"
-      },
-      {
-        "name": "orbital-strike_characters_killed",
-        "type": "integer"
-      },
-      {
-        "name": "orbital-strike_damage_to_players_armor_amount",
-        "type": "integer"
-      },
-      {
-        "name": "orbital-strike_damage_to_players_shield_amount",
-        "type": "integer"
-      },
-      {
-        "name": "pve-dungeons_completed_agent",
-        "type": "integer"
-      },
-      {
-        "name": "pve-dungeons_completed_distribution",
-        "type": "integer"
-      },
-      {
-        "name": "pve-missions_succeeded",
-        "type": "integer"
-      },
-      {
-        "name": "pve-missions_succeeded_epic_arc",
-        "type": "integer"
-      },
-      {
-        "name": "social-add_contact_bad",
-        "type": "integer"
-      },
-      {
-        "name": "social-add_contact_good",
-        "type": "integer"
-      },
-      {
-        "name": "social-add_contact_high",
-        "type": "integer"
-      },
-      {
-        "name": "social-add_contact_horrible",
-        "type": "integer"
-      },
-      {
-        "name": "social-add_contact_neutral",
-        "type": "integer"
-      },
-      {
-        "name": "social-add_note",
-        "type": "integer"
-      },
-      {
-        "name": "social-added_as_contact_bad",
-        "type": "integer"
-      },
-      {
-        "name": "social-added_as_contact_good",
-        "type": "integer"
-      },
-      {
-        "name": "social-added_as_contact_high",
-        "type": "integer"
-      },
-      {
-        "name": "social-added_as_contact_horrible",
-        "type": "integer"
-      },
-      {
-        "name": "social-added_as_contact_neutral",
-        "type": "integer"
-      },
-      {
-        "name": "social-calendar_event_created",
-        "type": "integer"
-      },
-      {
-        "name": "social-chat_messages_alliance",
-        "type": "integer"
-      },
-      {
-        "name": "social-chat_messages_constellation",
-        "type": "integer"
-      },
-      {
-        "name": "social-chat_messages_corporation",
-        "type": "integer"
-      },
-      {
-        "name": "social-chat_messages_fleet",
-        "type": "integer"
-      },
-      {
-        "name": "social-chat_messages_region",
-        "type": "integer"
-      },
-      {
-        "name": "social-chat_messages_solarsystem",
-        "type": "integer"
-      },
-      {
-        "name": "social-chat_messages_warfaction",
-        "type": "integer"
-      },
-      {
-        "name": "social-chat_total_message_length",
-        "type": "integer"
-      },
-      {
-        "name": "social-direct_trades",
-        "type": "integer"
-      },
-      {
-        "name": "social-fleet_broadcasts",
-        "type": "integer"
-      },
-      {
-        "name": "social-fleet_joins",
-        "type": "integer"
-      },
-      {
-        "name": "social-mails_received",
-        "type": "integer"
-      },
-      {
-        "name": "social-mails_sent",
-        "type": "integer"
-      },
-      {
-        "name": "travel-acceleration_gate_activations",
-        "type": "integer"
-      },
-      {
-        "name": "travel-align_to",
-        "type": "integer"
-      },
-      {
-        "name": "travel-distance_warped_high_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-distance_warped_low_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-distance_warped_null_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-distance_warped_wormhole",
-        "type": "integer"
-      },
-      {
-        "name": "travel-docks_high_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-docks_low_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-docks_null_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-jumps_stargate_high_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-jumps_stargate_low_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-jumps_stargate_null_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-jumps_wormhole",
-        "type": "integer"
-      },
-      {
-        "name": "travel-warps_high_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-warps_low_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-warps_null_sec",
-        "type": "integer"
-      },
-      {
-        "name": "travel-warps_to_bookmark",
-        "type": "integer"
-      },
-      {
-        "name": "travel-warps_to_celestial",
-        "type": "integer"
-      },
-      {
-        "name": "travel-warps_to_fleet_member",
-        "type": "integer"
-      },
-      {
-        "name": "travel-warps_to_scan_result",
-        "type": "integer"
-      },
-      {
-        "name": "travel-warps_wormhole",
-        "type": "integer"
-      },
-      {
-        "name": "year",
-        "type": "integer"
+        "name": "character",
+        "sub_headers": [
+          "days_of_activity",
+          "minutes",
+          "sessions_started"
+        ]
+      },
+      {
+        "name": "combat",
+        "sub_headers": [
+          "cap_drainedby_npc",
+          "cap_drainedby_pc",
+          "cap_draining_pc",
+          "criminal_flag_set",
+          "damage_from_np_cs_amount",
+          "damage_from_np_cs_num_shots",
+          "damage_from_players_bomb_amount",
+          "damage_from_players_bomb_num_shots",
+          "damage_from_players_combat_drone_amount",
+          "damage_from_players_combat_drone_num_shots",
+          "damage_from_players_energy_amount",
+          "damage_from_players_energy_num_shots",
+          "damage_from_players_fighter_bomber_amount",
+          "damage_from_players_fighter_bomber_num_shots",
+          "damage_from_players_fighter_drone_amount",
+          "damage_from_players_fighter_drone_num_shots",
+          "damage_from_players_hybrid_amount",
+          "damage_from_players_hybrid_num_shots",
+          "damage_from_players_missile_amount",
+          "damage_from_players_missile_num_shots",
+          "damage_from_players_projectile_amount",
+          "damage_from_players_projectile_num_shots",
+          "damage_from_players_smart_bomb_amount",
+          "damage_from_players_smart_bomb_num_shots",
+          "damage_from_players_super_amount",
+          "damage_from_players_super_num_shots",
+          "damage_from_structures_total_amount",
+          "damage_from_structures_total_num_shots",
+          "damage_to_players_bomb_amount",
+          "damage_to_players_bomb_num_shots",
+          "damage_to_players_combat_drone_amount",
+          "damage_to_players_combat_drone_num_shots",
+          "damage_to_players_energy_amount",
+          "damage_to_players_energy_num_shots",
+          "damage_to_players_fighter_bomber_amount",
+          "damage_to_players_fighter_bomber_num_shots",
+          "damage_to_players_fighter_drone_amount",
+          "damage_to_players_fighter_drone_num_shots",
+          "damage_to_players_hybrid_amount",
+          "damage_to_players_hybrid_num_shots",
+          "damage_to_players_missile_amount",
+          "damage_to_players_missile_num_shots",
+          "damage_to_players_projectile_amount",
+          "damage_to_players_projectile_num_shots",
+          "damage_to_players_smart_bomb_amount",
+          "damage_to_players_smart_bomb_num_shots",
+          "damage_to_players_super_amount",
+          "damage_to_players_super_num_shots",
+          "damage_to_structures_total_amount",
+          "damage_to_structures_total_num_shots",
+          "deaths_high_sec",
+          "deaths_low_sec",
+          "deaths_null_sec",
+          "deaths_pod_high_sec",
+          "deaths_pod_low_sec",
+          "deaths_pod_null_sec",
+          "deaths_pod_wormhole",
+          "deaths_wormhole",
+          "drone_engage",
+          "dscans",
+          "duel_requested",
+          "engagement_register",
+          "kills_assists",
+          "kills_high_sec",
+          "kills_low_sec",
+          "kills_null_sec",
+          "kills_pod_high_sec",
+          "kills_pod_low_sec",
+          "kills_pod_null_sec",
+          "kills_pod_wormhole",
+          "kills_wormhole",
+          "npc_flag_set",
+          "probe_scans",
+          "pvp_flag_set",
+          "repair_armor_by_remote_amount",
+          "repair_armor_remote_amount",
+          "repair_armor_self_amount",
+          "repair_capacitor_by_remote_amount",
+          "repair_capacitor_remote_amount",
+          "repair_capacitor_self_amount",
+          "repair_hull_by_remote_amount",
+          "repair_hull_remote_amount",
+          "repair_hull_self_amount",
+          "repair_shield_by_remote_amount",
+          "repair_shield_remote_amount",
+          "repair_shield_self_amount",
+          "self_destructs",
+          "warp_scramble_pc",
+          "warp_scrambledby_npc",
+          "warp_scrambledby_pc",
+          "weapon_flag_set",
+          "webifiedby_npc",
+          "webifiedby_pc",
+          "webifying_pc"
+        ]
+      },
+      {
+        "name": "industry",
+        "sub_headers": [
+          "hacking_successes",
+          "jobs_cancelled",
+          "jobs_completed_copy_blueprint",
+          "jobs_completed_invention",
+          "jobs_completed_manufacture",
+          "jobs_completed_manufacture_asteroid",
+          "jobs_completed_manufacture_asteroid_quantity",
+          "jobs_completed_manufacture_charge",
+          "jobs_completed_manufacture_charge_quantity",
+          "jobs_completed_manufacture_commodity",
+          "jobs_completed_manufacture_commodity_quantity",
+          "jobs_completed_manufacture_deployable",
+          "jobs_completed_manufacture_deployable_quantity",
+          "jobs_completed_manufacture_drone",
+          "jobs_completed_manufacture_drone_quantity",
+          "jobs_completed_manufacture_implant",
+          "jobs_completed_manufacture_implant_quantity",
+          "jobs_completed_manufacture_module",
+          "jobs_completed_manufacture_module_quantity",
+          "jobs_completed_manufacture_other",
+          "jobs_completed_manufacture_other_quantity",
+          "jobs_completed_manufacture_ship",
+          "jobs_completed_manufacture_ship_quantity",
+          "jobs_completed_manufacture_structure",
+          "jobs_completed_manufacture_structure_quantity",
+          "jobs_completed_manufacture_subsystem",
+          "jobs_completed_manufacture_subsystem_quantity",
+          "jobs_completed_material_productivity",
+          "jobs_completed_time_productivity",
+          "jobs_started_copy_blueprint",
+          "jobs_started_invention",
+          "jobs_started_manufacture",
+          "jobs_started_material_productivity",
+          "jobs_started_time_productivity",
+          "reprocess_item",
+          "reprocess_item_quantity"
+        ]
+      },
+      {
+        "name": "inventory",
+        "sub_headers": [
+          "abandon_loot_quantity",
+          "trash_item_quantity"
+        ]
+      },
+      {
+        "name": "isk",
+        "sub_headers": [
+          "in",
+          "out"
+        ]
+      },
+      {
+        "name": "market",
+        "sub_headers": [
+          "accept_contracts_courier",
+          "accept_contracts_item_exchange",
+          "buy_orders_placed",
+          "cancel_market_order",
+          "create_contracts_auction",
+          "create_contracts_courier",
+          "create_contracts_item_exchange",
+          "deliver_courier_contract",
+          "isk_gained",
+          "isk_spent",
+          "modify_market_order",
+          "search_contracts",
+          "sell_orders_placed"
+        ]
+      },
+      {
+        "name": "mining",
+        "sub_headers": [
+          "drone_mine",
+          "ore_arkonor",
+          "ore_bistot",
+          "ore_crokite",
+          "ore_dark_ochre",
+          "ore_gneiss",
+          "ore_harvestable_cloud",
+          "ore_hedbergite",
+          "ore_hemorphite",
+          "ore_ice",
+          "ore_jaspet",
+          "ore_kernite",
+          "ore_mercoxit",
+          "ore_omber",
+          "ore_plagioclase",
+          "ore_pyroxeres",
+          "ore_scordite",
+          "ore_spodumain",
+          "ore_veldspar"
+        ]
+      },
+      {
+        "name": "module",
+        "sub_headers": [
+          "activations_armor_hardener",
+          "activations_armor_repair_unit",
+          "activations_armor_resistance_shift_hardener",
+          "activations_automated_targeting_system",
+          "activations_bastion",
+          "activations_bomb_launcher",
+          "activations_capacitor_booster",
+          "activations_cargo_scanner",
+          "activations_cloaking_device",
+          "activations_clone_vat_bay",
+          "activations_cynosural_field",
+          "activations_damage_control",
+          "activations_data_miners",
+          "activations_drone_control_unit",
+          "activations_drone_tracking_modules",
+          "activations_eccm",
+          "activations_ecm",
+          "activations_ecm_burst",
+          "activations_energy_destabilizer",
+          "activations_energy_vampire",
+          "activations_energy_weapon",
+          "activations_festival_launcher",
+          "activations_frequency_mining_laser",
+          "activations_fueled_armor_repairer",
+          "activations_fueled_shield_booster",
+          "activations_gang_coordinator",
+          "activations_gas_cloud_harvester",
+          "activations_hull_repair_unit",
+          "activations_hybrid_weapon",
+          "activations_industrial_core",
+          "activations_interdiction_sphere_launcher",
+          "activations_micro_jump_drive",
+          "activations_mining_laser",
+          "activations_missile_launcher",
+          "activations_passive_targeting_system",
+          "activations_probe_launcher",
+          "activations_projected_eccm",
+          "activations_projectile_weapon",
+          "activations_propulsion_module",
+          "activations_remote_armor_repairer",
+          "activations_remote_capacitor_transmitter",
+          "activations_remote_ecm_burst",
+          "activations_remote_hull_repairer",
+          "activations_remote_sensor_booster",
+          "activations_remote_sensor_damper",
+          "activations_remote_shield_booster",
+          "activations_remote_tracking_computer",
+          "activations_salvager",
+          "activations_sensor_booster",
+          "activations_shield_booster",
+          "activations_shield_hardener",
+          "activations_ship_scanner",
+          "activations_siege",
+          "activations_smart_bomb",
+          "activations_stasis_web",
+          "activations_strip_miner",
+          "activations_super_weapon",
+          "activations_survey_scanner",
+          "activations_target_breaker",
+          "activations_target_painter",
+          "activations_tracking_computer",
+          "activations_tracking_disruptor",
+          "activations_tractor_beam",
+          "activations_triage",
+          "activations_warp_disrupt_field_generator",
+          "activations_warp_scrambler",
+          "link_weapons",
+          "overload",
+          "repairs"
+        ]
+      },
+      {
+        "name": "orbital",
+        "sub_headers": [
+          "strike_characters_killed",
+          "strike_damage_to_players_armor_amount",
+          "strike_damage_to_players_shield_amount"
+        ]
+      },
+      {
+        "name": "pve",
+        "sub_headers": [
+          "dungeons_completed_agent",
+          "dungeons_completed_distribution",
+          "missions_succeeded",
+          "missions_succeeded_epic_arc"
+        ]
+      },
+      {
+        "name": "social",
+        "sub_headers": [
+          "add_contact_bad",
+          "add_contact_good",
+          "add_contact_high",
+          "add_contact_horrible",
+          "add_contact_neutral",
+          "add_note",
+          "added_as_contact_bad",
+          "added_as_contact_good",
+          "added_as_contact_high",
+          "added_as_contact_horrible",
+          "added_as_contact_neutral",
+          "calendar_event_created",
+          "chat_messages_alliance",
+          "chat_messages_constellation",
+          "chat_messages_corporation",
+          "chat_messages_fleet",
+          "chat_messages_region",
+          "chat_messages_solarsystem",
+          "chat_messages_warfaction",
+          "chat_total_message_length",
+          "direct_trades",
+          "fleet_broadcasts",
+          "fleet_joins",
+          "mails_received",
+          "mails_sent"
+        ]
+      },
+      {
+        "name": "travel",
+        "sub_headers": [
+          "acceleration_gate_activations",
+          "align_to",
+          "distance_warped_high_sec",
+          "distance_warped_low_sec",
+          "distance_warped_null_sec",
+          "distance_warped_wormhole",
+          "docks_high_sec",
+          "docks_low_sec",
+          "docks_null_sec",
+          "jumps_stargate_high_sec",
+          "jumps_stargate_low_sec",
+          "jumps_stargate_null_sec",
+          "jumps_wormhole",
+          "warps_high_sec",
+          "warps_low_sec",
+          "warps_null_sec",
+          "warps_to_bookmark",
+          "warps_to_celestial",
+          "warps_to_fleet_member",
+          "warps_to_scan_result",
+          "warps_wormhole"
+        ]
+      },
+      {
+        "name": "year"
       }
     ],
+    "method": "GET",
     "path": "/v2/characters/{character_id}/stats/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
-  },
-  "corporations_names": {
-    "description": "Resolve a set of corporation IDs to corporation names",
-    "summary": "Get corporation names",
-    "request": "get",
-    "version": 2,
-    "headers": [
       {
-        "name": "corporation_id",
-        "type": "integer"
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
       },
       {
-        "name": "corporation_name",
-        "type": "string"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
     ],
-    "path": "/v2/corporations/names/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
-    "parameters": [
-      {
-        "name": "corporation_ids",
-        "description": "A comma separated list of corporation IDs",
-        "required": true,
-        "type": "array",
-        "in": "query"
-      }
-    ]
+    "scope": "esi-characterstats.read.v1",
+    "summary": "Character stats"
   },
   "corporations_corporation_alliancehistory": {
     "description": "Get a list of all the alliances a corporation has been a member of",
-    "summary": "Get alliance history",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "alliance_id",
-        "type": "integer"
+        "name": "alliance_id"
       },
       {
-        "name": "is_deleted",
-        "type": "boolean"
+        "name": "is_deleted"
       },
       {
-        "name": "record_id",
-        "type": "integer"
+        "name": "record_id"
       },
       {
-        "name": "start_date",
-        "type": "string"
+        "name": "start_date"
       }
     ],
+    "method": "GET",
     "path": "/v2/corporations/{corporation_id}/alliancehistory/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "corporation_id",
-        "description": "An EVE corporation ID",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Alliance history for the given corporation"
+  },
+  "corporations_corporation_assets_locations": {
+    "description": "Return locations for a set of item ids, which you can get from corporation assets endpoint. Coordinates for items in hangars or stations are set to (0,0,0)",
+    "headers": [
+      {
+        "name": "item_id"
+      },
+      {
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
+      }
+    ],
+    "method": "POST",
+    "path": "/v2/corporations/{corporation_id}/assets/locations/",
+    "parameters": [
+      {
+        "description": "A list of item ids",
+        "in": "body",
+        "name": "item_ids",
+        "type": "array",
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-assets.read_corporation_assets.v1",
+    "summary": "List of asset locations"
   },
   "corporations_corporation_blueprints": {
     "description": "Returns a list of blueprints the corporation owns",
-    "summary": "Get corporation blueprints",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "item_id",
-        "type": "integer"
+        "name": "item_id"
       },
       {
-        "name": "location_flag",
-        "type": "string"
+        "name": "location_flag"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "material_efficiency",
-        "type": "integer"
+        "name": "material_efficiency"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
-        "name": "runs",
-        "type": "integer"
+        "name": "runs"
       },
       {
-        "name": "time_efficiency",
-        "type": "integer"
+        "name": "time_efficiency"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v2/corporations/{corporation_id}/blueprints/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_blueprints.v1",
+    "summary": "List of corporation blueprints"
+  },
+  "corporations_corporation_contacts": {
+    "description": "Return contacts of a corporation",
+    "headers": [
+      {
+        "name": "contact_id"
+      },
+      {
+        "name": "contact_type"
+      },
+      {
+        "name": "is_watched"
+      },
+      {
+        "name": "label_ids",
+        "sub_headers": [
+          "label_ids"
+        ]
+      },
+      {
+        "name": "standing"
+      }
+    ],
+    "method": "GET",
+    "path": "/v2/corporations/{corporation_id}/contacts/",
+    "parameters": [
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Which page of results to return",
+        "in": "query",
+        "name": "page",
+        "type": "integer",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.read_contacts.v1",
+    "summary": "A list of contacts"
   },
   "corporations_corporation_containers_logs": {
     "description": "Returns logs recorded in the past seven days from all audit log secure containers (ALSC) owned by a given corporation",
-    "summary": "Get all corporation ALSC logs",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "action",
-        "type": "string"
+        "name": "action"
       },
       {
-        "name": "character_id",
-        "type": "integer"
+        "name": "character_id"
       },
       {
-        "name": "container_id",
-        "type": "integer"
+        "name": "container_id"
       },
       {
-        "name": "container_type_id",
-        "type": "integer"
+        "name": "container_type_id"
       },
       {
-        "name": "location_flag",
-        "type": "string"
+        "name": "location_flag"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "logged_at",
-        "type": "string"
+        "name": "logged_at"
       },
       {
-        "name": "new_config_bitmask",
-        "type": "integer"
+        "name": "new_config_bitmask"
       },
       {
-        "name": "old_config_bitmask",
-        "type": "integer"
+        "name": "old_config_bitmask"
       },
       {
-        "name": "password_type",
-        "type": "string"
+        "name": "password_type"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "quantity"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v2/corporations/{corporation_id}/containers/logs/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_container_logs.v1",
+    "summary": "List of corporation ALSC logs"
   },
   "corporations_corporation_orders": {
     "description": "List open market orders placed on behalf of a corporation",
-    "summary": "List open orders from a corporation",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "duration",
-        "type": "integer"
+        "name": "duration"
       },
       {
-        "name": "escrow",
-        "type": "number"
+        "name": "escrow"
       },
       {
-        "name": "is_buy_order",
-        "type": "boolean"
+        "name": "is_buy_order"
       },
       {
-        "name": "issued",
-        "type": "string"
+        "name": "issued"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_id"
       },
       {
-        "name": "min_volume",
-        "type": "integer"
+        "name": "min_volume"
       },
       {
-        "name": "order_id",
-        "type": "integer"
+        "name": "order_id"
       },
       {
-        "name": "price",
-        "type": "number"
+        "name": "price"
       },
       {
-        "name": "range",
-        "type": "string"
+        "name": "range"
       },
       {
-        "name": "region_id",
-        "type": "integer"
+        "name": "region_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "volume_remain",
-        "type": "integer"
+        "name": "volume_remain"
       },
       {
-        "name": "volume_total",
-        "type": "integer"
+        "name": "volume_total"
       },
       {
-        "name": "wallet_division",
-        "type": "integer"
+        "name": "wallet_division"
       }
     ],
+    "method": "GET",
     "path": "/v2/corporations/{corporation_id}/orders/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-markets.read_corporation_orders.v1",
+    "summary": "A list of open market orders"
   },
   "corporations_corporation_structures": {
     "description": "Get a list of corporation structures. This route's version includes the changes to structures detailed in this blog: https://www.eveonline.com/article/upwell",
-    "summary": "Get corporation structures",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "corporation_id",
-        "type": "integer"
+        "name": "corporation_id"
       },
       {
-        "name": "fuel_expires",
-        "type": "string"
+        "name": "fuel_expires"
       },
       {
-        "name": "next_reinforce_apply",
-        "type": "string"
+        "name": "next_reinforce_apply"
       },
       {
-        "name": "next_reinforce_hour",
-        "type": "integer"
+        "name": "next_reinforce_hour"
       },
       {
-        "name": "next_reinforce_weekday",
-        "type": "integer"
+        "name": "next_reinforce_weekday"
       },
       {
-        "name": "profile_id",
-        "type": "integer"
+        "name": "profile_id"
       },
       {
-        "name": "reinforce_hour",
-        "type": "integer"
+        "name": "reinforce_hour"
       },
       {
-        "name": "reinforce_weekday",
-        "type": "integer"
+        "name": "reinforce_weekday"
       },
       {
         "name": "services",
-        "type": "array",
         "sub_headers": [
           "name",
           "state"
         ]
       },
       {
-        "name": "state",
-        "type": "string"
+        "name": "state"
       },
       {
-        "name": "state_timer_end",
-        "type": "string"
+        "name": "state_timer_end"
       },
       {
-        "name": "state_timer_start",
-        "type": "string"
+        "name": "state_timer_start"
       },
       {
-        "name": "structure_id",
-        "type": "integer"
+        "name": "structure_id"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "unanchors_at",
-        "type": "string"
+        "name": "unanchors_at"
       }
     ],
+    "method": "GET",
     "path": "/v2/corporations/{corporation_id}/structures/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
       },
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-corporations.read_structures.v1",
+    "summary": "List of corporation structures' information"
   },
   "dogma_effects_effect": {
     "description": "Get information on a dogma effect",
-    "summary": "Get effect information",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "disallow_auto_repeat",
-        "type": "boolean"
+        "name": "disallow_auto_repeat"
       },
       {
-        "name": "discharge_attribute_id",
-        "type": "integer"
+        "name": "discharge_attribute_id"
       },
       {
-        "name": "display_name",
-        "type": "string"
+        "name": "display_name"
       },
       {
-        "name": "duration_attribute_id",
-        "type": "integer"
+        "name": "duration_attribute_id"
       },
       {
-        "name": "effect_category",
-        "type": "integer"
+        "name": "effect_category"
       },
       {
-        "name": "effect_id",
-        "type": "integer"
+        "name": "effect_id"
       },
       {
-        "name": "electronic_chance",
-        "type": "boolean"
+        "name": "electronic_chance"
       },
       {
-        "name": "falloff_attribute_id",
-        "type": "integer"
+        "name": "falloff_attribute_id"
       },
       {
-        "name": "icon_id",
-        "type": "integer"
+        "name": "icon_id"
       },
       {
-        "name": "is_assistance",
-        "type": "boolean"
+        "name": "is_assistance"
       },
       {
-        "name": "is_offensive",
-        "type": "boolean"
+        "name": "is_offensive"
       },
       {
-        "name": "is_warp_safe",
-        "type": "boolean"
+        "name": "is_warp_safe"
       },
       {
         "name": "modifiers",
-        "type": "array",
         "sub_headers": [
           "domain",
           "effect_id",
@@ -7765,475 +7419,546 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "post_expression",
-        "type": "integer"
+        "name": "post_expression"
       },
       {
-        "name": "pre_expression",
-        "type": "integer"
+        "name": "pre_expression"
       },
       {
-        "name": "published",
-        "type": "boolean"
+        "name": "published"
       },
       {
-        "name": "range_attribute_id",
-        "type": "integer"
+        "name": "range_attribute_id"
       },
       {
-        "name": "range_chance",
-        "type": "boolean"
+        "name": "range_chance"
       },
       {
-        "name": "tracking_speed_attribute_id",
-        "type": "integer"
+        "name": "tracking_speed_attribute_id"
       }
     ],
+    "method": "GET",
     "path": "/v2/dogma/effects/{effect_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "effect_id",
         "description": "A dogma effect ID",
-        "required": true,
+        "in": "path",
+        "name": "effect_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a dogma effect"
+  },
+  "fw_systems": {
+    "description": "An overview of the current ownership of faction warfare solar systems",
+    "headers": [
+      {
+        "name": "contested"
+      },
+      {
+        "name": "occupier_faction_id"
+      },
+      {
+        "name": "owner_faction_id"
+      },
+      {
+        "name": "solar_system_id"
+      },
+      {
+        "name": "victory_points"
+      },
+      {
+        "name": "victory_points_threshold"
+      }
+    ],
+    "method": "GET",
+    "path": "/v2/fw/systems/",
+    "parameters": [
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "All faction warfare solar systems"
   },
   "eve_search": {
     "description": "Search for entities that match a given sub",
-    "summary": "Search on a string",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
         "name": "agent",
-        "type": "array"
+        "sub_headers": [
+          "agent_agents"
+        ]
       },
       {
         "name": "alliance",
-        "type": "array"
+        "sub_headers": [
+          "alliance_alliances"
+        ]
       },
       {
         "name": "character",
-        "type": "array"
+        "sub_headers": [
+          "character_characters"
+        ]
       },
       {
         "name": "constellation",
-        "type": "array"
+        "sub_headers": [
+          "constellation_constellations"
+        ]
       },
       {
         "name": "corporation",
-        "type": "array"
+        "sub_headers": [
+          "corporation_corporations"
+        ]
       },
       {
         "name": "faction",
-        "type": "array"
+        "sub_headers": [
+          "faction_factions"
+        ]
       },
       {
         "name": "inventory_type",
-        "type": "array"
+        "sub_headers": [
+          "inventory_types"
+        ]
       },
       {
         "name": "region",
-        "type": "array"
+        "sub_headers": [
+          "region_regions"
+        ]
       },
       {
         "name": "solar_system",
-        "type": "array"
+        "sub_headers": [
+          "solar_systems"
+        ]
       },
       {
         "name": "station",
-        "type": "array"
+        "sub_headers": [
+          "station_stations"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v2/search/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "categories",
         "description": "Type of entities to search for",
-        "required": true,
+        "in": "query",
+        "name": "categories",
         "type": "array",
-        "in": "query"
+        "required": true
       },
       {
-        "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
-        "type": "string",
-        "in": "query"
-      },
-      {
-        "name": "search",
         "description": "The string to search on",
-        "required": true,
+        "in": "query",
+        "name": "search",
         "type": "string",
-        "in": "query"
+        "required": true
       },
       {
-        "name": "strict",
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
+        "name": "language",
+        "type": "string",
+        "required": false
+      },
+      {
         "description": "Whether the search should be a strict match",
-        "required": null,
+        "in": "query",
+        "name": "strict",
         "type": "boolean",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of search results"
   },
   "universe_factions": {
     "description": "Get a list of factions",
-    "summary": "Get factions",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "corporation_id",
-        "type": "integer"
+        "name": "corporation_id"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "faction_id",
-        "type": "integer"
+        "name": "faction_id"
       },
       {
-        "name": "is_unique",
-        "type": "boolean"
+        "name": "is_unique"
       },
       {
-        "name": "militia_corporation_id",
-        "type": "integer"
+        "name": "militia_corporation_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "size_factor",
-        "type": "number"
+        "name": "size_factor"
       },
       {
-        "name": "solar_system_id",
-        "type": "integer"
+        "name": "solar_system_id"
       },
       {
-        "name": "station_count",
-        "type": "integer"
+        "name": "station_count"
       },
       {
-        "name": "station_system_count",
-        "type": "integer"
+        "name": "station_system_count"
       }
     ],
+    "method": "GET",
     "path": "/v2/universe/factions/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
         "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
         "type": "string",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "A list of factions"
+  },
+  "universe_names": {
+    "description": "Resolve a set of IDs to names and categories. Supported ID's for resolving are: Characters, Corporations, Alliances, Stations, Solar Systems, Constellations, Regions, Types.",
+    "headers": [
+      {
+        "name": "category"
+      },
+      {
+        "name": "id"
+      },
+      {
+        "name": "name"
+      }
+    ],
+    "method": "POST",
+    "path": "/v2/universe/names/",
+    "parameters": [
+      {
+        "description": "The ids to resolve",
+        "in": "body",
+        "name": "ids",
+        "type": "array",
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "List of id/name associations for a set of ID's. All ID's must resolve to a name, or nothing will be returned."
   },
   "universe_stations_station": {
     "description": "Get information on a station",
-    "summary": "Get station information",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "max_dockable_ship_volume",
-        "type": "number"
+        "name": "max_dockable_ship_volume"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "office_rental_cost",
-        "type": "number"
+        "name": "office_rental_cost"
       },
       {
-        "name": "owner",
-        "type": "integer"
+        "name": "owner"
       },
       {
-        "name": "position-x",
-        "type": "number"
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "position-y",
-        "type": "number"
+        "name": "race_id"
       },
       {
-        "name": "position-z",
-        "type": "number"
+        "name": "reprocessing_efficiency"
       },
       {
-        "name": "race_id",
-        "type": "integer"
-      },
-      {
-        "name": "reprocessing_efficiency",
-        "type": "number"
-      },
-      {
-        "name": "reprocessing_stations_take",
-        "type": "number"
+        "name": "reprocessing_stations_take"
       },
       {
         "name": "services",
-        "type": "array"
+        "sub_headers": [
+          "id_services"
+        ]
       },
       {
-        "name": "station_id",
-        "type": "integer"
+        "name": "station_id"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v2/universe/stations/{station_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "station_id",
         "description": "station_id integer",
-        "required": true,
+        "in": "path",
+        "name": "station_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a station"
   },
   "universe_system_kills": {
     "description": "Get the number of ship, pod and NPC kills per solar system within the last hour ending at the timestamp of the Last",
-    "summary": "Get system kills",
-    "request": "get",
-    "version": 2,
     "headers": [
       {
-        "name": "npc_kills",
-        "type": "integer"
+        "name": "npc_kills"
       },
       {
-        "name": "pod_kills",
-        "type": "integer"
+        "name": "pod_kills"
       },
       {
-        "name": "ship_kills",
-        "type": "integer"
+        "name": "ship_kills"
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       }
     ],
+    "method": "GET",
     "path": "/v2/universe/system_kills/",
-    "authed": false,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "summary": "A list of systems and number of ship, pod and NPC kills"
   },
   "alliances_alliance": {
     "description": "Public information about an alliance",
-    "summary": "Get alliance information",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
-        "name": "creator_corporation_id",
-        "type": "integer"
+        "name": "creator_corporation_id"
       },
       {
-        "name": "creator_id",
-        "type": "integer"
+        "name": "creator_id"
       },
       {
-        "name": "date_founded",
-        "type": "string"
+        "name": "date_founded"
       },
       {
-        "name": "executor_corporation_id",
-        "type": "integer"
+        "name": "executor_corporation_id"
       },
       {
-        "name": "faction_id",
-        "type": "integer"
+        "name": "faction_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "ticker",
-        "type": "string"
+        "name": "ticker"
       }
     ],
+    "method": "GET",
     "path": "/v3/alliances/{alliance_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "alliance_id",
         "description": "An EVE alliance ID",
-        "required": true,
+        "in": "path",
+        "name": "alliance_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Public data about an alliance"
   },
   "characters_character_assets": {
     "description": "Return a list of the characters assets",
-    "summary": "Get character assets",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
-        "name": "is_singleton",
-        "type": "boolean"
+        "name": "is_blueprint_copy"
       },
       {
-        "name": "item_id",
-        "type": "integer"
+        "name": "is_singleton"
       },
       {
-        "name": "location_flag",
-        "type": "string"
+        "name": "item_id"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_flag"
       },
       {
-        "name": "location_type",
-        "type": "string"
+        "name": "location_id"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "location_type"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "quantity"
+      },
+      {
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v3/characters/{character_id}/assets/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-assets.read_assets.v1",
+    "summary": "A flat list of the users assets"
   },
   "characters_character_calendar_event": {
     "description": "Get all the information for a specific event",
-    "summary": "Get an event",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
-        "name": "date",
-        "type": "string"
+        "name": "date"
       },
       {
-        "name": "duration",
-        "type": "integer"
+        "name": "duration"
       },
       {
-        "name": "event_id",
-        "type": "integer"
+        "name": "event_id"
       },
       {
-        "name": "importance",
-        "type": "integer"
+        "name": "importance"
       },
       {
-        "name": "owner_id",
-        "type": "integer"
+        "name": "owner_id"
       },
       {
-        "name": "owner_name",
-        "type": "string"
+        "name": "owner_name"
       },
       {
-        "name": "owner_type",
-        "type": "string"
+        "name": "owner_type"
       },
       {
-        "name": "response",
-        "type": "string"
+        "name": "response"
       },
       {
-        "name": "text",
-        "type": "string"
+        "name": "text"
       },
       {
-        "name": "title",
-        "type": "string"
+        "name": "title"
       }
     ],
+    "method": "GET",
     "path": "/v3/characters/{character_id}/calendar/{event_id}/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "event_id",
         "description": "The id of the event requested",
-        "required": true,
+        "in": "path",
+        "name": "event_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-calendar.read_calendar_events.v1",
+    "summary": "Full details of a specific event"
   },
   "characters_character_clones": {
     "description": "A list of the character's clones",
-    "summary": "Get clones",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
-        "name": "home_location-location_id",
-        "type": "integer"
-      },
-      {
-        "name": "home_location-location_type",
-        "type": "string"
+        "name": "home_location",
+        "sub_headers": [
+          "location_id",
+          "location_type"
+        ]
       },
       {
         "name": "jump_clones",
-        "type": "array",
         "sub_headers": [
           "implants",
           "jump_clone_id",
@@ -8243,31 +7968,38 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "last_clone_jump_date",
-        "type": "string"
+        "name": "last_clone_jump_date"
       },
       {
-        "name": "last_station_change_date",
-        "type": "string"
+        "name": "last_station_change_date"
       }
     ],
+    "method": "GET",
     "path": "/v3/characters/{character_id}/clones/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-clones.read_clones.v1",
+    "summary": "Clone information for the given character"
   },
   "characters_character_mail_labels": {
     "description": "Return a list of the users mail labels, unread counts for each label and a total unread count.",
-    "summary": "Get mail labels and unread counts",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
         "name": "labels",
-        "type": "array",
         "sub_headers": [
           "color",
           "label_id",
@@ -8276,27 +8008,35 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "total_unread_count",
-        "type": "integer"
+        "name": "total_unread_count"
       }
     ],
+    "method": "GET",
     "path": "/v3/characters/{character_id}/mail/labels/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-mail.read_mail.v1",
+    "summary": "A list of mail labels and unread counts"
   },
   "characters_character_planets_planet": {
     "description": "Returns full details on the layout of a single planetary colony, including links, pins and routes. Note: Planetary information is only recalculated when the colony is viewed through the client. Information will not update until this criteria is met.",
-    "summary": "Get colony layout",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
         "name": "links",
-        "type": "array",
         "sub_headers": [
           "destination_pin_id",
           "link_level",
@@ -8305,7 +8045,6 @@ ENDPOINTS = {
       },
       {
         "name": "pins",
-        "type": "array",
         "sub_headers": [
           "contents",
           "expiry_time",
@@ -8322,7 +8061,6 @@ ENDPOINTS = {
       },
       {
         "name": "routes",
-        "type": "array",
         "sub_headers": [
           "content_type_id",
           "destination_pin_id",
@@ -8333,271 +8071,326 @@ ENDPOINTS = {
         ]
       }
     ],
+    "method": "GET",
     "path": "/v3/characters/{character_id}/planets/{planet_id}/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "planet_id",
         "description": "Planet id of the target planet",
-        "required": true,
+        "in": "path",
+        "name": "planet_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-planets.manage_planets.v1",
+    "summary": "Colony layout"
   },
   "characters_character_search": {
     "description": "Search for entities that match a given sub",
-    "summary": "Search on a string",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
         "name": "agent",
-        "type": "array"
+        "sub_headers": [
+          "agent_agents"
+        ]
       },
       {
         "name": "alliance",
-        "type": "array"
+        "sub_headers": [
+          "alliance_alliances"
+        ]
       },
       {
         "name": "character",
-        "type": "array"
+        "sub_headers": [
+          "character_characters"
+        ]
       },
       {
         "name": "constellation",
-        "type": "array"
+        "sub_headers": [
+          "constellation_constellations"
+        ]
       },
       {
         "name": "corporation",
-        "type": "array"
+        "sub_headers": [
+          "corporation_corporations"
+        ]
       },
       {
         "name": "faction",
-        "type": "array"
+        "sub_headers": [
+          "faction_factions"
+        ]
       },
       {
         "name": "inventory_type",
-        "type": "array"
+        "sub_headers": [
+          "inventory_types"
+        ]
       },
       {
         "name": "region",
-        "type": "array"
+        "sub_headers": [
+          "region_regions"
+        ]
       },
       {
         "name": "solar_system",
-        "type": "array"
+        "sub_headers": [
+          "solar_systems"
+        ]
       },
       {
         "name": "station",
-        "type": "array"
+        "sub_headers": [
+          "station_stations"
+        ]
       },
       {
         "name": "structure",
-        "type": "array"
+        "sub_headers": [
+          "structure_structures"
+        ]
       }
     ],
+    "method": "GET",
     "path": "/v3/characters/{character_id}/search/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "categories",
         "description": "Type of entities to search for",
-        "required": true,
+        "in": "query",
+        "name": "categories",
         "type": "array",
-        "in": "query"
+        "required": true
       },
       {
-        "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
-        "type": "string",
-        "in": "query"
-      },
-      {
-        "name": "search",
         "description": "The string to search on",
-        "required": true,
+        "in": "query",
+        "name": "search",
         "type": "string",
-        "in": "query"
+        "required": true
       },
       {
-        "name": "strict",
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
+        "name": "language",
+        "type": "string",
+        "required": false
+      },
+      {
         "description": "Whether the search should be a strict match",
-        "required": null,
+        "in": "query",
+        "name": "strict",
         "type": "boolean",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-search.search_structures.v1",
+    "summary": "A list of search results"
   },
   "corporations_corporation_assets": {
     "description": "Return a list of the corporation assets",
-    "summary": "Get corporation assets",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
-        "name": "is_singleton",
-        "type": "boolean"
+        "name": "is_blueprint_copy"
       },
       {
-        "name": "item_id",
-        "type": "integer"
+        "name": "is_singleton"
       },
       {
-        "name": "location_flag",
-        "type": "string"
+        "name": "item_id"
       },
       {
-        "name": "location_id",
-        "type": "integer"
+        "name": "location_flag"
       },
       {
-        "name": "location_type",
-        "type": "string"
+        "name": "location_id"
       },
       {
-        "name": "quantity",
-        "type": "integer"
+        "name": "location_type"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "quantity"
+      },
+      {
+        "name": "type_id"
       }
     ],
+    "method": "GET",
     "path": "/v3/corporations/{corporation_id}/assets/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-assets.read_corporation_assets.v1",
+    "summary": "A list of assets"
   },
   "corporations_corporation_members": {
     "description": "Return the current member list of a corporation, the token's character need to be a member of the corporation.",
-    "summary": "Get corporation members",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
-        "name": "member_ids",
-        "type": "integer"
+        "name": "member_ids"
       }
     ],
+    "method": "GET",
     "path": "/v3/corporations/{corporation_id}/members/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "integer",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-corporations.read_corporation_membership.v1",
+    "summary": "List of member character IDs"
   },
   "corporations_corporation_wallets_division_journal": {
     "description": "Retrieve the given corporation's wallet journal for the given division going 30 days back",
-    "summary": "Get corporation wallet journal",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
-        "name": "amount",
-        "type": "number"
+        "name": "amount"
       },
       {
-        "name": "balance",
-        "type": "number"
+        "name": "balance"
       },
       {
-        "name": "context_id",
-        "type": "integer"
+        "name": "context_id"
       },
       {
-        "name": "context_id_type",
-        "type": "string"
+        "name": "context_id_type"
       },
       {
-        "name": "date",
-        "type": "string"
+        "name": "date"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "first_party_id",
-        "type": "integer"
+        "name": "first_party_id"
       },
       {
-        "name": "id",
-        "type": "integer"
+        "name": "id"
       },
       {
-        "name": "reason",
-        "type": "string"
+        "name": "reason"
       },
       {
-        "name": "ref_type",
-        "type": "string"
+        "name": "ref_type"
       },
       {
-        "name": "second_party_id",
-        "type": "integer"
+        "name": "second_party_id"
       },
       {
-        "name": "tax",
-        "type": "number"
+        "name": "tax"
       },
       {
-        "name": "tax_receiver_id",
-        "type": "integer"
+        "name": "tax_receiver_id"
       }
     ],
+    "method": "GET",
     "path": "/v3/corporations/{corporation_id}/wallets/{division}/journal/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "division",
         "description": "Wallet key of the division to fetch journals from",
-        "required": true,
+        "in": "path",
+        "name": "division",
         "type": "integer",
-        "in": "path"
+        "required": true
       },
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-wallet.read_corporation_wallets.v1",
+    "summary": "Journal entries"
   },
   "universe_systems_system": {
-    "description": "Get information on a solar system",
-    "summary": "Get solar system information",
-    "request": "get",
-    "version": 3,
+    "description": "Get information on a solar system. NOTE: This route does not work with abyssal systems.",
     "headers": [
       {
-        "name": "constellation_id",
-        "type": "integer"
+        "name": "constellation_id"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
         "name": "planets",
-        "type": "array",
         "sub_headers": [
           "asteroid_belts",
           "moons",
@@ -8605,80 +8398,76 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "position-x",
-        "type": "number"
+        "name": "position",
+        "sub_headers": [
+          "x",
+          "y",
+          "z"
+        ]
       },
       {
-        "name": "position-y",
-        "type": "number"
+        "name": "security_class"
       },
       {
-        "name": "position-z",
-        "type": "number"
+        "name": "security_status"
       },
       {
-        "name": "security_class",
-        "type": "string"
-      },
-      {
-        "name": "security_status",
-        "type": "number"
-      },
-      {
-        "name": "star_id",
-        "type": "integer"
+        "name": "star_id"
       },
       {
         "name": "stargates",
-        "type": "array"
+        "sub_headers": [
+          "id_stargates"
+        ]
       },
       {
         "name": "stations",
-        "type": "array"
+        "sub_headers": [
+          "id_stations"
+        ]
       },
       {
-        "name": "system_id",
-        "type": "integer"
+        "name": "system_id"
       }
     ],
+    "method": "GET",
     "path": "/v3/universe/systems/{system_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
-        "type": "string",
-        "in": "query"
+        "description": "system_id integer",
+        "in": "path",
+        "name": "system_id",
+        "type": "integer",
+        "required": true
       },
       {
-        "name": "system_id",
-        "description": "system_id integer",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
+        "name": "language",
+        "type": "string",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a solar system"
   },
   "universe_types_type": {
     "description": "Get information on a type",
-    "summary": "Get type information",
-    "request": "get",
-    "version": 3,
     "headers": [
       {
-        "name": "capacity",
-        "type": "number"
+        "name": "capacity"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
         "name": "dogma_attributes",
-        "type": "array",
         "sub_headers": [
           "attribute_id",
           "value"
@@ -8686,156 +8475,137 @@ ENDPOINTS = {
       },
       {
         "name": "dogma_effects",
-        "type": "array",
         "sub_headers": [
           "effect_id",
           "is_default"
         ]
       },
       {
-        "name": "graphic_id",
-        "type": "integer"
+        "name": "graphic_id"
       },
       {
-        "name": "group_id",
-        "type": "integer"
+        "name": "group_id"
       },
       {
-        "name": "icon_id",
-        "type": "integer"
+        "name": "icon_id"
       },
       {
-        "name": "market_group_id",
-        "type": "integer"
+        "name": "market_group_id"
       },
       {
-        "name": "mass",
-        "type": "number"
+        "name": "mass"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "packaged_volume",
-        "type": "number"
+        "name": "packaged_volume"
       },
       {
-        "name": "portion_size",
-        "type": "integer"
+        "name": "portion_size"
       },
       {
-        "name": "published",
-        "type": "boolean"
+        "name": "published"
       },
       {
-        "name": "radius",
-        "type": "number"
+        "name": "radius"
       },
       {
-        "name": "type_id",
-        "type": "integer"
+        "name": "type_id"
       },
       {
-        "name": "volume",
-        "type": "number"
+        "name": "volume"
       }
     ],
+    "method": "GET",
     "path": "/v3/universe/types/{type_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "language",
-        "description": "Language to use in the response",
-        "required": null,
-        "type": "string",
-        "in": "query"
+        "description": "An Eve item type ID",
+        "in": "path",
+        "name": "type_id",
+        "type": "integer",
+        "required": true
       },
       {
-        "name": "type_id",
-        "description": "An Eve item type ID",
-        "required": true,
-        "type": "integer",
-        "in": "path"
+        "description": "Language to use in the response, takes precedence over Accept-Language",
+        "in": "query",
+        "name": "language",
+        "type": "string",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Information about a type"
   },
   "characters_character": {
     "description": "Public information about a character",
-    "summary": "Get character's public information",
-    "request": "get",
-    "version": 4,
     "headers": [
       {
-        "name": "alliance_id",
-        "type": "integer"
+        "name": "alliance_id"
       },
       {
-        "name": "ancestry_id",
-        "type": "integer"
+        "name": "ancestry_id"
       },
       {
-        "name": "birthday",
-        "type": "string"
+        "name": "birthday"
       },
       {
-        "name": "bloodline_id",
-        "type": "integer"
+        "name": "bloodline_id"
       },
       {
-        "name": "corporation_id",
-        "type": "integer"
+        "name": "corporation_id"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "faction_id",
-        "type": "integer"
+        "name": "faction_id"
       },
       {
-        "name": "gender",
-        "type": "string"
+        "name": "gender"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "race_id",
-        "type": "integer"
+        "name": "race_id"
       },
       {
-        "name": "security_status",
-        "type": "number"
+        "name": "security_status"
       }
     ],
+    "method": "GET",
     "path": "/v4/characters/{character_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "character_id",
         "description": "An EVE character ID",
-        "required": true,
+        "in": "path",
+        "name": "character_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Public data for the given character"
   },
   "characters_character_skills": {
     "description": "List all trained skills for the given character",
-    "summary": "Get character skills",
-    "request": "get",
-    "version": 4,
     "headers": [
       {
         "name": "skills",
-        "type": "array",
         "sub_headers": [
           "active_skill_level",
           "skill_id",
@@ -8844,166 +8614,165 @@ ENDPOINTS = {
         ]
       },
       {
-        "name": "total_sp",
-        "type": "integer"
+        "name": "total_sp"
       },
       {
-        "name": "unallocated_sp",
-        "type": "integer"
+        "name": "unallocated_sp"
       }
     ],
+    "method": "GET",
     "path": "/v4/characters/{character_id}/skills/",
-    "authed": true,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
-
-    ]
+      {
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "scope": "esi-skills.read_skills.v1",
+    "summary": "Known skills for the character"
   },
   "characters_character_wallet_journal": {
     "description": "Retrieve the given character's wallet journal going 30 days back",
-    "summary": "Get character wallet journal",
-    "request": "get",
-    "version": 4,
     "headers": [
       {
-        "name": "amount",
-        "type": "number"
+        "name": "amount"
       },
       {
-        "name": "balance",
-        "type": "number"
+        "name": "balance"
       },
       {
-        "name": "context_id",
-        "type": "integer"
+        "name": "context_id"
       },
       {
-        "name": "context_id_type",
-        "type": "string"
+        "name": "context_id_type"
       },
       {
-        "name": "date",
-        "type": "string"
+        "name": "date"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "first_party_id",
-        "type": "integer"
+        "name": "first_party_id"
       },
       {
-        "name": "id",
-        "type": "integer"
+        "name": "id"
       },
       {
-        "name": "reason",
-        "type": "string"
+        "name": "reason"
       },
       {
-        "name": "ref_type",
-        "type": "string"
+        "name": "ref_type"
       },
       {
-        "name": "second_party_id",
-        "type": "integer"
+        "name": "second_party_id"
       },
       {
-        "name": "tax",
-        "type": "number"
+        "name": "tax"
       },
       {
-        "name": "tax_receiver_id",
-        "type": "integer"
+        "name": "tax_receiver_id"
       }
     ],
+    "method": "GET",
     "path": "/v4/characters/{character_id}/wallet/journal/",
-    "authed": true,
-    "response_type": "array",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "page",
+        "description": "Name of the character used for auth. If none is given, defaults to AUTHING_CHARACTER.",
+        "in": "parameters",
+        "name": "name",
+        "type": "boolean",
+        "required": false
+      },
+      {
         "description": "Which page of results to return",
-        "required": null,
+        "in": "query",
+        "name": "page",
         "type": "integer",
-        "in": "query"
+        "required": false
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "scope": "esi-wallet.read_character_wallet.v1",
+    "summary": "Journal entries"
   },
   "corporations_corporation": {
     "description": "Public information about a corporation",
-    "summary": "Get corporation information",
-    "request": "get",
-    "version": 4,
     "headers": [
       {
-        "name": "alliance_id",
-        "type": "integer"
+        "name": "alliance_id"
       },
       {
-        "name": "ceo_id",
-        "type": "integer"
+        "name": "ceo_id"
       },
       {
-        "name": "creator_id",
-        "type": "integer"
+        "name": "creator_id"
       },
       {
-        "name": "date_founded",
-        "type": "string"
+        "name": "date_founded"
       },
       {
-        "name": "description",
-        "type": "string"
+        "name": "description"
       },
       {
-        "name": "faction_id",
-        "type": "integer"
+        "name": "faction_id"
       },
       {
-        "name": "home_station_id",
-        "type": "integer"
+        "name": "home_station_id"
       },
       {
-        "name": "member_count",
-        "type": "integer"
+        "name": "member_count"
       },
       {
-        "name": "name",
-        "type": "string"
+        "name": "name"
       },
       {
-        "name": "shares",
-        "type": "integer"
+        "name": "shares"
       },
       {
-        "name": "tax_rate",
-        "type": "number"
+        "name": "tax_rate"
       },
       {
-        "name": "ticker",
-        "type": "string"
+        "name": "ticker"
       },
       {
-        "name": "url",
-        "type": "string"
+        "name": "url"
       }
     ],
+    "method": "GET",
     "path": "/v4/corporations/{corporation_id}/",
-    "authed": false,
-    "response_type": "object",
-    "item_type": "object",
     "parameters": [
       {
-        "name": "corporation_id",
         "description": "An EVE corporation ID",
-        "required": true,
+        "in": "path",
+        "name": "corporation_id",
         "type": "integer",
-        "in": "path"
+        "required": true
+      },
+      {
+        "description": "Default: True, Boolean if column headings should be listed or not.",
+        "in": "parameters",
+        "name": "opt_headers",
+        "type": "string",
+        "required": false
       }
-    ]
+    ],
+    "summary": "Public information about a corporation"
   }
 };
