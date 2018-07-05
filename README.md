@@ -1,11 +1,11 @@
-# EVEProductionSuite
+# EvE Production Suite
 Eve Online - Production Suite is a set of Google and ESI tools to quickly and easily manage production, budget and basic corporate 
 management with installing servers or adding any RL costs to your game play. To do this we are using Google Sheets, Script Editor and
 eventually moving this data to a Google Sites setup that pulls the information for the sheets in a nice, easy to use, format for the corp.
 
 This project took me over 60 hours to create and even more to test and change. If you are feeling kind hearted than donations can be sent via Isk (in-game) to Shey Danu. Thank you so much, your helping me by donating. :)
 
-To Install:
+#To Install:
 
 1. Make sure you have a google account. You can create one by going to http://accounts.google.com
 2. Goto: https://docs.google.com/spreadsheets/d/16eg1WitkXGIhFX9WWsYfj2T40yP1MjJz0ByM1kQqLbY/edit?usp=sharing
@@ -41,7 +41,7 @@ To Install:
 23. (Optional) Repeat step 12 to authorize other characters.
 24. Done.
 
-<b>How to Use</b>
+#How to Use
 The Google Sheet is designed to help manage production jobs. This is for indy based corps in Eve Online to track the corp assets, corp jobs and corp blueprints. No character data is pulled. 
 
 The sheet is designed to be edited by a select few, with view access open to anyone who needs it. There are a total of 46 sheets inside the workbook. Every Capital ship has it's own sheet. By default these sheets are hidden and colored YELLOW. When I am using them, I unhide the sheet so other members of my production team can have easy access to what is needed per job. RED colored tabs are background data tabs and unless otherwise told to, please don't change these tabs as it can cause the entire workbook to stop working. 
@@ -54,7 +54,7 @@ When looking at your overall industrial needs, open the Corporate Stock sheet, a
 
 When working on a single project, i.e. a Thanatos, open that sheet (Colored Yellow, Hidden, and named for the Ship). It will show you what you need for just that one project. 
 
-|<b>Upcomming Updates</b>
+#Upcomming Updates
 1. Adding Salvage to Buyback
 2. Adding in Structures
 3. Adding T1 Sub-Cap Ships
@@ -62,9 +62,9 @@ When working on a single project, i.e. a Thanatos, open that sheet (Colored Yell
 5. Adding Equiptment
 6. Adding Ammo
 
-<B>Contact Info</B>
+#Contact Info
 In-game: Shey Danu
 Discord: SheyDanu#0619 Discord Server:  https://discordapp.com/invite/FJ2tRp4
 
-<b>Copyright</b>
+#Copyright
 EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf.
