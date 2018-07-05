@@ -18,9 +18,11 @@ CACHE = CacheService.getDocumentCache();
 
 function onOpen() {
   SpreadsheetApp.getUi().createMenu('EvE Production Suite')
-    .addItem('Authorize Sheet', 'showSidebar')
+    .addItem('Authorize Sheet (CEO)', 'showSidebar')
     .addSeparator()
-    .addItem('Check for updates', 'checkForUpdates')
+    .addItem('Check for GESI Updates', 'checkForUpdates')
+    .addSeparator()
+    .addItem('Pull Data Updates', 'DataUpdates')
     .addToUi();
 }
 
