@@ -488,7 +488,7 @@ function corporations_npccorps(opt_headers) {
 * @return List of asset names
 * @customfunction
 */
-function corporations_corporation_assets_names(item_ids, name, opt_headers) {
+function corporations_corporation_assets_names(item_ids, name, opt_headers, refresh) {
   if(!item_ids) throw 'item_ids is required';
   return parseData_(arguments.callee.name,{item_ids:item_ids,name:name,opt_headers:opt_headers})
 }
@@ -631,7 +631,7 @@ function corporations_corporation_icons(opt_headers) {
 * @return A list of corporation industry jobs
 * @customfunction
 */
-function corporations_corporation_industry_jobs(include_completed, name, page, opt_headers) {
+function corporations_corporation_industry_jobs(include_completed, name, page, opt_headers, refresh) {
   return parseData_(arguments.callee.name,{include_completed:include_completed,name:name,page:page,opt_headers:opt_headers})
 }
 
@@ -1082,7 +1082,7 @@ function markets_groups_market_group(market_group_id, language, opt_headers) {
 * @return A list of prices
 * @customfunction
 */
-function markets_prices(opt_headers) {
+function markets_prices(opt_headers, refresh) {
   return parseData_(arguments.callee.name,{opt_headers:opt_headers})
 }
 
@@ -1748,7 +1748,7 @@ function corporations_corporation_assets_locations(item_ids, name, opt_headers) 
 * @return List of corporation blueprints
 * @customfunction
 */
-function corporations_corporation_blueprints(name, page, opt_headers) {
+function corporations_corporation_blueprints(name, page, opt_headers, refresh) {
   return parseData_(arguments.callee.name,{name:name,page:page,opt_headers:opt_headers})
 }
 
