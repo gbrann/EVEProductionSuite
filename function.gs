@@ -833,7 +833,7 @@ function corporations_corporation_titles(name, opt_headers) {
 * @return List of corporation wallets
 * @customfunction
 */
-function corporations_corporation_wallets(name, opt_headers) {
+function corporations_corporation_wallets(name, opt_headers, refresh) {
   return parseData_(arguments.callee.name,{name:name,opt_headers:opt_headers})
 }
 
