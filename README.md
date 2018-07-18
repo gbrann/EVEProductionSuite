@@ -8,44 +8,75 @@ This project took us over 3 weeks of daily coding to create and even more to tes
 # To Install:
 
 1. Make sure you have a google account. You can create one by going to http://accounts.google.com
+
 2. Goto: https://docs.google.com/spreadsheets/d/1l_dxEjRyHnFTS02nL7tuIrw0anLRRCz6OULyT78zLH4/edit?usp=sharing
+
 3. Inside Google Sheets - goto File -> Make a Copy
+
 4. Close our Spreadsheet and work now on your own. 
-5. We need to make some edits. 
-    -Configuration: This tab is critical. The first thing you need to do is type your Corporation Name into the B1 cell. 
-       Now we can move on to the Build Cost Calculator. To find your System Cost Index, visit the following website in a new tab:
-       https://www.fuzzwork.co.uk/blueprint/costindex.php - we will be looking at the MANUFACTURING value of your system. Input this            percentage in cells B8-B12.
-       Next we will be selecting the type of structure you are using to calculate the structure bonuses you should expect to see. In
-       cells C8-C12, you can use the drop down to select the correct structure.
-       We can now set the Player Tax, you can find this by attempting to build anything - look at the costs breakdown to see the Player-        Set Taxes you are currently paying. Input this percent in columns E8-E12. 
-       Now, lets take a look at your Corporate Wallets, you need to set Division Names 1-7. Division 1 is always your Master Wallet.            From here just type in the wallet names in cells C17-C22.
-       Finally, we need set the small details. What is your bonus % paid to members of your production team? Enter this value in G16.          What kind of markup do you want pass down to your clients? The markup % is based on the Universal Average value of an item. Set          this percent in G17. The last value we are looking at is the Ore Buyback %. Most people buy ore from thier corpmates at 95% Buy          Value. This percent is recorded in G18. You can now hide the Configuration Tab by right clicking on the tab and selecting "Hide          Sheet"
-    -Cap Build Requirement Backend: Update this to show your ME levels in B Column, You can also double check your part requirement            numbers based on your in-game print. Make sure you update your AD-AE-AF columns which show what a complete BPC pack costs you,          where you aquire the pack and the build cost at your station of choice.
-6. In the menu bar go to Tools -> Script Editor.
-7. Verify you already have three files in your editor, GESI.gs, endpoints.gs and function.gs - if you do not, continue to step 8, if you do, skip to step 14.
-8. Copy the GESI files. You may need to name the project to save it, so use any name.
-9. Copy the contents of GESI.gs into the Code.gs script file, replacing everything in the file, and save the script. (Can rename Code.gs    to GESI.gs if you want)
-10. Create a new script file (File -> New -> Script File) and name it endpoints.
-11. Copy the contents of the endpoints.gs into the script file, replacing everything in the file, and save the script.
-12. Create a new script file (File -> New -> Script File) and name it functions.
-13. Copy the contents of functions.gs into the script file, replacing everything in the file, and save the script.
-14. Go to File -> Project Properties and copy the Script ID.
-15. Make a new app on the devsite https://developers.eveonline.com/applications/create.
+
+5. We need to make some edits. Lets start with the Configuration Tab: This tab is critical. The first thing you need to do is type your Corporation Name into the B1 cell. 
+
+6. Now we can move on to the Build Cost Calculator. To find your System Cost Index, visit the following website in a new tab:
+   https://www.fuzzwork.co.uk/blueprint/costindex.php - we will be looking at the MANUFACTURING value of your system. Input this            percentage in cells B8-B12.
+
+7. Next we will be selecting the type of structure you are using to calculate the structure bonuses you should expect to see. In
+   cells C8-C12, you can use the drop down to select the correct structure.
+
+8. We can now set the Player Tax, you can find this by attempting to build anything - look at the costs breakdown to see the Player-        Set Taxes you are currently paying. Input this percent in columns E8-E12. 
+
+9. Now, lets take a look at your Corporate Wallets, you need to set Division Names 1-7. Division 1 is always your Master Wallet.            From here just type in the wallet names in cells C17-C22.
+
+10. Finally, we need set the small details. What is your bonus % paid to members of your production team? Enter this value in G16.           What kind of markup do you want pass down to your clients? The markup % is based on the Universal Average value of an item. Set         this percent in G17. The last value we are looking at is the Ore Buyback %. Most people buy ore from thier corpmates at 95% Buy         Value. This percent is recorded in G18. You can now hide the Configuration Tab by right clicking on the tab and selecting "Hide         Sheet"
+
+11. Cap Build Requirement Backend: Update this to show your ME levels in B Column, You can also double check your part requirement            numbers based on your in-game print. Make sure you update your AD-AE-AF columns which show what a complete BPC pack costs you,          where you aquire the pack and the build cost at your station of choice.
+
+12. In the menu bar go to Tools -> Script Editor.
+
+13. Verify you already have three files in your editor, GESI.gs, endpoints.gs and function.gs - if you do not, continue to step 8, if   you do, skip to step 14.
+
+14. Copy the GESI files. You may need to name the project to save it, so use any name.
+
+15. Copy the contents of GESI.gs into the Code.gs script file, replacing everything in the file, and save the script. (Can rename Code.gs to GESI.gs if you want)
+
+16. Create a new script file (File -> New -> Script File) and name it endpoints.
+
+17. Copy the contents of the endpoints.gs into the script file, replacing everything in the file, and save the script.
+
+18. Create a new script file (File -> New -> Script File) and name it functions.
+
+19. Copy the contents of functions.gs into the script file, replacing everything in the file, and save the script.
+
+20. Go to File -> Project Properties and copy the Script ID.
+
+21. Make a new app on the devsite https://developers.eveonline.com/applications/create.
+
     Content Type: Authentication & API Access
+
     PERMISSIONS: Select all esi-* endpoints.
+
     CALLBACK URL: https://script.google.com/macros/d/{SCRIPT_ID_COPIED_IN_STEP_FIVE}/usercallback
+
     Be sure to replace the {SCRIPT_ID_COPIED_IN_STEP_FIVE} in the URL with YOUR script ID!
     Also be sure to not include the { and } in your url; it should look something like this, but with your Script ID:
     https://script.google.com/macros/d/15lw-cjwWYnHgLU_tmx6KnyHtZ9aR9Q/usercallback
-16. Replace the CLIENT_ID and CLIENT_SECRET variables in GESI.gs (towards the top with your info from the dev app) and save the script.
-17. Replace YOUR_MAIN_CHARACTER_NAME with the name of your main (the character to default to if no name is given with a function)           character in the MAIN_CHARACTER constant, and save the script.
-18. Close the script and refresh the spreadsheet.
-19. There will now be a EvE Production Suite option in the menu bar. Click it and then click 'Authorize Sheet (CEO)'.
-20. Give the script permission to do what it needs.
-21. Click the EVE SSO button in the modal. Login -> select what character you want to authorize -> Authorize.
-22. Close the modal.
-23. (Optional) Repeat step 12 to authorize other characters.
-24. Done.
+
+22. Replace the CLIENT_ID and CLIENT_SECRET variables in GESI.gs (towards the top with your info from the dev app) and save the script.
+
+23. Replace YOUR_MAIN_CHARACTER_NAME with the name of your main (the character to default to if no name is given with a function)           character in the MAIN_CHARACTER constant, and save the script.
+
+24. Close the script and refresh the spreadsheet.
+
+25. There will now be a EvE Production Suite option in the menu bar. Click it and then click 'Authorize Sheet (CEO)'.
+
+26. Give the script permission to do what it needs.
+
+27. Click the EVE SSO button in the modal. Login -> select what character you want to authorize -> Authorize.
+28. Close the modal.
+
+29. (Optional) Repeat step 12 to authorize other characters.
+
+30. Done.
 
 # How to Use
 The Google Sheet is designed to help manage production jobs. This is for indy based corps in Eve Online to track the corp assets, corp jobs and corp blueprints. No character data is pulled. 
