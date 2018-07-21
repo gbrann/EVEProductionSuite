@@ -9,7 +9,7 @@ This project took us over 3 weeks of daily coding to create and even more to tes
 
 1. Make sure you have a google account. You can create one by going to http://accounts.google.com
 
-2. Goto: https://docs.google.com/spreadsheets/d/1l_dxEjRyHnFTS02nL7tuIrw0anLRRCz6OULyT78zLH4/edit?usp=sharing
+2. Goto: https://docs.google.com/spreadsheets/d/1eLYoBSuTzZtlimoShR-x7CQIN6rf-5xJthLmuiKBbuo/edit?usp=sharing
 
 3. Inside Google Sheets - goto File -> Make a Copy
 
@@ -74,9 +74,7 @@ This project took us over 3 weeks of daily coding to create and even more to tes
 27. Click the EVE SSO button in the modal. Login -> select what character you want to authorize -> Authorize.
 28. Close the modal.
 
-29. (Optional) Repeat step 12 to authorize other characters.
-
-30. Done.
+29. Done.
 
 # How to Use
 The Google Sheet is designed to help manage production jobs. This is for indy based corps in Eve Online to track the corp assets, corp jobs and corp blueprints. No character data is pulled. 
