@@ -13,18 +13,20 @@ As of **NOW** - You may see some references to 'Corporate Management Module' - o
 This project took us months of daily coding to create and even more to test and change. If you are feeling kind hearted than donations can be sent via Isk (in-game) to Shey Danu. Thank you so much, your helping me by donating. :)
 
 # Upcomming Updates
-1. Adding T2 Sub-Cap Ships
-2. Adding Equiptment
-3. Adding Ammo
-4. Adding Jump Freighters
-5. Updating the Buyback to a fully functional system based on AMC Spreadsheet (kinda)
-6. Functional Updates to Stock, Build Sheets, etc. 
-7. The Suite will be divided into several workbooks that all pull from eachother via Google Sites.
+1. Adding T2 Sub-Cap Ships (Commited for 1.2)
+2. Adding Equiptment (Envisioned for 2.x)
+3. Adding Ammo (Envisioned for 2.x)
+4. Adding Jump Freighters (Commited for 1.2)
+5. Release Buyback Module (Commited for 1.1.3)
+6. Functional Updates to Stock, Build Sheets, etc. (Commited for 1.2)
+7. The Suite will be divided into several modules that all pull from eachother via Google Sites. (Envisioned for 2.x)
+8. Seperate production types into modules (Envisioned for 2.x)
+9. Adding T3 Sub-Cap Ships (Commited for 1.2)
 
 # Contact Info
 In-game: Shey Danu
 Discord: SheyDanu#0260 
-Discord Server:  https://discordapp.com/invite/FJ2tRp4
+Discord Server:  https://discordapp.com/invite/FJ2tRp4 (Use the eps-techsupport channel)
 
 # Copyright
 EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf.
