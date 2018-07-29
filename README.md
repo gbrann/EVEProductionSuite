@@ -17,11 +17,10 @@ This project took us months of daily coding to create and even more to test and 
 2. Adding Equiptment (Envisioned for 2.x)
 3. Adding Ammo (Envisioned for 2.x)
 4. Adding Jump Freighters (Commited for 1.2)
-5. Release Buyback Module (Commited for 1.1.3)
-6. Functional Updates to Stock, Build Sheets, etc. (Commited for 1.2)
-7. The Suite will be divided into several modules that all pull from eachother via Google Sites. (Envisioned for 2.x)
-8. Seperate production types into modules (Envisioned for 2.x)
-9. Adding T3 Sub-Cap Ships (Commited for 1.2)
+5. Functional Updates to Stock, Build Sheets, etc. (Commited for 1.2)
+6. The Suite will be divided into several modules that all pull from eachother via Google Sites. (Envisioned for 2.x)
+7. Seperate production types into modules (Envisioned for 2.x)
+8. Adding T3 Sub-Cap Ships (Commited for 1.2)
 
 # Contact Info
 In-game: Shey Danu
