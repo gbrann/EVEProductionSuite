@@ -1,0 +1,26 @@
+Issue Tracking and Developer Notes:
+This is mostly for our Dev Team
+
+Short Codes on Issues and Projects:
+CMM = Corporate Management Module
+CPS = Capital Production Module
+SCP = SubCap Production Module
+EPM = Equiptment Production Module
+FMM = Fleet Mining Module
+PSM = Advanced Accounting and Public Shareholder Module
+AMM = Advanced Membership Module
+SPM = Structure Production Module
+
+CURRENT ORDER OF IMPORTANCE:
+1st - CMM = 2.0 BACKENDS
+2nd - CPS
+3rd - SCP
+4th - SPM
+4th - PSM
+5th - FMM
+
+GESI tabs are ESI Pull data
+
+Additional ESI Pull locations:
+'Configuration!A16' - Wallet ESI Pull
+
