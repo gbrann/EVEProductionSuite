@@ -1981,7 +1981,7 @@ function characters_character_search(categories, search, language, strict, name,
 * @return A list of assets
 * @customfunction
 */
-function corporations_corporation_assets(name, page, opt_headers) {
+function corporations_corporation_assets(name, page, opt_headers, refresh) {
   return parseData_(arguments.callee.name,{name:name,page:page,opt_headers:opt_headers})
 }
 
