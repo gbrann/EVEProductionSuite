@@ -3,7 +3,7 @@
 //
 // Google ESI (GESI) was created by /u/blacksmoke16 @ Reddit
 // Google EDI (GESI) support can be foung here: @Blacksmoke16#0016 @ Discord https://discord.gg/eEAH2et
-APP_VERSION = '1.0.13';
+APP_VERSION = '1.1.13';
 BASE_URL = 'https://esi.evetech.net'
 
 // Setup variables used throughout script
